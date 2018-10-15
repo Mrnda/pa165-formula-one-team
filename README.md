@@ -22,8 +22,8 @@ The car is composed of several components (engine, suspensions), that the differ
 
 ## Team members
 
-- [Arcadii Rubailo](https://github.com/elderanakain)
+- [Arcadii Rubailo](https://github.com/elderanakain), rubailo.arcadii@gmail.com
+- [Desjardins, Theo](https://github.com/theodesjardins), theo.desjardins@orange.fr
+- [Chakouri, Adel](https://github.com/Adel83), adel.chakouri83@gmail.com
+- [Mrnuštík, Michal](https://github.com/mrnda), michal.mrnustik@outlook.com
 - Dendis, Ivan
-- Desjardins, Theo
-- Chakouri, Adel
-- Mrnuštík, Michal
