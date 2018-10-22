@@ -7,13 +7,9 @@ import javax.validation.constraints.NotNull;
  * @author elderanakain (Arcadii Rubailo)
  */
 @MappedSuperclass
-public abstract class User {
+public abstract class User extends BaseEntity {
 
     public static String NAME_FIELD = "name";
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @NotNull
     @Column(nullable = false)
@@ -27,20 +23,12 @@ public abstract class User {
     @Column(nullable = false)
     private String password;
 
-    public Long getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -77,7 +65,7 @@ public abstract class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
