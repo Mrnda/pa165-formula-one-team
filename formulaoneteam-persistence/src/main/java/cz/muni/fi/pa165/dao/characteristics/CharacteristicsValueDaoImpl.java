@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.dao.characteristics;
 
 import cz.muni.fi.pa165.entity.CharacteristicsType;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
+@Repository
 public class CharacteristicsValueDaoImpl implements CharacteristicsValueDao {
     @PersistenceContext
     EntityManager entityManager;

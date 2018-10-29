@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dao.driver;
 
 import cz.muni.fi.pa165.entity.Driver;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -12,6 +13,7 @@ import static cz.muni.fi.pa165.entity.base.User.EMAIL_FIELD;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
+@Repository
 public class DriverDaoImpl implements DriverDao {
 
     @PersistenceContext
