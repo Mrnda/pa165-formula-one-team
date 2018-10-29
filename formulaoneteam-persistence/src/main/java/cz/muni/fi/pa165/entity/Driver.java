@@ -24,7 +24,7 @@ public class Driver extends User {
     @Column
     private DriverStatus driverStatus;
 
-    @OneToMany
+    @OneToMany(mappedBy = "driver")
     private Set<CharacteristicsValue> characteristics = new HashSet<>();
 
     public String getNationality() {

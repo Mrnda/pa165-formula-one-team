@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.entity.base.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class CharacteristicsValue extends BaseEntity {
@@ -13,6 +15,9 @@ public class CharacteristicsValue extends BaseEntity {
 
     @Column
     private CharacteristicsType type;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Driver driver;
 
     public double getValue() {
         return value;
