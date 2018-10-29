@@ -7,6 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
 public class CharacteristicsValueDaoImpl implements CharacteristicsValueDao {
     @PersistenceContext
     EntityManager entityManager;

@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
 @Entity
 public class CharacteristicsValue extends BaseEntity {
 

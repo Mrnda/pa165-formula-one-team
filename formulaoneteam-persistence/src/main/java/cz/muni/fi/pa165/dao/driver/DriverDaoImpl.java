@@ -9,6 +9,9 @@ import java.util.List;
 
 import static cz.muni.fi.pa165.entity.base.User.EMAIL_FIELD;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
 public class DriverDaoImpl implements DriverDao {
 
     @PersistenceContext
