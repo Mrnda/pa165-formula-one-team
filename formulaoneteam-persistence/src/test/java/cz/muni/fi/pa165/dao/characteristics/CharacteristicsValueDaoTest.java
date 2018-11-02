@@ -22,7 +22,7 @@ import javax.inject.Inject;
 public class CharacteristicsValueDaoTest extends AbstractTestNGSpringContextTests {
 
     @Inject
-    CharacteristicsValueDao characteristicsValueDao;
+    private CharacteristicsValueDao characteristicsValueDao;
 
     @Test
     public void addCharacteristics_withValidData_isPersisted() {

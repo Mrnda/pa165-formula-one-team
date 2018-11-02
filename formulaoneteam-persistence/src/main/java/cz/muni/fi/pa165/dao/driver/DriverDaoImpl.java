@@ -17,7 +17,7 @@ import static cz.muni.fi.pa165.entity.base.User.EMAIL_FIELD;
 public class DriverDaoImpl implements DriverDao {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     public Driver findById(Long id) {

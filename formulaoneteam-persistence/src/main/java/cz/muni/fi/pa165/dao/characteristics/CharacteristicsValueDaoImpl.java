@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class CharacteristicsValueDaoImpl implements CharacteristicsValueDao {
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     public CharacteristicsValue findById(Long id) {
