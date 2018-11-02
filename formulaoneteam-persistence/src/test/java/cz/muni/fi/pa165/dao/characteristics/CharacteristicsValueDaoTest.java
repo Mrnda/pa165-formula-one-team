@@ -26,15 +26,15 @@ public class CharacteristicsValueDaoTest extends AbstractTestNGSpringContextTest
 
     @Test
     public void addCharacteristics_withValidData_isPersisted() {
-        //Arrange
+        //Given
         CharacteristicsValue characteristicsValue = new CharacteristicsValue();
         characteristicsValue.setValue(100.0);
         characteristicsValue.setType(CharacteristicsType.AGGRESIVITY);
 
-        //Act
+        //Then
         characteristicsValueDao.add(characteristicsValue);
 
-        //Assert
+        //That
         AssertJUnit.assertNotNull(characteristicsValueDao.findById(characteristicsValue.getId()));
     }
 }
