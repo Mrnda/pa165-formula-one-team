@@ -20,6 +20,7 @@ public class Driver extends User {
     private String nationality;
 
     @Basic
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     @NotNull
     private Date birthdate;
@@ -65,6 +66,16 @@ public class Driver extends User {
 
     public void removeCharacteristics(CharacteristicsValue characteristicsValue){
         characteristics.remove(characteristicsValue);
+    }
+
+    @Override
+    public boolean isConfigured() {
+        return super.isConfigured()
+                && hasNationality();
+    }
+
+    private boolean hasNationality() {
+        return !getNationality().isEmpty();
     }
 
     @Override
