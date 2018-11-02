@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static cz.muni.fi.pa165.entity.CharacteristicsValue.TYPE_FIELD;
+
 /**
  * @author mrnda (Michal Mrnuštík)
  */
@@ -45,7 +47,7 @@ public class CharacteristicsValueDaoImpl implements CharacteristicsValueDao {
     @Override
     public List<CharacteristicsValue> findCharacteristicValuesByType(CharacteristicsType type) {
         return entityManager.createQuery("select characteristics from CharacteristicsValue characteristics where characteristics.type = :type", CharacteristicsValue.class)
-                .setParameter("type", type)
+                .setParameter(TYPE_FIELD, type)
                 .getResultList();
     }
 }

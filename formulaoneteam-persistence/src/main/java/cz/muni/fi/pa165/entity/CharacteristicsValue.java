@@ -10,6 +10,8 @@ import javax.persistence.*;
 @Entity
 public class CharacteristicsValue extends BaseEntity {
 
+    public final static String TYPE_FIELD = "type";
+
     @Column
     private double value;
 
