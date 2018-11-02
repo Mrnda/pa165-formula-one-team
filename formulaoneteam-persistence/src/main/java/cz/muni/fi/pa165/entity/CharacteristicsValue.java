@@ -2,10 +2,7 @@ package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * @author mrnda (Michal Mrnuštík)
@@ -17,6 +14,7 @@ public class CharacteristicsValue extends BaseEntity {
     private double value;
 
     @Column
+    @Enumerated
     private CharacteristicsType type;
 
     @ManyToOne(fetch = FetchType.EAGER)

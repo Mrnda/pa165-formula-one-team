@@ -25,6 +25,7 @@ public class Driver extends User {
     private Date birthdate;
 
     @Column
+    @Enumerated
     private DriverStatus driverStatus;
 
     @OneToMany(mappedBy = "driver")
