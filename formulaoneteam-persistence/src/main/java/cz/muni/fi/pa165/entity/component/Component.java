@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,19 +26,25 @@ public class Component extends BaseEntity {
     private String name;
 
     @OneToMany
-    private Set<ComponentParameter> parameters;
+    private Set<ComponentParameter> parameters = new HashSet<>();
 
     public ComponentType getType() { return type; }
 
     public String getName() { return name; }
 
-    public Set<ComponentParameter> getParameters() { return parameters; }
+    public Set<ComponentParameter> getParameters() { return Collections.unmodifiableSet(parameters); }
+
+    public void addParameter(ComponentParameter parameter) {
+        parameters.add(parameter);
+    }
+
+    public void removeParameter(ComponentParameter parameter){
+        parameters.remove(parameter);
+    }
 
     public void setType(ComponentType type) { this.type = type;}
 
     public void setName(String name) { this.name = name;}
-
-    public void setParameters(Set<ComponentParameter> parameters) { this.parameters = parameters;}
 
     @Override
     public boolean equals(Object o) {
