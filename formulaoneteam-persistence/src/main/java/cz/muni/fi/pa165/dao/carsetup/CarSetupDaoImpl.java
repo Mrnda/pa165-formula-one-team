@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.dao.carsetup;
 
-import cz.muni.fi.pa165.entity.base.CarSetup;
+import cz.muni.fi.pa165.entity.CarSetup;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * @author Théo Desjardins
  */
-
 @Repository
 public class CarSetupDaoImpl implements CarSetupDao {
 
