@@ -1,5 +1,6 @@
-package cz.muni.fi.pa165.entity.base;
+package cz.muni.fi.pa165.entity;
 
+import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.entity.component.Component;
 
 import javax.persistence.Entity;

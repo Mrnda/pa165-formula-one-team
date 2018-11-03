@@ -60,11 +60,11 @@ public class Driver extends User {
         return Collections.unmodifiableSet(characteristics);
     }
 
-    public void addCharacteristic(CharacteristicsValue characteristicsValue){
+    public void addCharacteristic(CharacteristicsValue characteristicsValue) {
         characteristics.add(characteristicsValue);
     }
 
-    public void removeCharacteristics(CharacteristicsValue characteristicsValue){
+    public void removeCharacteristics(CharacteristicsValue characteristicsValue) {
         characteristics.remove(characteristicsValue);
     }
 
