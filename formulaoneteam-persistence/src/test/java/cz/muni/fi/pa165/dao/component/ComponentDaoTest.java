@@ -23,21 +23,20 @@ import static org.testng.AssertJUnit.*;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-
-@ContextConfiguration(classes= AppContextConfig.class)
+@ContextConfiguration(classes = AppContextConfig.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
 
     @Inject
-    ComponentDao componentDao;
+    private ComponentDao componentDao;
 
     @Inject
-    Dao<ComponentParameter> componentParameterDao;
+    private Dao<ComponentParameter> componentParameterDao;
 
     @Test
-    public void createNewComponent_foundById(){
+    public void createNewComponent_foundById() {
         //given
         Component component = createDefaultComponent();
 
@@ -49,7 +48,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void createNewComponent_foundInAllComponents(){
+    public void createNewComponent_foundInAllComponents() {
         //given
         Component component = createDefaultComponent();
 
@@ -63,7 +62,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void createMultipleNewComponents_foundAll(){
+    public void createMultipleNewComponents_foundAll() {
         //given
         Component component1 = createDefaultComponent();
         Component component2 = createComponent("General motros engine 2.0", ComponentType.ENGINE);
@@ -80,7 +79,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void updateComponent_componentUpdated(){
+    public void updateComponent_componentUpdated() {
         //given
         Component component = createDefaultComponent();
         componentDao.add(component);
@@ -97,7 +96,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void removeComponent_componentNotFoundById(){
+    public void removeComponent_componentNotFoundById() {
         //given
         Component component = createDefaultComponent();
         componentDao.add(component);
@@ -111,7 +110,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void removeComponent_componentNotFoundAtAll(){
+    public void removeComponent_componentNotFoundAtAll() {
         //given
         Component component = createDefaultComponent();
         componentDao.add(component);
@@ -126,7 +125,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void addComponentParameter_parameterAdded(){
+    public void addComponentParameter_parameterAdded() {
         //given
         Component component = createDefaultComponent();
         componentDao.add(component);
@@ -144,7 +143,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void removeComponentParameter_parameterRemoved(){
+    public void removeComponentParameter_parameterRemoved() {
         //given
         Component component = createDefaultComponent();
         ComponentParameter componentParameter = createComponentParameter("Test", 10.0);
@@ -162,7 +161,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
         assertFalse(foundComponent.getParameters().contains(componentParameter));
     }
 
-    private ComponentParameter createComponentParameter(String name, double value){
+    private ComponentParameter createComponentParameter(String name, double value) {
         ComponentParameter componentParameter = new ComponentParameter();
         componentParameter.setName(name);
         componentParameter.setValue(value);
@@ -170,15 +169,14 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
         return componentParameter;
     }
 
-    private Component createDefaultComponent(){
+    private Component createDefaultComponent() {
         return createComponent("General motors engine 4.0", ComponentType.ENGINE);
     }
 
-    private Component createComponent(String name, ComponentType type){
+    private Component createComponent(String name, ComponentType type) {
         Component component = new Component();
         component.setName(name);
         component.setType(type);
         return component;
     }
-
 }
