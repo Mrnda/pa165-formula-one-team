@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dao.componentparameter;
 import cz.muni.fi.pa165.dao.base.Dao;
 import cz.muni.fi.pa165.entity.ComponentParameter;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author Ivan Dendis
  */
+@Repository
 public class ComponentParameterDaoImpl implements Dao<ComponentParameter> {
     
     @PersistenceContext
