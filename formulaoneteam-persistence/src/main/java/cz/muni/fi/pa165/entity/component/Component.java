@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.entity.component;
 
+import cz.muni.fi.pa165.entity.ComponentParameter;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.enums.ComponentType;
 
