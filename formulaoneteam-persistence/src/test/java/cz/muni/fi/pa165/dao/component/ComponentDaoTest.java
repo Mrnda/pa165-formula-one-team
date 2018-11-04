@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.dao.component;
 
 import cz.muni.fi.pa165.AppContextConfig;
-import cz.muni.fi.pa165.dao.base.Dao;
+import cz.muni.fi.pa165.dao.componentparameter.ComponentParameterDao;
 import cz.muni.fi.pa165.entity.ComponentParameter;
 import cz.muni.fi.pa165.entity.ComponentType;
 import cz.muni.fi.pa165.entity.component.Component;
@@ -121,7 +121,6 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
 
         //then
         List<Component> allComponents = componentDao.findAll();
-        assertFalse(allComponents.contains(component));
         assertEquals(0, allComponents.size());
     }
 
@@ -159,7 +158,6 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
         Component foundComponent = componentDao.findById(component.getId());
         assertNotNull(foundComponent);
         assertEquals(0, foundComponent.getParameters().size());
-        assertFalse(foundComponent.getParameters().contains(componentParameter));
     }
 
     private ComponentParameter createComponentParameter(String name, double value){
