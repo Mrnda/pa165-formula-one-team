@@ -60,7 +60,6 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
 
         //then
         List<CarSetup> allCarSetups = carSetupDao.findAll();
-        assertNotNull(allCarSetups);
         assertEquals(1, allCarSetups.size());
         assertTrue(allCarSetups.contains(carSetup));
     }
@@ -82,7 +81,6 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
 
         //then
         List<CarSetup> allCarSetups = carSetupDao.findAll();
-        assertNotNull(allCarSetups);
         assertEquals(2, allCarSetups.size());
         assertTrue(allCarSetups.contains(carSetup1));
         assertTrue(allCarSetups.contains(carSetup2));
