@@ -21,6 +21,14 @@ public class ComponentParameter extends BaseEntity {
     @Column
     private double value = 0;
 
+    public ComponentParameter() {
+    }
+
+    public ComponentParameter(@NotNull String name, double value) {
+        this.name = name;
+        this.value = value;
+    }
+
     public String getName() {
         return name;
     }

@@ -160,9 +160,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     private ComponentParameter createComponentParameter(String name, double value) {
-        ComponentParameter componentParameter = new ComponentParameter();
-        componentParameter.setName(name);
-        componentParameter.setValue(value);
+        ComponentParameter componentParameter = new ComponentParameter(name, value);
         componentParameterDao.add(componentParameter);
         return componentParameter;
     }
