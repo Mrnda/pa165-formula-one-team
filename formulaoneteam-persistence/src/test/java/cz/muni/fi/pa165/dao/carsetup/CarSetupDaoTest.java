@@ -154,13 +154,6 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
                                Component transmission,
                                Component tires)
     {
-        CarSetup carSetup = new CarSetup();
-        carSetup.setBrakes(brakes);
-        carSetup.setCover(cover);
-        carSetup.setEngine(engine);
-        carSetup.setSuspension(suspension);
-        carSetup.setTransmission(transmission);
-        carSetup.setTires(tires);
-        return carSetup;
+        return new CarSetup(engine, suspension, brakes, transmission, tires, cover);
     }
 }

@@ -30,6 +30,18 @@ public class CarSetup extends BaseEntity {
     @OneToOne
     private Component cover;
 
+    public CarSetup() {
+    }
+
+    public CarSetup(Component engine, Component suspension, Component brakes, Component transmission, Component tires, Component cover) {
+        this.engine = engine;
+        this.suspension = suspension;
+        this.brakes = brakes;
+        this.transmission = transmission;
+        this.tires = tires;
+        this.cover = cover;
+    }
+
     public Component getEngine() {
         return engine;
     }
