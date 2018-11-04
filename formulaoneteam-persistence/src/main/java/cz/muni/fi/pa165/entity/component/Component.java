@@ -25,6 +25,14 @@ public class Component extends BaseEntity {
     @Column
     private String name;
 
+    public Component() {
+    }
+
+    public Component(String name, ComponentType type) {
+        this.type = type;
+        this.name = name;
+    }
+
     @OneToMany
     private Set<ComponentParameter> parameters = new HashSet<>();
 

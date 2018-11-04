@@ -175,10 +175,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     private Component createComponent(String name, ComponentType type){
-        Component component = new Component();
-        component.setName(name);
-        component.setType(type);
-        return component;
+        return new Component(name, type);
     }
 
 }

@@ -140,9 +140,7 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
 
     private Component createComponent(String name, ComponentType type)
     {
-        Component component = new Component();
-        component.setName(name);
-        component.setType(type);
+        Component component = new Component(name, type);
         componentDao.add(component);
         return component;
     }
