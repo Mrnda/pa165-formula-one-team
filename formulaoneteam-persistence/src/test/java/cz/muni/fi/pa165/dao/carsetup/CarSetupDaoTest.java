@@ -41,7 +41,9 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
         carSetupDao.add(carSetup);
 
         //then
-        assertNotNull(carSetupDao.findById(carSetup.getId()));
+        CarSetup foundSetup = carSetupDao.findById(carSetup.getId());
+        assertNotNull(foundSetup);
+        assertEquals(carSetup, foundSetup);
     }
 
     @Test
@@ -96,7 +98,7 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
         //then
         CarSetup foundSetup = carSetupDao.findById(carSetup.getId());
         assertNotNull(foundSetup);
-        assertEquals(newBrakes, carSetup.getBrakes());
+        assertEquals(newBrakes, foundSetup.getBrakes());
     }
 
     @Test
