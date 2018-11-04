@@ -13,7 +13,7 @@ import java.util.List;
  * @author Ivan Dendis
  */
 @Repository
-public class ComponentParameterDaoImpl implements Dao<ComponentParameter> {
+public class ComponentParameterDaoImpl implements ComponentParameterDao {
     
     @PersistenceContext
     private EntityManager entityManager;

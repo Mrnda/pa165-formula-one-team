@@ -34,7 +34,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     ComponentDao componentDao;
 
     @Inject
-    Dao<ComponentParameter> componentParameterDao;
+    ComponentParameterDao componentParameterDao;
 
     @Test
     public void createNewComponent_foundById(){
