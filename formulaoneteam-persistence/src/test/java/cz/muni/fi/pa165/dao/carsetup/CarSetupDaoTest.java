@@ -21,19 +21,23 @@ import java.util.List;
 
 import static org.testng.AssertJUnit.*;
 
-@ContextConfiguration(classes= AppContextConfig.class)
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
+@ContextConfiguration(classes = AppContextConfig.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
-    @Inject
-    CarSetupDao carSetupDao;
 
     @Inject
-    ComponentDao componentDao;
+    private CarSetupDao carSetupDao;
+
+    @Inject
+    private ComponentDao componentDao;
 
     @Test
-    public void addNewCarSetup_foundById(){
+    public void addNewCarSetup_foundById() {
         //given
         CarSetup carSetup = createDefaultCarSetup();
 
@@ -47,7 +51,7 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void addNewCarSetup_foundInAll(){
+    public void addNewCarSetup_foundInAll() {
         //given
         CarSetup carSetup = createDefaultCarSetup();
 
@@ -60,9 +64,9 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
         assertEquals(1, allCarSetups.size());
         assertTrue(allCarSetups.contains(carSetup));
     }
-    
+
     @Test
-    public void createMultipleCarSetups_foundAll(){
+    public void createMultipleCarSetups_foundAll() {
         //given
         CarSetup carSetup1 = createDefaultCarSetup();
         CarSetup carSetup2 = createCar(createComponent("Brakes", ComponentType.BRAKES),
@@ -85,7 +89,7 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void updateCarSetupComponent_componentUpdated(){
+    public void updateCarSetupComponent_componentUpdated() {
         //given
         CarSetup carSetup = createDefaultCarSetup();
         carSetupDao.add(carSetup);
@@ -102,7 +106,7 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void removeCarSetup_carSetupNotFoundById(){
+    public void removeCarSetup_carSetupNotFoundById() {
         //given
         CarSetup carSetup = createDefaultCarSetup();
         carSetupDao.add(carSetup);
@@ -116,7 +120,7 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void removeCarSetup_carSetupNotFoundAtAll(){
+    public void removeCarSetup_carSetupNotFoundAtAll() {
         //given
         CarSetup carSetup = createDefaultCarSetup();
         carSetupDao.add(carSetup);
@@ -130,7 +134,7 @@ public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
         assertEquals(0, allCarSetups.size());
     }
 
-    private CarSetup createDefaultCarSetup(){
+    private CarSetup createDefaultCarSetup() {
         Component brakes = createComponent("Testing brakes", ComponentType.BRAKES);
         Component cover = createComponent("Testing cover", ComponentType.COVER);
         Component engine = createComponent("Testing engine", ComponentType.ENGINE);
