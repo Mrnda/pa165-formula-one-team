@@ -1,45 +1,24 @@
 package cz.muni.fi.pa165.dao.carsetup;
 
+import cz.muni.fi.pa165.dao.base.DaoImpl;
 import cz.muni.fi.pa165.entity.CarSetup;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
 
 /**
  * @author Théo Desjardins
  */
 @Repository
-public class CarSetupDaoImpl implements CarSetupDao {
-
-    @PersistenceContext
-    private EntityManager entityManager;
+public class CarSetupDaoImpl extends DaoImpl<CarSetup> implements CarSetupDao {
 
     @Override
-    public CarSetup findById(Long id) {
-        return entityManager.find(CarSetup.class, id);
+    protected Class<CarSetup> getClassType() {
+        return CarSetup.class;
     }
 
     @Override
-    public void add(CarSetup carsetup) {
-        entityManager.persist(carsetup);
-    }
-
-    @Override
-    public void delete(CarSetup carsetup) {
-        entityManager.remove(carsetup);
-    }
-
-    @Override
-    public void update(CarSetup carsetup) {
-        entityManager.merge(carsetup);
-    }
-
-    @Override
-    public List<CarSetup> findAll() {
-        return entityManager
-                .createQuery("select carsetup from CarSetup carsetup", CarSetup.class)
-                .getResultList();
+    protected void validateEntity(CarSetup carSetup) {
+        if (carSetup == null || !carSetup.isConfigured()) {
+            throw new IllegalArgumentException("CarSetup is null or not configured.");
+        }
     }
 }

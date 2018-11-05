@@ -13,14 +13,14 @@ import org.springframework.stereotype.Repository;
 public class EngineerDaoImpl extends UserDaoImpl<Engineer> implements EngineerDao {
 
     @Override
+    protected Class<Engineer> getClassType() {
+        return Engineer.class;
+    }
+
+    @Override
     protected void validateEntity(Engineer engineer) {
         if (engineer == null || !engineer.isConfigured()) {
             throw new IllegalArgumentException("Engineer is null or not configured");
         }
-    }
-
-    @Override
-    protected Class<Engineer> getClassType() {
-        return Engineer.class;
     }
 }

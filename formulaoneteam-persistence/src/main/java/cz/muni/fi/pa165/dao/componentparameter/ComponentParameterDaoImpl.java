@@ -16,8 +16,8 @@ public class ComponentParameterDaoImpl extends DaoImpl<ComponentParameter> imple
     }
 
     @Override
-    protected void validateEntity(ComponentParameter entity) {
-        if (entity == null || !entity.isConfigured()) {
+    protected void validateEntity(ComponentParameter parameter) {
+        if (parameter == null || !parameter.isConfigured()) {
             throw new IllegalArgumentException("ComponentParameter is null or not configured");
         }
     }

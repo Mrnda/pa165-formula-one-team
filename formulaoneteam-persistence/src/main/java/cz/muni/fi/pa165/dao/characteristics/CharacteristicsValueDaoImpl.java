@@ -1,11 +1,10 @@
 package cz.muni.fi.pa165.dao.characteristics;
 
+import cz.muni.fi.pa165.dao.base.DaoImpl;
 import cz.muni.fi.pa165.entity.CharacteristicsType;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static cz.muni.fi.pa165.entity.CharacteristicsValue.TYPE_FIELD;
@@ -14,34 +13,18 @@ import static cz.muni.fi.pa165.entity.CharacteristicsValue.TYPE_FIELD;
  * @author mrnda (Michal Mrnuštík)
  */
 @Repository
-public class CharacteristicsValueDaoImpl implements CharacteristicsValueDao {
-    @PersistenceContext
-    private EntityManager entityManager;
+public class CharacteristicsValueDaoImpl extends DaoImpl<CharacteristicsValue> implements CharacteristicsValueDao {
 
     @Override
-    public CharacteristicsValue findById(Long id) {
-        return entityManager.find(CharacteristicsValue.class, id);
+    protected Class<CharacteristicsValue> getClassType() {
+        return CharacteristicsValue.class;
     }
 
     @Override
-    public void add(CharacteristicsValue entity) {
-        entityManager.persist(entity);
-    }
-
-    @Override
-    public void delete(CharacteristicsValue entity) {
-        entityManager.remove(findById(entity.getId()));
-    }
-
-    @Override
-    public void update(CharacteristicsValue entity) {
-        entityManager.merge(entity);
-    }
-
-    @Override
-    public List<CharacteristicsValue> findAll() {
-        return entityManager.createQuery("select characteristics from CharacteristicsValue characteristics", CharacteristicsValue.class)
-                .getResultList();
+    protected void validateEntity(CharacteristicsValue value) {
+        if (value == null) {
+            throw new IllegalArgumentException("CaracteristicsValue is null.");
+        }
     }
 
     @Override

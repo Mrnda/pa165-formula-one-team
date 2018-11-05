@@ -1,46 +1,24 @@
 package cz.muni.fi.pa165.dao.component;
 
 import cz.muni.fi.pa165.entity.Component;
+import cz.muni.fi.pa165.dao.base.DaoImpl;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
 
 /**
  * @author Théo Desjardins
  */
-
 @Repository
-public class ComponentDaoImpl implements ComponentDao {
-
-    @PersistenceContext
-    private EntityManager entityManager;
+public class ComponentDaoImpl extends DaoImpl<Component> implements ComponentDao {
 
     @Override
-    public Component findById(Long id) {
-        return entityManager.find(Component.class, id);
+    protected Class<Component> getClassType() {
+        return Component.class;
     }
 
     @Override
-    public void add(Component component) {
-        entityManager.persist(component);
-    }
-
-    @Override
-    public void delete(Component component) {
-        entityManager.remove(component);
-    }
-
-    @Override
-    public void update(Component component) {
-        entityManager.merge(component);
-    }
-
-    @Override
-    public List<Component> findAll() {
-        return entityManager
-                .createQuery("select component from Component component", Component.class)
-                .getResultList();
+    protected void validateEntity(Component component) {
+        if (component == null) {
+            throw new IllegalArgumentException("Component is null.");
+        }
     }
 }
