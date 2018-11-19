@@ -69,5 +69,7 @@
 
     <modules>
         <module>formulaoneteam-persistence</module>
+        <module>formulaoneteam-api</module>
+        <module>formulaoneteam-service</module>
     </modules>
 </project>

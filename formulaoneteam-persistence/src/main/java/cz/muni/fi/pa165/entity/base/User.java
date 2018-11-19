@@ -27,13 +27,13 @@ public abstract class User extends BaseEntity {
 
     @NotNull
     @Column(nullable = false)
-    private String password = "";
+    private String passwordHash = "";
 
-    public User(String name, String surname, String email, String password) {
+    public User(String name, String surname, String email, String passwordHash) {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.password = password;
+        this.passwordHash = passwordHash;
     }
 
     protected User() {
@@ -66,12 +66,12 @@ public abstract class User extends BaseEntity {
     }
 
     @NotNull
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(@NotNull String password) {
-        this.password = password;
+    public void setPasswordHash(@NotNull String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public boolean hasName() {
@@ -91,7 +91,7 @@ public abstract class User extends BaseEntity {
     }
 
     public boolean hasPassword() {
-        return !getPassword().isEmpty();
+        return !getPasswordHash().isEmpty();
     }
 
     public boolean isConfigured() {
@@ -121,7 +121,7 @@ public abstract class User extends BaseEntity {
                 + "name='" + getName() + '\''
                 + ", surname='" + getSurname() + '\''
                 + ", email='" + getEmail() + '\''
-                + ", password='" + getPassword() + '\''
+                + ", password='" + getPasswordHash() + '\''
                 + "} " + super.toString();
     }
 }

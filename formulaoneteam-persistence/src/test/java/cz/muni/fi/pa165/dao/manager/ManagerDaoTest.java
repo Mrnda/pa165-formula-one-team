@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.AppContextConfig;
 import cz.muni.fi.pa165.entity.Manager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,7 +17,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import static org.testng.Assert.assertThrows;
 import static org.testng.AssertJUnit.assertNotNull;
 
@@ -104,7 +104,7 @@ public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
         String mail = "test@mail.com";
         Manager m = createManager(mail);
         
-        m.setPassword("");
+        m.setPasswordHash("");
         
         assertThrows(InvalidDataAccessApiUsageException.class, () -> {
             managerDao.add(m);
@@ -116,7 +116,7 @@ public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
         Manager manager = new Manager();
 
         manager.setName("name");
-        manager.setPassword("pwd");
+        manager.setPasswordHash("pwd");
         manager.setSurname("surname");
         manager.setEmail(email);
 
