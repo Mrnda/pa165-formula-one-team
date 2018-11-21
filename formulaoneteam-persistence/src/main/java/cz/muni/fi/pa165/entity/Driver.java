@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.User;
+import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 
 import javax.persistence.*;
@@ -76,6 +77,14 @@ public class Driver extends User {
 
     public List<CharacteristicsValue> getCharacteristics() {
         return Collections.unmodifiableList(characteristics);
+    }
+
+    public CharacteristicsValue getCharaceristicOfType(CharacteristicsType type){
+        return characteristics.stream()
+                .filter(characteristicsValue -> characteristicsValue.getType() == type)
+                .limit(1)
+                .findFirst()
+                .orElse(new CharacteristicsValue(type, 0));
     }
 
     public void addCharacteristic(CharacteristicsValue characteristicsValue) {
