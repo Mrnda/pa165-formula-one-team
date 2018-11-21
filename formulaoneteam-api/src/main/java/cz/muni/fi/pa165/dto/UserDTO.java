@@ -1,23 +1,18 @@
 package cz.muni.fi.pa165.dto;
 
+import cz.muni.fi.pa165.dto.base.BaseDTO;
+
+import java.util.Objects;
+
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-public abstract class UserDTO {
+public abstract class UserDTO extends BaseDTO {
 
-    private Long id;
     private String name;
     private String surname;
     private String email;
     private String password;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -49,5 +44,18 @@ public abstract class UserDTO {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserDTO)) return false;
+        UserDTO userDTO = (UserDTO) o;
+        return Objects.equals(getEmail(), userDTO.getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail());
     }
 }

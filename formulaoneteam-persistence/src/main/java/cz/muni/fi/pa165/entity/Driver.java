@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.User;
+import cz.muni.fi.pa165.enums.DriverStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

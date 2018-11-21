@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.dao.engineer;
 
 import cz.muni.fi.pa165.AppContextConfig;
 import cz.muni.fi.pa165.entity.Engineer;
-import cz.muni.fi.pa165.entity.EngineerSpecialization;
+import cz.muni.fi.pa165.enums.EngineerSpecialization;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

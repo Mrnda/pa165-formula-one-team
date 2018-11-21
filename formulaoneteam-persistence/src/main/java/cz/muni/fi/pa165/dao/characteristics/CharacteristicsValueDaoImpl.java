@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.dao.characteristics;
 
 import cz.muni.fi.pa165.dao.base.DaoImpl;
-import cz.muni.fi.pa165.entity.CharacteristicsType;
+import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import org.springframework.stereotype.Repository;
 

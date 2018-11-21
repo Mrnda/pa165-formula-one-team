@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.User;
+import cz.muni.fi.pa165.enums.EngineerSpecialization;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

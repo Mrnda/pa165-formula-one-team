@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.dao.carsetup;
 import cz.muni.fi.pa165.AppContextConfig;
 import cz.muni.fi.pa165.dao.component.ComponentDao;
 import cz.muni.fi.pa165.entity.CarSetup;
-import cz.muni.fi.pa165.entity.ComponentType;
+import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.entity.Component;
 
 import org.junit.Test;
