@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.matchers.Any;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.springframework.test.context.ContextConfiguration;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,7 +36,7 @@ import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class DriverServiceTests extends AbstractTestNGSpringContextTests {
+public class DriverServiceImplTests extends AbstractTestNGSpringContextTests {
 
     @Mock
     DriverDao driverDaoMock;
@@ -202,6 +204,31 @@ public class DriverServiceTests extends AbstractTestNGSpringContextTests {
 
         //Then
         assertEquals(topDriver, foundDriver);
+    }
+
+    @Test
+    public void deleteDriver_withExistingDriver_driverDeleteCalled(){
+        //Given
+
+        //When
+        driverService.deleteDriver(testingDriver);
+
+        //Then
+        verify(driverDaoMock, times(1)).delete(testingDriver);
+    }
+
+    @Test
+    public void updateDriver_withExistingDriver_driverUpdated(){
+        //Given
+        when(driverDaoMock.findById(testingDriver.getId())).thenReturn(testingDriver);
+
+        //When
+        testingDriver.setEmail("test@test.cz");
+        Driver updatedDriver = driverService.updateDriver(testingDriver);
+
+        //Then
+        verify(driverDaoMock, times(1)).update(testingDriver);
+        assertEquals(testingDriver, updatedDriver);
     }
 
     private Driver createTestingDriver() {

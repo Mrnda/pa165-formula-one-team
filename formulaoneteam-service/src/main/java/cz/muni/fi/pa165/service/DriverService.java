@@ -16,4 +16,8 @@ public interface DriverService {
     List<Driver> getAllDrivers();
     List<Driver> getAllDriversByStatus(DriverStatus status);
     Driver findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType);
+
+    Driver updateDriver(Driver driver);
+
+    void deleteDriver(Driver driver);
 }

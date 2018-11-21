@@ -72,4 +72,15 @@ public class DriverServiceImpl implements DriverService {
                 .max(Comparator.comparingDouble(value -> value.getCharaceristicOfType(characteristicsType).getValue()));
         return bestDriver.orElse(null);
     }
+
+    @Override
+    public Driver updateDriver(Driver driver){
+        driverDao.update(driver);
+        return driverDao.findById(driver.getId());
+    }
+
+    @Override
+    public void deleteDriver(Driver driver){
+        driverDao.delete(driver);
+    }
 }
