@@ -124,6 +124,22 @@ public class DriverServiceTests extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void findAllDrivers_returnsAllDrivers() {
+        //Given
+        List<Driver> allDrivers = Stream.of(createTestingDriverWithStatus(DriverStatus.TEST),
+                createTestingDriverWithStatus(DriverStatus.MAIN),
+                createTestingDriverWithStatus(DriverStatus.TEST)).collect(Collectors.toList());
+        when(driverDaoMock.findAll()).thenReturn(allDrivers);
+
+        //When
+        List<Driver> allFoundDrivers = driverService.getAllDrivers();
+
+        //Then
+        assertEquals(3, allFoundDrivers.size());
+        assertEquals(allDrivers, allFoundDrivers);
+    }
+
+    @Test
     public void findAllTestDrivers_returnsAllTestDrivers() {
         //Given
         List<Driver> allDrivers = Stream.of(createTestingDriverWithStatus(DriverStatus.TEST),
