@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.entity.Driver;
+import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,4 +15,5 @@ public interface DriverService {
     Driver findDriverByEmail(String email);
     List<Driver> getAllDrivers();
     List<Driver> getAllDriversByStatus(DriverStatus status);
+    Driver findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType);
 }

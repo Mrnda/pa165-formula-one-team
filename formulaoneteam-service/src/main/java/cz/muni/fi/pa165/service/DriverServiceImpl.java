@@ -2,12 +2,15 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.driver.DriverDao;
 import cz.muni.fi.pa165.entity.Driver;
+import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.service.utils.Validator;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,5 +51,13 @@ public class DriverServiceImpl implements DriverService {
         return driverDao.findAll().stream()
                 .filter(driver -> driver.getDriverStatus() == status)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Driver findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType) {
+        List<Driver> allDrivers = driverDao.findAll();
+        Optional<Driver> bestDriver = allDrivers.stream()
+                .max(Comparator.comparingDouble(value -> value.getCharaceristicOfType(characteristicsType).getValue()));
+        return bestDriver.orElse(null);
     }
 }
