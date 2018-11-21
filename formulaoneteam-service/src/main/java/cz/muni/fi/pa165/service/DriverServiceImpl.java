@@ -23,18 +23,7 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public void registerDriver(Driver driver, String unencryptedPassword) {
         driver.setPasswordHash(Validator.createHash(unencryptedPassword));
-        if(driver.getCharacteristics().size() == 0){
-            addDefaultCharacteristicValuesToDriver(driver);
-        }
         driverDao.add(driver);
-    }
-
-    private void addDefaultCharacteristicValuesToDriver(Driver driver) {
-        driver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 0));
-        driver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.PATIENCE, 0));
-        driver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.ENDURANCE, 0));
-        driver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 0));
-        driver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.STEERING, 0));
     }
 
     @Override

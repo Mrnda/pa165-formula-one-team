@@ -2,11 +2,13 @@ package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.DriverDetailDTO;
 import cz.muni.fi.pa165.dto.DriverListItemDTO;
+import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
 import cz.muni.fi.pa165.service.BeanMappingService;
+import cz.muni.fi.pa165.service.CharacteristicsValueService;
 import cz.muni.fi.pa165.service.DriverService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,10 @@ import java.util.List;
 @Service
 @Transactional
 public class DriverFacadeImpl implements DriverFacade {
+
+    @Inject
+    private CharacteristicsValueService characteristicsValueService;
+
     @Inject
     private DriverService driverService;
 
@@ -26,6 +32,9 @@ public class DriverFacadeImpl implements DriverFacade {
     @Override
     public void registerDriver(DriverDetailDTO driver, String unencryptedPassword) {
         Driver driverEntity = getDriverEntityFromDriverDetailDTO(driver);
+        if (driver.getCharacteristics().size() == 0) {
+            addDefaultCharacteristicValuesToDriver(driverEntity);
+        }
         driverService.registerDriver(driverEntity, unencryptedPassword);
     }
 
@@ -63,6 +72,24 @@ public class DriverFacadeImpl implements DriverFacade {
     public DriverDetailDTO findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType) {
         Driver driverEntity = driverService.findDriverWithHighestCharacteristicsValue(characteristicsType);
         return beanMappingService.mapTo(driverEntity, DriverDetailDTO.class);
+    }
+
+    private void addDefaultCharacteristicValuesToDriver(Driver driver) {
+        CharacteristicsValue value = new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 0);
+        characteristicsValueService.add(value);
+        driver.addCharacteristic(value);
+        value = new CharacteristicsValue(CharacteristicsType.PATIENCE, 0);
+        characteristicsValueService.add(value);
+        driver.addCharacteristic(value);
+        value = new CharacteristicsValue(CharacteristicsType.ENDURANCE, 0);
+        characteristicsValueService.add(value);
+        driver.addCharacteristic(value);
+        value = new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 0);
+        characteristicsValueService.add(value);
+        driver.addCharacteristic(value);
+        value = new CharacteristicsValue(CharacteristicsType.STEERING, 0);
+        characteristicsValueService.add(value);
+        driver.addCharacteristic(value);
     }
 
     private Driver getDriverEntityFromDriverDetailDTO(DriverDetailDTO driver) {
