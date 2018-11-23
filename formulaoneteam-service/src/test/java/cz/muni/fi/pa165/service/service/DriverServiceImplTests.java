@@ -155,29 +155,28 @@ public class DriverServiceImplTests extends BaseTest {
     @Test
     public void getDriverWithHighestCharacteristicsValue_withAgresivityAsBest_returnsTopDriverWithBestAgresivity() {
         //Given
-        Driver topDriver = createTestingDriverWithCharacteristicsValues(
-                Stream.of(
-                        new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100.0),
-                        new CharacteristicsValue(CharacteristicsType.PATIENCE, 10.0),
-                        new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 40.0),
-                        new CharacteristicsValue(CharacteristicsType.ENDURANCE, 50.0)
-                ).collect(Collectors.toList())
-        );
-        List<Driver> allDrivers = Stream.of(topDriver,
-                createTestingDriverWithCharacteristicsValues(
-                        Stream.of(
-                                new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 15),
-                                new CharacteristicsValue(CharacteristicsType.PATIENCE, 14),
-                                new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 25),
-                                new CharacteristicsValue(CharacteristicsType.ENDURANCE, 13)
-                        ).collect(Collectors.toList())),
-                createTestingDriverWithCharacteristicsValues(
-                        Stream.of(
-                                new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 78),
-                                new CharacteristicsValue(CharacteristicsType.PATIENCE, 100),
-                                new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 50),
-                                new CharacteristicsValue(CharacteristicsType.ENDURANCE, 15)
-                        ).collect(Collectors.toList()))).collect(Collectors.toList());
+        Driver topDriver = createTestingDriver();
+        topDriver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100.0, topDriver));
+        topDriver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.PATIENCE, 10.0, topDriver));
+        topDriver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 40.0, topDriver));
+        topDriver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.ENDURANCE, 50.0, topDriver));
+        Driver nextDriver1 = createTestingDriver();
+        nextDriver1.addCharacteristic(new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 15, nextDriver1));
+        nextDriver1.addCharacteristic(new CharacteristicsValue(CharacteristicsType.PATIENCE, 14, nextDriver1));
+        nextDriver1.addCharacteristic(new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 25, nextDriver1));
+        nextDriver1.addCharacteristic(new CharacteristicsValue(CharacteristicsType.ENDURANCE, 13, nextDriver1));
+        Driver nextDriver2 = createTestingDriver();
+        nextDriver2.addCharacteristic(new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 60, nextDriver2));
+        nextDriver2.addCharacteristic(new CharacteristicsValue(CharacteristicsType.PATIENCE, 20, nextDriver2));
+        nextDriver2.addCharacteristic(new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 26, nextDriver2));
+        nextDriver2.addCharacteristic(new CharacteristicsValue(CharacteristicsType.ENDURANCE, 50, nextDriver2));
+
+        List<Driver> allDrivers = Stream.of(
+                topDriver,
+                nextDriver1,
+                nextDriver2)
+                .collect(Collectors.toList());
+
         when(driverDaoMock.findAll()).thenReturn(allDrivers);
 
         //When

@@ -83,7 +83,7 @@ public class Driver extends User {
         return characteristics.stream()
                 .filter(characteristicsValue -> characteristicsValue.getType() == type)
                 .findFirst()
-                .orElse(new CharacteristicsValue(type, 0));
+                .orElse(new CharacteristicsValue(type, 0, this));
     }
 
     public void addCharacteristic(CharacteristicsValue characteristicsValue) {

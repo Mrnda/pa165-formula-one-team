@@ -27,9 +27,10 @@ public class CharacteristicsValue extends BaseEntity {
     public CharacteristicsValue() {
     }
 
-    public CharacteristicsValue(CharacteristicsType type, double value) {
+    public CharacteristicsValue(CharacteristicsType type, double value, Driver driver) {
         this.value = value;
         this.type = type;
+        this.driver = driver;
     }
 
     public double getValue() {

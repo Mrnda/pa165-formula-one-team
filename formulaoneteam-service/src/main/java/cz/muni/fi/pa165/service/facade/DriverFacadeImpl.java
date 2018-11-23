@@ -78,19 +78,19 @@ public class DriverFacadeImpl implements DriverFacade {
     }
 
     private void addDefaultCharacteristicValuesToDriver(Driver driver) {
-        CharacteristicsValue value = new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 0);
+        CharacteristicsValue value = new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 0, driver);
         characteristicsValueService.add(value);
         driver.addCharacteristic(value);
-        value = new CharacteristicsValue(CharacteristicsType.PATIENCE, 0);
+        value = new CharacteristicsValue(CharacteristicsType.PATIENCE, 0, driver);
         characteristicsValueService.add(value);
         driver.addCharacteristic(value);
-        value = new CharacteristicsValue(CharacteristicsType.ENDURANCE, 0);
+        value = new CharacteristicsValue(CharacteristicsType.ENDURANCE, 0, driver);
         characteristicsValueService.add(value);
         driver.addCharacteristic(value);
-        value = new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 0);
+        value = new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 0, driver);
         characteristicsValueService.add(value);
         driver.addCharacteristic(value);
-        value = new CharacteristicsValue(CharacteristicsType.STEERING, 0);
+        value = new CharacteristicsValue(CharacteristicsType.STEERING, 0, driver);
         characteristicsValueService.add(value);
         driver.addCharacteristic(value);
     }

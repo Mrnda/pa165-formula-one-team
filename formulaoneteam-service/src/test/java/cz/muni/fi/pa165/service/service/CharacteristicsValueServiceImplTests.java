@@ -35,7 +35,7 @@ public class CharacteristicsValueServiceImplTests extends BaseTest {
 
     @Before
     public void setUp() {
-        testingValue = new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100);
+        testingValue = new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100, null);
     }
 
     @Test
