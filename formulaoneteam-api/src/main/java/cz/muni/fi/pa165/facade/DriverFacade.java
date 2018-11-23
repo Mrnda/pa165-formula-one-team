@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.dto.CharacteristicsValueDTO;
 import cz.muni.fi.pa165.dto.DriverDetailDTO;
 import cz.muni.fi.pa165.dto.DriverListItemDTO;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
@@ -25,4 +26,6 @@ public interface DriverFacade {
     List<DriverListItemDTO> getAllDriversByStatus(DriverStatus status);
 
     DriverDetailDTO findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType);
+
+    DriverDetailDTO updateDriversCharacteristicsValue(CharacteristicsValueDTO characteristicsValueDTO);
 }

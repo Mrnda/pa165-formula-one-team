@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service.facade;
 
+import cz.muni.fi.pa165.dto.CharacteristicsValueDTO;
 import cz.muni.fi.pa165.dto.DriverDetailDTO;
 import cz.muni.fi.pa165.dto.DriverListItemDTO;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
@@ -75,6 +76,13 @@ public class DriverFacadeImpl implements DriverFacade {
     public DriverDetailDTO findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType) {
         Driver driverEntity = driverService.findDriverWithHighestCharacteristicsValue(characteristicsType);
         return beanMappingService.mapTo(driverEntity, DriverDetailDTO.class);
+    }
+
+    @Override
+    public DriverDetailDTO updateDriversCharacteristicsValue(CharacteristicsValueDTO characteristicsValueDTO) {
+        CharacteristicsValue characteristicsValue = beanMappingService.mapTo(characteristicsValueDTO, CharacteristicsValue.class);
+        characteristicsValueService.update(characteristicsValue);
+        return beanMappingService.mapTo(driverService.findDriverById(characteristicsValueDTO.getDriver().getId()), DriverDetailDTO.class);
     }
 
     private void addDefaultCharacteristicValuesToDriver(Driver driver) {
