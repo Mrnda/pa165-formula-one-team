@@ -1,57 +1,39 @@
-package cz.muni.fi.pa165.service;
+package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.driver.DriverDao;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
-import cz.muni.fi.pa165.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.service.DriverServiceImpl;
+import cz.muni.fi.pa165.service.base.BaseTest;
 import cz.muni.fi.pa165.service.utils.Validator;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.internal.matchers.Any;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeClass;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertFalse;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.mockito.Mockito.*;
+import static org.testng.AssertJUnit.*;
 
-@ContextConfiguration(classes = ServiceConfiguration.class)
-public class DriverServiceImplTests extends AbstractTestNGSpringContextTests {
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
+public class DriverServiceImplTests extends BaseTest {
 
     @Mock
-    DriverDao driverDaoMock;
+    private DriverDao driverDaoMock;
 
     @InjectMocks
-    DriverServiceImpl driverService;
-
-    @Rule
-    public MockitoRule rule = MockitoJUnit.rule();
+    private DriverServiceImpl driverService;
 
     private Driver testingDriver;
-
-    @BeforeClass
-    public void setUpClass() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Before
     public void setUp() {
@@ -175,27 +157,27 @@ public class DriverServiceImplTests extends AbstractTestNGSpringContextTests {
         //Given
         Driver topDriver = createTestingDriverWithCharacteristicsValues(
                 Stream.of(
-                        createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100.0),
-                        createCharacteristicsValue(CharacteristicsType.PATIENCE, 10.0),
-                        createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 40.0),
-                        createCharacteristicsValue(CharacteristicsType.ENDURANCE, 50.0)
+                        new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100.0),
+                        new CharacteristicsValue(CharacteristicsType.PATIENCE, 10.0),
+                        new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 40.0),
+                        new CharacteristicsValue(CharacteristicsType.ENDURANCE, 50.0)
                 ).collect(Collectors.toList())
         );
         List<Driver> allDrivers = Stream.of(topDriver,
                 createTestingDriverWithCharacteristicsValues(
-                    Stream.of(
-                            createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 15),
-                            createCharacteristicsValue(CharacteristicsType.PATIENCE, 14),
-                            createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 25),
-                            createCharacteristicsValue(CharacteristicsType.ENDURANCE, 13)
-                    ).collect(Collectors.toList())),
+                        Stream.of(
+                                new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 15),
+                                new CharacteristicsValue(CharacteristicsType.PATIENCE, 14),
+                                new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 25),
+                                new CharacteristicsValue(CharacteristicsType.ENDURANCE, 13)
+                        ).collect(Collectors.toList())),
                 createTestingDriverWithCharacteristicsValues(
-                    Stream.of(
-                            createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 78),
-                            createCharacteristicsValue(CharacteristicsType.PATIENCE, 100),
-                            createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 50),
-                            createCharacteristicsValue(CharacteristicsType.ENDURANCE, 15)
-                    ).collect(Collectors.toList()))).collect(Collectors.toList());
+                        Stream.of(
+                                new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 78),
+                                new CharacteristicsValue(CharacteristicsType.PATIENCE, 100),
+                                new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 50),
+                                new CharacteristicsValue(CharacteristicsType.ENDURANCE, 15)
+                        ).collect(Collectors.toList()))).collect(Collectors.toList());
         when(driverDaoMock.findAll()).thenReturn(allDrivers);
 
         //When
@@ -206,9 +188,7 @@ public class DriverServiceImplTests extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void deleteDriver_withExistingDriver_driverDeleteCalled(){
-        //Given
-
+    public void deleteDriver_withExistingDriver_driverDeleteCalled() {
         //When
         driverService.deleteDriver(testingDriver);
 
@@ -217,7 +197,7 @@ public class DriverServiceImplTests extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void updateDriver_withExistingDriver_driverUpdated(){
+    public void updateDriver_withExistingDriver_driverUpdated() {
         //Given
         when(driverDaoMock.findById(testingDriver.getId())).thenReturn(testingDriver);
 
@@ -231,56 +211,30 @@ public class DriverServiceImplTests extends AbstractTestNGSpringContextTests {
     }
 
     private Driver createTestingDriver() {
-        return createCustomTestingDriver("John",
-                "Doe",
-                "john@doe.com",
-                "",
-                "American",
+        return createCustomTestingDriver(
                 createDate(2, 1, 1985),
                 DriverStatus.MAIN,
                 new ArrayList<>());
     }
 
     private Driver createTestingDriverWithCharacteristicsValues(List<CharacteristicsValue> values) {
-        return createCustomTestingDriver("John",
-                "Doe",
-                "john@doe.com",
-                "",
-                "American",
+        return createCustomTestingDriver(
                 createDate(2, 1, 1985),
                 DriverStatus.MAIN,
                 values);
     }
 
-    private CharacteristicsValue createCharacteristicsValue(CharacteristicsType type, double value) {
-        return new CharacteristicsValue(type, value);
-    }
-
     private Driver createTestingDriverWithStatus(DriverStatus status) {
-        return createCustomTestingDriver("John",
-                "Doe",
-                "john@doe.com",
-                "",
-                "American",
+        return createCustomTestingDriver(
                 createDate(2, 1, 1985),
                 status,
                 new ArrayList<>());
     }
 
-    private Driver createCustomTestingDriver(String name,
-                                             String surname,
-                                             String email,
-                                             String passwordHash,
-                                             String nationality,
-                                             Date birthDate,
+    private Driver createCustomTestingDriver(Date birthDate,
                                              DriverStatus status,
                                              List<CharacteristicsValue> characteristicsValues) {
-        return new Driver(name, surname, email, passwordHash, nationality, birthDate, status, characteristicsValues);
-    }
-
-    private Date createDate(int day, int month, int year) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        return calendar.getTime();
+        return new Driver("John", "Doe", "john@doe.com", "", "American",
+                birthDate, status, characteristicsValues);
     }
 }

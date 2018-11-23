@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.enums.DriverStatus;
 import java.util.Date;
 
 public class DriverListItemDTO extends UserDTO {
+
     private String nationality;
     private Date birthday;
     private DriverStatus driverStatus;

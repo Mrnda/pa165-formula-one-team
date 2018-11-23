@@ -79,10 +79,9 @@ public class Driver extends User {
         return Collections.unmodifiableList(characteristics);
     }
 
-    public CharacteristicsValue getCharaceristicOfType(CharacteristicsType type){
+    public CharacteristicsValue getCharacteristicOfType(CharacteristicsType type) {
         return characteristics.stream()
                 .filter(characteristicsValue -> characteristicsValue.getType() == type)
-                .limit(1)
                 .findFirst()
                 .orElse(new CharacteristicsValue(type, 0));
     }

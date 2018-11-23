@@ -3,34 +3,22 @@ package cz.muni.fi.pa165.service.facade;
 import cz.muni.fi.pa165.dto.DriverDetailDTO;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.DriverStatus;
-import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.CharacteristicsValueService;
 import cz.muni.fi.pa165.service.DriverService;
-import cz.muni.fi.pa165.service.config.ServiceConfiguration;
-import org.junit.Rule;
+import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeClass;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
 
-
-@ContextConfiguration(classes = ServiceConfiguration.class)
-public class DriverFacadeImplTests extends AbstractTestNGSpringContextTests {
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
+public class DriverFacadeImplTests extends BaseFacadeTest {
 
     @Mock
     private DriverService driverServiceMock;
@@ -38,19 +26,8 @@ public class DriverFacadeImplTests extends AbstractTestNGSpringContextTests {
     @Mock
     private CharacteristicsValueService characteristicsValueServiceMock;
 
-    @Mock
-    private BeanMappingService beanMappingServiceMock;
-
     @InjectMocks
     private DriverFacadeImpl driverFacade;
-
-    @Rule
-    public MockitoRule rule = MockitoJUnit.rule();
-
-    @BeforeClass
-    public void setUpClass() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void registerDriver_withValidData_addsDefaultCharacteristics() {
@@ -88,11 +65,5 @@ public class DriverFacadeImplTests extends AbstractTestNGSpringContextTests {
                 createDate(2, 9, 1989),
                 DriverStatus.MAIN,
                 new ArrayList<>());
-    }
-
-    private Date createDate(int day, int month, int year) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        return calendar.getTime();
     }
 }

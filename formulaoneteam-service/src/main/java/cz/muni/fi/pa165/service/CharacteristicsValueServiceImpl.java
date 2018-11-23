@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
 @Service
 public class CharacteristicsValueServiceImpl implements CharacteristicsValueService {
 

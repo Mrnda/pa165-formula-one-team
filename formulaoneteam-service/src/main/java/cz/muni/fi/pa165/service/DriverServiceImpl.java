@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.driver.DriverDao;
-import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
@@ -11,9 +10,11 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
 @Service
 public class DriverServiceImpl implements DriverService {
 
@@ -57,19 +58,22 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public Driver findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType) {
         List<Driver> allDrivers = driverDao.findAll();
-        Optional<Driver> bestDriver = allDrivers.stream()
-                .max(Comparator.comparingDouble(value -> value.getCharaceristicOfType(characteristicsType).getValue()));
-        return bestDriver.orElse(null);
+        return allDrivers
+                .stream()
+                .max(Comparator.comparingDouble(
+                        value -> value.getCharacteristicOfType(characteristicsType).getValue()
+                ))
+                .orElse(null);
     }
 
     @Override
-    public Driver updateDriver(Driver driver){
+    public Driver updateDriver(Driver driver) {
         driverDao.update(driver);
         return driverDao.findById(driver.getId());
     }
 
     @Override
-    public void deleteDriver(Driver driver){
+    public void deleteDriver(Driver driver) {
         driverDao.delete(driver);
     }
 }

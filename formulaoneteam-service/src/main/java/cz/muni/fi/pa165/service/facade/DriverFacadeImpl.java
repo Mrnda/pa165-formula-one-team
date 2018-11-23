@@ -16,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
 @Service
 @Transactional
 public class DriverFacadeImpl implements DriverFacade {
@@ -95,5 +98,4 @@ public class DriverFacadeImpl implements DriverFacade {
     private Driver getDriverEntityFromDriverDetailDTO(DriverDetailDTO driver) {
         return beanMappingService.mapTo(driver, Driver.class);
     }
-
 }

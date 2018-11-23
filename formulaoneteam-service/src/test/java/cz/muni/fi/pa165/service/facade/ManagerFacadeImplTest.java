@@ -2,15 +2,10 @@ package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.ManagerDTO;
 import cz.muni.fi.pa165.entity.Manager;
-import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.ManagerService;
-import cz.muni.fi.pa165.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -21,11 +16,7 @@ import static org.testng.Assert.assertEquals;
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-@ContextConfiguration(classes = ServiceConfiguration.class)
-public class ManagerFacadeImplTest extends AbstractTestNGSpringContextTests {
-
-    @Mock
-    private BeanMappingService beanMappingService;
+public class ManagerFacadeImplTest extends BaseFacadeTest {
 
     @Mock
     private ManagerService managerService;
@@ -40,15 +31,8 @@ public class ManagerFacadeImplTest extends AbstractTestNGSpringContextTests {
     private String managerPassword;
     private String managerName;
 
-    @BeforeClass
-    public void setUpClass() {
-        MockitoAnnotations.initMocks(this);
-    }
-
     @BeforeMethod
     public void setUp() {
-
-        //Manager
         managerId = 1L;
         managerEmail = "test@test.com";
         managerName = "Test Test";
@@ -71,7 +55,7 @@ public class ManagerFacadeImplTest extends AbstractTestNGSpringContextTests {
     public void findByIdTest() {
         //given
         when(managerService.findManagerById(1L)).thenReturn(manager);
-        when(beanMappingService.mapTo(manager, ManagerDTO.class)).thenReturn(managerDTO);
+        when(beanMappingServiceMock.mapTo(manager, ManagerDTO.class)).thenReturn(managerDTO);
         Long id = 1L;
 
         //when
