@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dao.driver.DriverDao;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
+import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import cz.muni.fi.pa165.service.utils.Validator;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,10 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public void registerDriver(Driver driver, String unencryptedPassword) {
+        validateEntity(driver);
+        if(unencryptedPassword == null || unencryptedPassword.isEmpty()) {
+            throw new FormulaOneTeamException("Password can't be empty.");
+        }
         driver.setPasswordHash(Validator.createHash(unencryptedPassword));
         driverDao.add(driver);
     }
@@ -68,12 +73,20 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver updateDriver(Driver driver) {
+        validateEntity(driver);
         driverDao.update(driver);
         return driverDao.findById(driver.getId());
     }
 
     @Override
     public void deleteDriver(Driver driver) {
+        validateEntity(driver);
         driverDao.delete(driver);
+    }
+
+    private void validateEntity(Driver entity) {
+        if (entity == null || !entity.isConfigured()) {
+            throw new FormulaOneTeamException("Driver is null or not configured.");
+        }
     }
 }

@@ -7,11 +7,13 @@ import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.service.DriverServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseTest;
+import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import cz.muni.fi.pa165.service.utils.Validator;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.dao.DataAccessException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +53,17 @@ public class DriverServiceImplTests extends BaseTest {
         //Then
         verify(driverDaoMock, times(1)).add(testingDriver);
         assertTrue(Validator.validatePassword(password, testingDriver.getPasswordHash()));
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void registerDriver_withMissingPassword_throwsException() {
+        //Given
+        String password = "";
+
+        //When
+        driverService.registerDriver(testingDriver, password);
+
+        //Then
     }
 
     @Test
