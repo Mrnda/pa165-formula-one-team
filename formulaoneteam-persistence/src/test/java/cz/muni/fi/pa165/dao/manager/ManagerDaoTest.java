@@ -98,19 +98,6 @@ public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
             managerDao.add(null);
         });
     }
-    
-    @Test
-    public void addNonConfiguredManager_exceptionThrownAndManagerNotAdded() {
-        String mail = "test@mail.com";
-        Manager m = createManager(mail);
-        
-        m.setPasswordHash("");
-        
-        assertThrows(InvalidDataAccessApiUsageException.class, () -> {
-            managerDao.add(m);
-        });        
-        assertNull(managerDao.findByEmail(mail));
-    }
 
     private Manager createManager(String email) {
         Manager manager = new Manager();

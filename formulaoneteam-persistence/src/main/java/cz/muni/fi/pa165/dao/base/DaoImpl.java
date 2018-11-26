@@ -25,22 +25,16 @@ public abstract class DaoImpl<T extends BaseEntity> implements Dao<T> {
 
     @Override
     public void add(@Nullable T entity) {
-        validateEntity(entity);
-
         entityManager.persist(entity);
     }
 
     @Override
     public void delete(@Nullable T entity) {
-        validateEntity(entity);
-
         entityManager.remove(entity);
     }
 
     @Override
     public void update(@Nullable T entity) {
-        validateEntity(entity);
-
         entityManager.merge(entity);
     }
 
@@ -54,6 +48,4 @@ public abstract class DaoImpl<T extends BaseEntity> implements Dao<T> {
     }
 
     protected abstract Class<T> getClassType();
-
-    protected abstract void validateEntity(T entity);
 }

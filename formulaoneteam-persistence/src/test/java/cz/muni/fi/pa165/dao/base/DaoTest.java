@@ -92,7 +92,6 @@ public class DaoTest {
             return validateCalled;
         }
 
-        @Override
         protected void validateEntity(TestEntity entity) {
             validateCalled = true;
         }

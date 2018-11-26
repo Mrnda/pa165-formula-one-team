@@ -15,10 +15,4 @@ public class ManagerDaoImpl extends UserDaoImpl<Manager> implements ManagerDao {
         return Manager.class;
     }
 
-    @Override
-    protected void validateEntity(Manager manager) {
-        if (manager == null || !manager.isConfigured()) {
-            throw new IllegalArgumentException("Manager is null or not configured");
-        }
-    }
 }

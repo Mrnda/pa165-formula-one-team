@@ -15,7 +15,6 @@ public class RaceDaoImpl extends DaoImpl<Race> implements RaceDao {
         return Race.class;
     }
 
-    @Override
     protected void validateEntity(Race race) {
         if (race == null || !race.isConfigured()) {
             throw new IllegalArgumentException("Race is null or not configured.");
