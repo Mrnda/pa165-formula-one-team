@@ -227,6 +227,7 @@ public class DriverServiceImplTests extends BaseTest {
 
         //When
         testingDriver.setEmail("test@test.cz");
+        testingDriver.setPasswordHash("some random password hash");
         Driver updatedDriver = driverService.updateDriver(testingDriver);
 
         //Then

@@ -24,11 +24,11 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public void registerDriver(Driver driver, String unencryptedPassword) {
-        validateEntity(driver);
         if(unencryptedPassword == null || unencryptedPassword.isEmpty()) {
             throw new FormulaOneTeamException("Password can't be empty.");
         }
         driver.setPasswordHash(Validator.createHash(unencryptedPassword));
+        validateEntity(driver);
         driverDao.add(driver);
     }
 
@@ -73,6 +73,7 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver updateDriver(Driver driver) {
+        validateEntity(driver);
         driverDao.update(driver);
         return driverDao.findById(driver.getId());
     }
