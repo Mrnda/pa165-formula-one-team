@@ -79,7 +79,6 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public void deleteDriver(Driver driver) {
-        validateEntity(driver);
         driverDao.delete(driver);
     }
 
