@@ -24,6 +24,15 @@ public class CharacteristicsValue extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Driver driver;
 
+    public CharacteristicsValue() {
+    }
+
+    public CharacteristicsValue(CharacteristicsType type, double value, Driver driver) {
+        this.value = value;
+        this.type = type;
+        this.driver = driver;
+    }
+
     public double getValue() {
         return value;
     }

@@ -14,11 +14,4 @@ public class DriverDaoImpl extends UserDaoImpl<Driver> implements DriverDao {
     protected Class<Driver> getClassType() {
         return Driver.class;
     }
-
-    @Override
-    protected void validateEntity(Driver entity) {
-        if (entity == null || !entity.isConfigured()) {
-            throw new IllegalArgumentException("Driver is null or not configured.");
-        }
-    }
 }

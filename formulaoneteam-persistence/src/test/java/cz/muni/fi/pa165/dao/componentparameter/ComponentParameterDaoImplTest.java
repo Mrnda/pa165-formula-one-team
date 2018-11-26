@@ -115,15 +115,6 @@ public class ComponentParameterDaoImplTest extends AbstractJUnit4SpringContextTe
         assertEquals(0, componentParameterDao.findAll().size());
     }
 
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void validateEntity_exceptionIsThrown() {
-        //given
-        ComponentParameter notComponentParameter = new ComponentParameter();
-
-        //when
-        componentParameterDao.add(notComponentParameter);
-    }
-
     private ComponentParameter createTestComponentParameter() {
         return new ComponentParameter(TEST_NAME, 100.0);
     }

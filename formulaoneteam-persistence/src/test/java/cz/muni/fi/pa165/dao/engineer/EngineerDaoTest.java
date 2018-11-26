@@ -115,15 +115,6 @@ public class EngineerDaoTest extends AbstractJUnit4SpringContextTests {
         assertEquals(0, engineerDao.findAll().size());
     }
 
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void validateEntity_exceptionIsThrown() {
-        //given
-        Engineer notConfiguredEngineer = new Engineer("", "", "", "", EngineerSpecialization.AERODYNAMICS);
-
-        //when
-        engineerDao.add(notConfiguredEngineer);
-    }
-
     private Engineer createTestEngineer() {
         String TEST_SURNAME = "testSurname";
         String TEST_EMAIL = "test@email.com";

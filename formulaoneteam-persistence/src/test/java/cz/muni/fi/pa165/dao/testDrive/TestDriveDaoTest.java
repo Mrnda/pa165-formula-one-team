@@ -74,13 +74,4 @@ public class TestDriveDaoTest extends BaseTest {
         assertTrue(testDrives.contains(otherTestDrive));
         assertEquals(2, testDrives.size());
     }
-
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void validateEntity_exceptionIsThrown() {
-        //given
-        testDrive = new TestDrive(createCarSetup(), createDriver("testDrive@email.com"), "", null);
-
-        //when
-        testDriveDao.add(testDrive);
-    }
 }

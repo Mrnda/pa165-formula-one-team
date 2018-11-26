@@ -15,7 +15,6 @@ public class ComponentDaoImpl extends DaoImpl<Component> implements ComponentDao
         return Component.class;
     }
 
-    @Override
     protected void validateEntity(Component component) {
         if (component == null) {
             throw new IllegalArgumentException("Component is null.");

@@ -76,13 +76,4 @@ public class RaceDaoTest extends BaseTest {
         assertTrue(races.contains(otherRace));
         assertEquals(2, races.size());
     }
-
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void validateEntity_exceptionIsThrown() {
-        //given
-        Race notConfiguredRace = new Race(new Date(), "", "");
-
-        //when
-        raceDao.add(notConfiguredRace);
-    }
 }

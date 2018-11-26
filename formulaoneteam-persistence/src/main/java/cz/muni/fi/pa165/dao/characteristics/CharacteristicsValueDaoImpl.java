@@ -20,7 +20,6 @@ public class CharacteristicsValueDaoImpl extends DaoImpl<CharacteristicsValue> i
         return CharacteristicsValue.class;
     }
 
-    @Override
     protected void validateEntity(CharacteristicsValue value) {
         if (value == null) {
             throw new IllegalArgumentException("CaracteristicsValue is null.");

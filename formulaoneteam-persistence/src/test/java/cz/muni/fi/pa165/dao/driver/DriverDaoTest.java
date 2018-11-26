@@ -70,13 +70,4 @@ public class DriverDaoTest extends BaseTest {
         assertTrue(result.contains(d1));
         assertTrue(result.contains(d2));
     }
-
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void validateEntity_exceptionIsThrown() {
-        //given
-        Driver notConfiguredDriver = createDriver("");
-
-        //when
-        driverDao.add(notConfiguredDriver);
-    }
 }
