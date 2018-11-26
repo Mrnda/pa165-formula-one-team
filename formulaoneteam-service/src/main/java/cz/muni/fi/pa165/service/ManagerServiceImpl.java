@@ -20,6 +20,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public void registerManager(Manager manager, String unencryptedPassword) {
         manager.setPasswordHash(Validator.createHash(unencryptedPassword));
+        validateEntity(manager);
         managerDao.add(manager);
     }
 
@@ -41,5 +42,11 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Manager findManagerByEmail(String email) {
         return managerDao.findByEmail(email);
+    }
+
+    private void validateEntity(Manager manager) {
+        if (manager == null || !manager.isConfigured()) {
+            throw new IllegalArgumentException("Manager is null or not configured");
+        }
     }
 }
