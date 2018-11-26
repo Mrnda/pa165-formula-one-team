@@ -66,6 +66,18 @@ public class DriverServiceImplTests extends BaseTest {
         //Then
     }
 
+    @Test(expected = FormulaOneTeamException.class)
+    public void registerDriver_withMissingEmail_throwsException() {
+        //Given
+        String password = "password";
+
+        //When
+        testingDriver.setEmail("");
+        driverService.registerDriver(testingDriver, password);
+
+        //Then
+    }
+
     @Test
     public void registeredDriver_withValidPassword_isAuthenticated() {
         //Given
@@ -222,18 +234,23 @@ public class DriverServiceImplTests extends BaseTest {
         assertEquals(testingDriver, updatedDriver);
     }
 
+    @Test(expected = FormulaOneTeamException.class)
+    public void updateDriver_withInvalidDriver_driverUpdated() {
+        //Given
+        when(driverDaoMock.findById(testingDriver.getId())).thenReturn(testingDriver);
+
+        //When
+        testingDriver.setEmail("");
+        Driver updatedDriver = driverService.updateDriver(testingDriver);
+
+        //Then
+    }
+
     private Driver createTestingDriver() {
         return createCustomTestingDriver(
                 createDate(2, 1, 1985),
                 DriverStatus.MAIN,
                 new ArrayList<>());
-    }
-
-    private Driver createTestingDriverWithCharacteristicsValues(List<CharacteristicsValue> values) {
-        return createCustomTestingDriver(
-                createDate(2, 1, 1985),
-                DriverStatus.MAIN,
-                values);
     }
 
     private Driver createTestingDriverWithStatus(DriverStatus status) {

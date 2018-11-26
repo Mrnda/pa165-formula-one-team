@@ -73,7 +73,6 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver updateDriver(Driver driver) {
-        validateEntity(driver);
         driverDao.update(driver);
         return driverDao.findById(driver.getId());
     }
