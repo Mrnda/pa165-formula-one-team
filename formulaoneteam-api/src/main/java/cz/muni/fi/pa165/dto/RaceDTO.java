@@ -4,6 +4,9 @@ import cz.muni.fi.pa165.dto.base.BaseDTO;
 
 import java.util.Date;
 
+/**
+ * @author Adel Chakouri
+ */
 public class RaceDTO extends BaseDTO {
 
     private Date date;

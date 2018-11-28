@@ -16,7 +16,6 @@ import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -49,7 +48,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest {
 
         //Then
         verify(driverServiceMock, times(1)).registerDriver(driverEntity, "password");
-        assertEquals(5, driverEntity.getCharacteristics().size());
+        assertEquals(6, driverEntity.getCharacteristics().size());
     }
 
     @Test
@@ -215,17 +214,6 @@ public class DriverFacadeImplTests extends BaseFacadeTest {
                 "American",
                 createDate(2,10,1960),
                 status,
-                new ArrayList<>());
-    }
-
-    private Driver createDriver() {
-        return new Driver("John",
-                "Doe",
-                "John@doe.com",
-                "",
-                "American",
-                createDate(2, 9, 1989),
-                DriverStatus.MAIN,
                 new ArrayList<>());
     }
 }

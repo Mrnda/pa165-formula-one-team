@@ -5,6 +5,9 @@ import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.entity.Race;
 
+/**
+ * @author Adel Chakouri
+ */
 public class RaceParticipationDTO extends BaseDTO {
 
     private CarSetup car;

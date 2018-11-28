@@ -2,8 +2,6 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.carsetup.CarSetupDao;
 import cz.muni.fi.pa165.entity.CarSetup;
-import cz.muni.fi.pa165.entity.Component;
-import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.service.CarSetupServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseTest;
 import org.junit.Before;
@@ -92,16 +90,5 @@ public class CarSetupServiceImplTest extends BaseTest {
         assertNotNull(resultCarSetupList);
         assertEquals(resultCarSetupList.size(), 2);
         assertTrue(resultCarSetupList.contains(testingCarSetup));
-    }
-
-    private CarSetup createCarSetup() {
-        Component engine = new Component("engine", ComponentType.ENGINE);
-        Component suspension = new Component("suspension", ComponentType.SUSPENSION);
-        Component brakes = new Component("brakes", ComponentType.BRAKES);
-        Component transmission = new Component("transmission", ComponentType.TRANSMISSION);
-        Component tires = new Component("tires", ComponentType.TIRES);
-        Component cover = new Component("cover", ComponentType.COVER);
-
-        return new CarSetup(engine, suspension, brakes, transmission, tires, cover);
     }
 }

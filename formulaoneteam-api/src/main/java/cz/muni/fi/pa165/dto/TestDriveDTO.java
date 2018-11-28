@@ -6,6 +6,9 @@ import cz.muni.fi.pa165.entity.Driver;
 
 import java.util.Date;
 
+/**
+ * @author Adel Chakouri
+ */
 public class TestDriveDTO extends BaseDTO {
 
     private CarSetup car;

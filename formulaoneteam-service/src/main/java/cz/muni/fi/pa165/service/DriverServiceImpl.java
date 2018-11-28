@@ -24,7 +24,7 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public void registerDriver(Driver driver, String unencryptedPassword) {
-        if(unencryptedPassword == null || unencryptedPassword.isEmpty()) {
+        if (unencryptedPassword == null || unencryptedPassword.isEmpty()) {
             throw new FormulaOneTeamException("Password can't be empty.");
         }
         driver.setPasswordHash(Validator.createHash(unencryptedPassword));
