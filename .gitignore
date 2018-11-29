@@ -103,3 +103,9 @@ buildNumber.properties
 *.iml
 out
 gen
+
+# VS code
+.settings
+.project
+.vscode
+.classpath
