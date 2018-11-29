@@ -128,7 +128,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
         //given
         Component component = createDefaultComponent();
         componentDao.add(component);
-        ComponentParameter componentParameter = createComponentParameter("Test", 10.0);
+        ComponentParameter componentParameter = createComponentParameter("Test", "TestV");
 
         //when
         component.addParameter(componentParameter);
@@ -145,7 +145,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
     public void removeComponentParameter_parameterRemoved() {
         //given
         Component component = createDefaultComponent();
-        ComponentParameter componentParameter = createComponentParameter("Test", 10.0);
+        ComponentParameter componentParameter = createComponentParameter("Test", "TestV");
         component.addParameter(componentParameter);
         componentDao.add(component);
 
@@ -159,7 +159,7 @@ public class ComponentDaoTest extends AbstractTestNGSpringContextTests {
         assertEquals(0, foundComponent.getParameters().size());
     }
 
-    private ComponentParameter createComponentParameter(String name, double value) {
+    private ComponentParameter createComponentParameter(String name, String value) {
         ComponentParameter componentParameter = new ComponentParameter(name, value);
         componentParameterDao.add(componentParameter);
         return componentParameter;

@@ -64,7 +64,7 @@ public class ComponentParameterDaoImplTest extends AbstractJUnit4SpringContextTe
     @Test
     public void createMultipleNewComponentParameters_foundAll() {
         //given
-        ComponentParameter otherComponentParameter = new ComponentParameter("otherName", 50.0);
+        ComponentParameter otherComponentParameter = new ComponentParameter("otherName", "50.0");
 
         //when
         componentParameterDao.add(testComponentParameter);
@@ -116,6 +116,6 @@ public class ComponentParameterDaoImplTest extends AbstractJUnit4SpringContextTe
     }
 
     private ComponentParameter createTestComponentParameter() {
-        return new ComponentParameter(TEST_NAME, 100.0);
+        return new ComponentParameter(TEST_NAME, "100.0");
     }
 }

@@ -20,12 +20,12 @@ public class ComponentParameter extends BaseEntity {
     private String name = "";
 
     @Column
-    private double value = 0;
+    private String value = "";
 
     public ComponentParameter() {
     }
 
-    public ComponentParameter(@NotNull String name, double value) {
+    public ComponentParameter(@NotNull String name, String value) {
         this.name = name;
         this.value = value;
     }
@@ -38,11 +38,11 @@ public class ComponentParameter extends BaseEntity {
         this.name = name;
     }
 
-    public double getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -55,7 +55,7 @@ public class ComponentParameter extends BaseEntity {
         if (this == o) return true;
         if (!(o instanceof ComponentParameter)) return false;
         ComponentParameter that = (ComponentParameter) o;
-        return Double.compare(that.getValue(), getValue()) == 0 &&
+        return Objects.equals(that.getValue(), getValue()) &&
                 Objects.equals(getName(), that.getName());
     }
 
