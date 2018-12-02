@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
@@ -25,34 +26,25 @@ public class ManagerFacadeImplTest extends BaseFacadeTest {
     private ManagerFacadeImpl managerFacadeImpl;
 
     private Manager manager;
-    private ManagerDTO managerDTO;
 
     @BeforeMethod
     public void setUp() {
-        Long managerId = 1L;
-        String managerEmail = "test@test.com";
-        String managerName = "Test Test";
-        String managerPassword = "123456";
-
-        managerDTO = new ManagerDTO();
-        managerDTO.setEmail(managerEmail);
-        managerDTO.setId(managerId);
-        managerDTO.setName(managerName);
-        managerDTO.setPassword(managerPassword);
+        manager = createManager();
     }
 
     @Test
     public void findByIdTest() {
         //given
-        when(managerService.findById(1L)).thenReturn(manager);
-        when(beanMappingServiceMock.mapTo(manager, ManagerDTO.class)).thenReturn(managerDTO);
-        Long id = 1L;
+        ManagerDTO managerDTO = mock(ManagerDTO.class);
 
         //when
-        ManagerDTO returnedDTO = managerFacadeImpl.findManagerById(id);
+        when(managerService.findById(manager.getId())).thenReturn(manager);
+        when(beanMappingServiceMock.mapTo(manager, ManagerDTO.class)).thenReturn(managerDTO);
+
+        ManagerDTO returnedDTO = managerFacadeImpl.findManagerById(manager.getId());
 
         //then
         assertEquals(returnedDTO, managerDTO);
-        verify(managerService).findById(id);
+        verify(managerService).findById(manager.getId());
     }
 }

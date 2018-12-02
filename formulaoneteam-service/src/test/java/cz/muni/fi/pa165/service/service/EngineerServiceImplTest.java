@@ -1,27 +1,21 @@
 package cz.muni.fi.pa165.service.service;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.testng.AssertJUnit;
-
 import cz.muni.fi.pa165.dao.engineer.EngineerDao;
 import cz.muni.fi.pa165.entity.Engineer;
 import cz.muni.fi.pa165.enums.EngineerSpecialization;
 import cz.muni.fi.pa165.service.EngineerServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.utils.Validator;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.testng.AssertJUnit;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Ivan Dendis
@@ -38,7 +32,7 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
     public void registerEngineer_withValidValues_driverRegistered() {
         String password = "password";
 
-        engineerService.registerEngineer(entity, password);
+        engineerService.register(entity, password);
 
         verify(engineerDaoMock, times(1)).add(entity);
         assertTrue(Validator.validatePassword(password, entity.getPasswordHash()));
