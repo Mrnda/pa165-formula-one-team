@@ -14,6 +14,8 @@ import java.util.Objects;
 @Entity
 public class RaceParticipation extends BaseEntity {
 
+    public static final int NO_RESULT_POSITION = -1;
+
     @ManyToOne
     private CarSetup car;
 
