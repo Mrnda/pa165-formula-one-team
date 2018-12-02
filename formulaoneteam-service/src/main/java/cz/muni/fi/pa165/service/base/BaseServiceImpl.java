@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-public abstract class BaseServiceImpl<T extends BaseEntity, D extends Dao<T>> implements BaseService<T> {
+abstract class BaseServiceImpl<T extends BaseEntity, D extends Dao<T>> implements BaseService<T> {
 
     @Inject
     protected D dao;
@@ -27,21 +27,17 @@ public abstract class BaseServiceImpl<T extends BaseEntity, D extends Dao<T>> im
     }
 
     @Override
-    public void add(T entity) throws FormulaOneTeamException {
-        validateEntity(entity);
-        dao.add(entity);
-    }
-
-    @Override
     public void remove(T entity) throws FormulaOneTeamException {
         validateEntity(entity);
         dao.delete(entity);
     }
 
     @Override
-    public void update(T entity) throws FormulaOneTeamException {
+    public T update(T entity) throws FormulaOneTeamException {
         validateEntity(entity);
         dao.update(entity);
+
+        return dao.findById(entity.getId());
     }
 
     @Override

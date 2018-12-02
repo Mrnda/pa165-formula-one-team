@@ -1,10 +1,10 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.entity.RaceParticipation;
-import cz.muni.fi.pa165.service.base.BaseService;
+import cz.muni.fi.pa165.service.base.BaseEntityService;
 
 /**
  * @author Adel Chakouri
  */
-public interface RaceParticipationService extends BaseService<RaceParticipation> {
+public interface RaceParticipationService extends BaseEntityService<RaceParticipation> {
 }

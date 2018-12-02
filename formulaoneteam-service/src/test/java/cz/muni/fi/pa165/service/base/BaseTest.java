@@ -81,4 +81,10 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
         testDrive.setId(22);
         return testDrive;
     }
+
+    protected Manager createManager() {
+        Manager manager = new Manager("name", "surname", "email@gmail.com", "aspdaspdasjd");
+        manager.setId(33);
+        return manager;
+    }
 }

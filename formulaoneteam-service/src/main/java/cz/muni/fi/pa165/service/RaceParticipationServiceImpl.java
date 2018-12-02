@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.RaceParticipation.RaceParticipationDao;
 import cz.muni.fi.pa165.entity.RaceParticipation;
-import cz.muni.fi.pa165.service.base.BaseServiceImpl;
+import cz.muni.fi.pa165.service.base.BaseEntityServiceImpl;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RaceParticipationServiceImpl
-        extends BaseServiceImpl<RaceParticipation, RaceParticipationDao>
+        extends BaseEntityServiceImpl<RaceParticipation, RaceParticipationDao>
         implements RaceParticipationService {
 
     @Override

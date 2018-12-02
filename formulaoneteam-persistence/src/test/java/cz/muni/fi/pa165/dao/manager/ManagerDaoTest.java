@@ -17,7 +17,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.testng.Assert.assertThrows;
 import static org.testng.AssertJUnit.assertNotNull;
 
 /**
@@ -92,21 +91,12 @@ public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
         assertEquals(result.size(), 2);
     }
 
-    @Test
+    @Test(expected = InvalidDataAccessApiUsageException.class)
     public void addNullManager_illegalArgumentExceptionThrown() {
-        assertThrows(InvalidDataAccessApiUsageException.class, () -> {
-            managerDao.add(null);
-        });
+        managerDao.add(null);
     }
 
     private Manager createManager(String email) {
-        Manager manager = new Manager();
-
-        manager.setName("name");
-        manager.setPasswordHash("pwd");
-        manager.setSurname("surname");
-        manager.setEmail(email);
-
-        return manager;
+        return new Manager("name", "surname", email, "hash213");
     }
 }

@@ -10,13 +10,11 @@ import java.util.List;
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-public interface BaseService<T extends BaseEntity> {
-
-    void add(@Nullable T entity) throws FormulaOneTeamException;
+interface BaseService<T extends BaseEntity> {
 
     void remove(@Nullable T entity) throws FormulaOneTeamException;
 
-    void update(@Nullable T entity) throws FormulaOneTeamException;
+    T update(@Nullable T entity) throws FormulaOneTeamException;
 
     @NonNull
     T findById(long id) throws FormulaOneTeamException;

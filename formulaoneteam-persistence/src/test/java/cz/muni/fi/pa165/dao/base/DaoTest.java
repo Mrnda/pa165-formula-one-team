@@ -22,7 +22,7 @@ public class DaoTest {
     private final TestEntity testEntity = mock(TestEntity.class);
 
     @BeforeMethod
-    public void SetUp() {
+    public void setUp() {
         em = mock(EntityManager.class);
         dao = new TestEntityDaoImpl(em);
     }

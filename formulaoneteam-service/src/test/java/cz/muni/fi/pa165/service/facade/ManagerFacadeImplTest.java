@@ -26,23 +26,13 @@ public class ManagerFacadeImplTest extends BaseFacadeTest {
 
     private Manager manager;
     private ManagerDTO managerDTO;
-    private Long managerId;
-    private String managerEmail;
-    private String managerPassword;
-    private String managerName;
 
     @BeforeMethod
     public void setUp() {
-        managerId = 1L;
-        managerEmail = "test@test.com";
-        managerName = "Test Test";
-        managerPassword = "123456";
-
-        manager = new Manager();
-        manager.setPasswordHash(managerPassword);
-        manager.setEmail(managerEmail);
-        manager.setId(managerId);
-        manager.setName(managerName);
+        Long managerId = 1L;
+        String managerEmail = "test@test.com";
+        String managerName = "Test Test";
+        String managerPassword = "123456";
 
         managerDTO = new ManagerDTO();
         managerDTO.setEmail(managerEmail);
@@ -54,7 +44,7 @@ public class ManagerFacadeImplTest extends BaseFacadeTest {
     @Test
     public void findByIdTest() {
         //given
-        when(managerService.findManagerById(1L)).thenReturn(manager);
+        when(managerService.findById(1L)).thenReturn(manager);
         when(beanMappingServiceMock.mapTo(manager, ManagerDTO.class)).thenReturn(managerDTO);
         Long id = 1L;
 
@@ -63,6 +53,6 @@ public class ManagerFacadeImplTest extends BaseFacadeTest {
 
         //then
         assertEquals(returnedDTO, managerDTO);
-        verify(managerService).findManagerById(id);
+        verify(managerService).findById(id);
     }
 }
