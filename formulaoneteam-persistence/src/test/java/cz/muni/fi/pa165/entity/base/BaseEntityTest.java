@@ -1,18 +1,19 @@
 package cz.muni.fi.pa165.entity.base;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import cz.muni.fi.pa165.dao.base.BaseTest;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.testng.Assert.*;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-public class BaseEntityTest {
+public class BaseEntityTest extends BaseTest {
 
     private BaseEntity baseEntity;
 
-    @BeforeMethod
+    @Before
     public void setUp() {
         baseEntity = new BaseEntity() {};
     }

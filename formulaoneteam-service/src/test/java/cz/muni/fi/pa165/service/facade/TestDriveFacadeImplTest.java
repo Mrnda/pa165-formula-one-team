@@ -5,10 +5,9 @@ import cz.muni.fi.pa165.entity.TestDrive;
 import cz.muni.fi.pa165.service.TestDriveService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,11 +16,9 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
 
-
 /**
  * @author Adel Chakouri
  */
-
 public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDriveDTO> {
 
     @Mock
@@ -30,8 +27,10 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
     @InjectMocks
     private TestDriveFacadeImpl testDriveFacade;
 
-    @BeforeMethod
+    @Override
     public void setUp() {
+        super.setUp();
+
         when(beanMappingServiceMock.mapTo(dto, TestDrive.class)).thenReturn(entity);
     }
 
@@ -55,7 +54,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
     }
 
     @Test
-    void findTestDriveByIdTest() {
+    public void findTestDriveByIdTest() {
         //Given
         when(beanMappingServiceMock.mapTo(entity, TestDriveDTO.class)).thenReturn(dto);
         when(testDriveService.findById(22)).thenReturn(entity);

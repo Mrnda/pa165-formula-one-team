@@ -2,10 +2,9 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.component.ComponentDao;
 import cz.muni.fi.pa165.entity.Component;
-import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.service.ComponentServiceImpl;
-import cz.muni.fi.pa165.service.base.BaseTest;
-import org.junit.Before;
+import cz.muni.fi.pa165.service.base.BaseServiceTest;
+import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -20,14 +19,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.fail;
 
 /**
  * @author Théo Desjardins
  */
-
-public class ComponentServiceImplTest extends BaseTest {
-
-    private Component testingComponent;
+public class ComponentServiceImplTest extends BaseServiceTest<Component> {
 
     @Mock
     private ComponentDao componentDaoMock;
@@ -35,64 +32,95 @@ public class ComponentServiceImplTest extends BaseTest {
     @InjectMocks
     private ComponentServiceImpl componentService;
 
-    @Before
-    public void setUp() {
-        testingComponent = new Component("engine", ComponentType.ENGINE);
-    }
-
     @Test
     public void addComponent_withValidValues() {
         //when
-        componentService.add(testingComponent);
+        componentService.add(entity);
 
         //then
-        verify(componentDaoMock, times(1)).add(testingComponent);
+        verify(componentDaoMock, times(1)).add(entity);
     }
 
     @Test
     public void findById_withExistingValue() {
         //given
-        when(componentDaoMock.findById(testingComponent.getId())).thenReturn(testingComponent);
+        when(componentDaoMock.findById(entity.getId())).thenReturn(entity);
 
         //when
-        Component component = componentService.findById(testingComponent.getId());
+        Component component = componentService.findById(entity.getId());
 
         //then
-        AssertJUnit.assertEquals(testingComponent, component);
+        AssertJUnit.assertEquals(entity, component);
     }
 
     @Test
     public void updateComponent_withValidValues() {
         //when
-        componentService.update(testingComponent);
+        componentService.update(entity);
 
         //then
-        verify(componentDaoMock, times(1)).update(testingComponent);
+        verify(componentDaoMock, times(1)).update(entity);
     }
 
     @Test
     public void removeComponent_withValidValues() {
         //when
-        componentService.delete(testingComponent);
+        componentService.remove(entity);
 
         //then
-        verify(componentDaoMock, times(1)).delete(testingComponent);
+        verify(componentDaoMock, times(1)).delete(entity);
     }
 
     @Test
     public void getAllComponentTest() {
         //given
         List<Component> componentList = new ArrayList<>();
-        componentList.add(testingComponent);
-        componentList.add(testingComponent);
+        componentList.add(entity);
+        componentList.add(entity);
 
         //when
         when(componentDaoMock.findAll()).thenReturn(componentList);
-        List<Component> resultComponentList = componentService.getAllComponent();
+        List<Component> resultComponentList = componentService.getAll();
 
         //then
         assertNotNull(resultComponentList);
         assertEquals(resultComponentList.size(), 2);
-        assertTrue(resultComponentList.contains(testingComponent));
+        assertTrue(resultComponentList.contains(entity));
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void add_throwsException() {
+        //when
+        componentService.add(null);
+
+        //then
+        fail("Exception is not thrown");
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void update_exceptionIsThrown() {
+        //given
+        entity.setName("");
+
+        //when
+        when(componentService.findById(entity.getId())).thenReturn(entity);
+        componentService.update(entity);
+
+        //then
+        fail("Exception is not thrown");
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void remove_exceptionIsThrown() {
+        //when
+        componentService.remove(null);
+
+        //then
+        fail("Exception is not thrown");
+    }
+
+    @Override
+    protected Component createTestEntity() {
+        return createComponent();
     }
 }

@@ -5,10 +5,10 @@ import cz.muni.fi.pa165.entity.Race;
 import cz.muni.fi.pa165.service.RaceService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +20,6 @@ import static org.testng.AssertJUnit.assertEquals;
 /**
  * @author Adel Chakouri
  */
-
 public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
 
     @Mock
@@ -31,6 +30,8 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
 
     @BeforeMethod
     public void setUp() {
+        super.setUp();
+
         when(beanMappingServiceMock.mapTo(dto, Race.class)).thenReturn(entity);
     }
 

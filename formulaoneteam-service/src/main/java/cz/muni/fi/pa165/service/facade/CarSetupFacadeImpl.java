@@ -28,7 +28,7 @@ public class CarSetupFacadeImpl implements CarSetupFacade {
 
     @Override
     public List<CarSetupDTO> getAllCarSetup() {
-        List<CarSetup> allCarSetupEntities = carSetupService.getAllCarSetup();
+        List<CarSetup> allCarSetupEntities = carSetupService.getAll();
         return beanMappingService.mapTo(allCarSetupEntities, CarSetupDTO.class);
     }
 
@@ -36,7 +36,7 @@ public class CarSetupFacadeImpl implements CarSetupFacade {
     public void deleteCarSetup(CarSetupDTO carSetupDTO) {
         if (carSetupDTO == null) throw new IllegalArgumentException("null carSetupDTO, cannot delete");
 
-        carSetupService.delete(beanMappingService.mapTo(carSetupDTO, CarSetup.class));
+        carSetupService.remove(beanMappingService.mapTo(carSetupDTO, CarSetup.class));
     }
 
     @Override

@@ -6,14 +6,14 @@ import org.junit.Before;
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-public abstract class BaseServiceTest<T extends BaseEntity> extends BaseTest {
+public abstract class BaseServiceTest<E extends BaseEntity> extends BaseTest {
 
-    protected T entity;
+    protected E entity;
 
     @Before
     public void setUp() {
         entity = createTestEntity();
     }
 
-    protected abstract T createTestEntity();
+    protected abstract E createTestEntity();
 }

@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.Engineer;
 import cz.muni.fi.pa165.enums.EngineerSpecialization;
 import cz.muni.fi.pa165.service.EngineerServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
+import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import cz.muni.fi.pa165.service.utils.Validator;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import static org.testng.AssertJUnit.fail;
 
 /**
  * @author Ivan Dendis
@@ -38,6 +40,18 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
         assertTrue(Validator.validatePassword(password, entity.getPasswordHash()));
     }
 
+    @Test(expected = FormulaOneTeamException.class)
+    public void registerEngineer_withMissingPassword_throwsException() {
+        //given
+        String password = "";
+
+        //when
+        engineerService.register(entity, password);
+
+        //then
+        fail("Exception is not thrown");
+    }
+
     @Test
     public void findById_withExistingValue() {
         entity.setId(1);
@@ -55,11 +69,36 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
         verify(engineerDaoMock, times(1)).update(entity);
     }
 
+    @Test(expected = FormulaOneTeamException.class)
+    public void updateEngineer_withInvalidEngineer_exceptionIsThrown() {
+        //given
+        entity.setEmail("");
+
+        //when
+        when(engineerDaoMock.findById(entity.getId())).thenReturn(entity);
+        engineerService.update(entity);
+
+        //then
+        fail("Exception is not thrown");
+    }
+
     @Test
     public void removeEngineer_withValidValues() {
         engineerService.remove(entity);
 
         verify(engineerDaoMock, times(1)).delete(entity);
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void removeEngineer_withInvalidEngineer_exceptionIsThrown() {
+        //given
+        entity.setEmail("");
+
+        //when
+        engineerService.remove(entity);
+
+        //then
+        fail("Exception is not thrown");
     }
 
     @Test

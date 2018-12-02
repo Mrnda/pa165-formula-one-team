@@ -1,14 +1,13 @@
 package cz.muni.fi.pa165.dao.base;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.persistence.EntityManager;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.testng.Assert.assertTrue;
 
 /**
  * Tests for the general Dao functionality.
@@ -21,7 +20,7 @@ public class DaoTest {
     private TestEntityDaoImpl dao;
     private final TestEntity testEntity = mock(TestEntity.class);
 
-    @BeforeMethod
+    @Before
     public void setUp() {
         em = mock(EntityManager.class);
         dao = new TestEntityDaoImpl(em);

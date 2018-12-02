@@ -6,10 +6,10 @@ import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.service.ComponentService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,8 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
 
     @BeforeMethod
     public void setUp() {
+        super.setUp();
+
         when(beanMappingServiceMock.mapTo(dto, Component.class)).thenReturn(entity);
     }
 
@@ -56,7 +58,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         componentFacade.deleteComponent(dto);
 
         //then
-        verify(componentService, times(1)).delete(entity);
+        verify(componentService, times(1)).remove(entity);
     }
 
     @Test
@@ -85,7 +87,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         //Given
         List<Component> listComponent = new ArrayList<>();
         listComponent.add(entity);
-        when(componentService.getAllComponent()).thenReturn(listComponent);
+        when(componentService.getAll()).thenReturn(listComponent);
         List<ComponentDTO> listDTOComponent = new ArrayList<>();
         listDTOComponent.add(dto);
         when(beanMappingServiceMock.mapTo(listComponent, ComponentDTO.class)).thenReturn(listDTOComponent);
@@ -94,7 +96,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         List<ComponentDTO> resListComponentDTO = new ArrayList<>(componentFacade.getAllComponent());
 
         //Then
-        verify(componentService).getAllComponent();
+        verify(componentService).getAll();
         assertEquals(resListComponentDTO.size(), 1);
         Assert.assertTrue(resListComponentDTO.contains(dto));
     }

@@ -39,30 +39,30 @@ public class DriverFacadeImpl implements DriverFacade {
         if (driver.getCharacteristics().size() == 0) {
             addDefaultCharacteristicValuesToDriver(driverEntity);
         }
-        driverService.registerDriver(driverEntity, unencryptedPassword);
+        driverService.register(driverEntity, unencryptedPassword);
     }
 
     @Override
     public boolean authenticate(DriverDetailDTO driver, String password) {
         Driver driverEntity = getDriverEntityFromDriverDetailDTO(driver);
-        return driverService.authenticate(driverEntity, password);
+        return driverService.authenticate(driverEntity.getEmail(), password);
     }
 
     @Override
     public DriverDetailDTO findDriverById(long id) {
-        Driver driverEntity = driverService.findDriverById(id);
+        Driver driverEntity = driverService.findById(id);
         return beanMappingService.mapTo(driverEntity, DriverDetailDTO.class);
     }
 
     @Override
     public DriverDetailDTO findDriverByEmail(String email) {
-        Driver driverEntity = driverService.findDriverByEmail(email);
+        Driver driverEntity = driverService.findByEmail(email);
         return beanMappingService.mapTo(driverEntity, DriverDetailDTO.class);
     }
 
     @Override
     public List<DriverListItemDTO> getAllDrivers() {
-        List<Driver> allDriverEntities = driverService.getAllDrivers();
+        List<Driver> allDriverEntities = driverService.getAll();
         return beanMappingService.mapTo(allDriverEntities, DriverListItemDTO.class);
     }
 
@@ -82,7 +82,7 @@ public class DriverFacadeImpl implements DriverFacade {
     public DriverDetailDTO updateDriversCharacteristicsValue(CharacteristicsValueDTO characteristicsValueDTO) {
         CharacteristicsValue characteristicsValue = beanMappingService.mapTo(characteristicsValueDTO, CharacteristicsValue.class);
         characteristicsValueService.update(characteristicsValue);
-        return beanMappingService.mapTo(driverService.findDriverById(characteristicsValueDTO.getDriver().getId()), DriverDetailDTO.class);
+        return beanMappingService.mapTo(driverService.findById(characteristicsValueDTO.getDriver().getId()), DriverDetailDTO.class);
     }
 
     private void addDefaultCharacteristicValuesToDriver(Driver driver) {

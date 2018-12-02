@@ -4,6 +4,7 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +15,8 @@ import java.util.List;
 @Service
 public class BeanMappingServiceImpl implements BeanMappingService {
 
-    private Mapper dozer = new DozerBeanMapper();
+    @Inject
+    private DozerBeanMapper dozer;
 
     public <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass) {
         List<T> mappedCollection = new ArrayList<>();

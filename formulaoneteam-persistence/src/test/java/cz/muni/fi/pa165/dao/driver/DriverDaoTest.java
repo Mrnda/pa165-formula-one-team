@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.dao.driver;
 import cz.muni.fi.pa165.dao.base.BaseTest;
 import cz.muni.fi.pa165.entity.Driver;
 import org.junit.Test;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import javax.inject.Inject;
 import java.util.List;

@@ -46,7 +46,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         driverFacade.registerDriver(dto, "password");
 
         //Then
-        verify(driverServiceMock, times(1)).registerDriver(driverEntity, "password");
+        verify(driverServiceMock, times(1)).register(driverEntity, "password");
         assertEquals(6, driverEntity.getCharacteristics().size());
     }
 
@@ -55,21 +55,21 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         //Given
         String password = "secret";
         when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(entity);
-        when(driverServiceMock.authenticate(entity, password)).thenReturn(true);
+        when(driverServiceMock.authenticate(entity.getEmail(), password)).thenReturn(true);
 
         //When
         boolean result = driverFacade.authenticate(dto, password);
 
         //Then
         assertTrue(result);
-        verify(driverServiceMock, times(1)).authenticate(entity, password);
+        verify(driverServiceMock, times(1)).authenticate(entity.getEmail(), password);
     }
 
     @Test
     public void findDriverById_withExistingDriver_returnsItsDetail() {
         //Given
         when(beanMappingServiceMock.mapTo(entity, DriverDetailDTO.class)).thenReturn(dto);
-        when(driverServiceMock.findDriverById(dto.getId())).thenReturn(entity);
+        when(driverServiceMock.findById(dto.getId())).thenReturn(entity);
 
         //When
         DriverDetailDTO foundDriver = driverFacade.findDriverById(dto.getId());
@@ -82,7 +82,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
     public void findDriverByEmail_withExistingDriver_returnsItsDetail() {
         //Given
         when(beanMappingServiceMock.mapTo(entity, DriverDetailDTO.class)).thenReturn(dto);
-        when(driverServiceMock.findDriverByEmail(dto.getEmail())).thenReturn(entity);
+        when(driverServiceMock.findByEmail(dto.getEmail())).thenReturn(entity);
 
         //When
         DriverDetailDTO foundDriver = driverFacade.findDriverByEmail(dto.getEmail());
@@ -101,7 +101,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         List<Driver> entitiesCollection = Arrays.asList(johnDoeEntity, janeDoeEntity);
         List<DriverListItemDTO> dtosCollection = Arrays.asList(johnDoe, janeDoe);
         when(beanMappingServiceMock.mapTo(entitiesCollection, DriverListItemDTO.class)).thenReturn(dtosCollection);
-        when(driverServiceMock.getAllDrivers()).thenReturn(entitiesCollection);
+        when(driverServiceMock.getAll()).thenReturn(entitiesCollection);
 
         //When
         List<DriverListItemDTO> allDrivers = driverFacade.getAllDrivers();
@@ -146,7 +146,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
     public void updateCharacteristicsValue_withValidDate_updatesCharacteristics() {
         //Given
         when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(entity);
-        when(driverServiceMock.findDriverById(dto.getId())).thenReturn(entity);
+        when(driverServiceMock.findById(dto.getId())).thenReturn(entity);
         when(beanMappingServiceMock.mapTo(entity, DriverDetailDTO.class)).thenReturn(dto);
         CharacteristicsValueDTO characteristicsValueDTO = createCharacteristicsValueDto(dto);
         CharacteristicsValue characteristicsValue = createCharacteristicsValue(entity);

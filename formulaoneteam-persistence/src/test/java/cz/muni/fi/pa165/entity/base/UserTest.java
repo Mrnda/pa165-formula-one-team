@@ -1,19 +1,21 @@
 package cz.muni.fi.pa165.entity.base;
 
+import cz.muni.fi.pa165.dao.base.BaseTest;
 import nl.jqno.equalsverifier.EqualsVerifier;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-public class UserTest {
+public class UserTest extends BaseTest {
 
     private User user;
 
-    @BeforeMethod
+    @Before
     public void setUp() {
         user = new User() {};
     }
