@@ -35,13 +35,6 @@ public class DaoTest {
     }
 
     @Test
-    public void testAdd_validateCalled() {
-        dao.add(testEntity);
-
-        assertTrue(dao.getValidateCalled());
-    }
-
-    @Test
     public void testDelete_removeCalled() {
         dao.delete(testEntity);
 
@@ -49,24 +42,10 @@ public class DaoTest {
     }
 
     @Test
-    public void testDelete_validateCalled() {
-        dao.delete(testEntity);
-
-        assertTrue(dao.getValidateCalled());
-    }
-
-    @Test
     public void testUpdate_mergeCalled() {
         dao.update(testEntity);
 
         verify(em).merge(testEntity);
-    }
-
-    @Test
-    public void testUpdate_validateCalled() {
-        dao.update(testEntity);
-
-        assertTrue(dao.getValidateCalled());
     }
 
     @Test
@@ -82,18 +61,8 @@ public class DaoTest {
 
     private class TestEntityDaoImpl extends DaoImpl<TestEntity> {
 
-        private Boolean validateCalled;
-
         public TestEntityDaoImpl(EntityManager entityManager) {
             this.entityManager = entityManager;
-        }
-
-        public Boolean getValidateCalled() {
-            return validateCalled;
-        }
-
-        protected void validateEntity(TestEntity entity) {
-            validateCalled = true;
         }
 
         @Override
