@@ -1,9 +1,7 @@
 package cz.muni.fi.pa165.service.facade;
-import cz.muni.fi.pa165.entity.TestDrive;
+
 import cz.muni.fi.pa165.dto.TestDriveDTO;
-import cz.muni.fi.pa165.entity.*;
-import cz.muni.fi.pa165.enums.ComponentType;
-import cz.muni.fi.pa165.enums.DriverStatus;
+import cz.muni.fi.pa165.entity.TestDrive;
 import cz.muni.fi.pa165.service.TestDriveService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
@@ -24,7 +22,7 @@ import static org.testng.AssertJUnit.assertEquals;
  * @author Adel Chakouri
  */
 
-public class TestDriveFacadeImplTest extends BaseFacadeTest {
+public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDriveDTO> {
 
     @Mock
     private TestDriveService testDriveService;
@@ -32,31 +30,19 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest {
     @InjectMocks
     private TestDriveFacadeImpl testDriveFacade;
 
-    private TestDriveDTO testDriveDTO;
-
-    private TestDrive testDrive;
-
     @BeforeMethod
     public void setUp() {
-
-        testDriveDTO = new TestDriveDTO();
-        testDriveDTO.setCar(createCarSetup());
-        testDriveDTO.setDate(new Date());
-        testDriveDTO.setDriver(createDriver());
-        testDriveDTO.setNotes("notes");
-
-        testDrive = createTestDrive();
-        when(beanMappingServiceMock.mapTo(testDriveDTO,TestDrive.class)).thenReturn(testDrive);
+        when(beanMappingServiceMock.mapTo(dto, TestDrive.class)).thenReturn(entity);
     }
 
     @Test
-    public void getAllTestDriveTest(){
+    public void getAllTestDriveTest() {
         //Given
         List<TestDrive> listTestDrive = new ArrayList<>();
-        listTestDrive.add(testDrive);
+        listTestDrive.add(entity);
         when(testDriveService.getAll()).thenReturn(listTestDrive);
         List<TestDriveDTO> listDTOTestDrive = new ArrayList<>();
-        listDTOTestDrive.add(testDriveDTO);
+        listDTOTestDrive.add(dto);
         when(beanMappingServiceMock.mapTo(listTestDrive, TestDriveDTO.class)).thenReturn(listDTOTestDrive);
 
         //When
@@ -64,47 +50,62 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest {
 
         //Then
         verify(testDriveService).getAll();
-        assertEquals(resListTestDriveDTO.size(),1);
-        Assert.assertTrue(resListTestDriveDTO.contains(testDriveDTO));
+        assertEquals(resListTestDriveDTO.size(), 1);
+        Assert.assertTrue(resListTestDriveDTO.contains(dto));
     }
 
     @Test
     void findTestDriveByIdTest() {
         //Given
-        when(beanMappingServiceMock.mapTo(testDrive, TestDriveDTO.class)).thenReturn(testDriveDTO);
-        when(testDriveService.findById(22)).thenReturn(testDrive);
+        when(beanMappingServiceMock.mapTo(entity, TestDriveDTO.class)).thenReturn(dto);
+        when(testDriveService.findById(22)).thenReturn(entity);
 
         //When
-        TestDriveDTO resTestDriveDTO = testDriveFacade.findTestDriveByID(testDrive.getId());
+        TestDriveDTO resTestDriveDTO = testDriveFacade.findTestDriveByID(entity.getId());
 
         //Then
-        assertEquals(resTestDriveDTO,testDriveDTO);
+        assertEquals(resTestDriveDTO, dto);
     }
 
     @Test
     public void deleteTestDriveTest() {
-       //When
-        testDriveFacade.deleteTestDrive(testDriveDTO);
+        //When
+        testDriveFacade.deleteTestDrive(dto);
 
         //Then
-        verify(testDriveService, times(1)).remove(testDrive);
+        verify(testDriveService, times(1)).remove(entity);
     }
 
     @Test
     public void updateTestDriveTest() {
         //When
-        testDriveFacade.updateTestDrive(testDriveDTO);
+        testDriveFacade.updateTestDrive(dto);
 
         //Then
-        verify(testDriveService, times(1)).update(testDrive);
+        verify(testDriveService, times(1)).update(entity);
     }
 
     @Test
     public void addTestDriveTest() {
-       //When
-        testDriveFacade.addTestDrive(testDriveDTO);
+        //When
+        testDriveFacade.addTestDrive(dto);
 
         //Then
-        verify(testDriveService, times(1)).add(testDrive);
+        verify(testDriveService, times(1)).add(entity);
+    }
+
+    @Override
+    protected TestDrive createTestEntity() {
+        return createTestDrive();
+    }
+
+    @Override
+    protected TestDriveDTO createTestDTO() {
+        TestDriveDTO testDriveDTO = new TestDriveDTO();
+        testDriveDTO.setCar(createCarSetup());
+        testDriveDTO.setDate(new Date());
+        testDriveDTO.setDriver(createDriver());
+        testDriveDTO.setNotes("notes");
+        return testDriveDTO;
     }
 }

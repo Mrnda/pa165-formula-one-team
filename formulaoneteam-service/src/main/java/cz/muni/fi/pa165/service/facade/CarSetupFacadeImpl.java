@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.CarSetupDTO;
-import cz.muni.fi.pa165.dto.RaceDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.facade.CarSetupFacade;
 import cz.muni.fi.pa165.service.BeanMappingService;

@@ -23,10 +23,7 @@ import static org.testng.AssertJUnit.assertEquals;
  * @author Théo Desjardins
  */
 
-public class ComponentFacadeImplTest extends BaseFacadeTest {
-
-    private Component testingComponent;
-    private ComponentDTO componentDTO;
+public class ComponentFacadeImplTest extends BaseFacadeTest<Component, ComponentDTO> {
 
     @Mock
     private ComponentService componentService;
@@ -36,58 +33,50 @@ public class ComponentFacadeImplTest extends BaseFacadeTest {
 
     @BeforeMethod
     public void setUp() {
-
-        componentDTO = new ComponentDTO();
-
-        componentDTO.setType(ComponentType.ENGINE);
-        componentDTO.setName("testWithEngine");
-
-        testingComponent = createComponent();
-
-        when(beanMappingServiceMock.mapTo(componentDTO,Component.class)).thenReturn(testingComponent);
+        when(beanMappingServiceMock.mapTo(dto, Component.class)).thenReturn(entity);
     }
 
     @Test
     public void findComponentById() {
         //Given
-        when(componentService.findById(testingComponent.getId())).thenReturn(testingComponent);
-        when(beanMappingServiceMock.mapTo(testingComponent, ComponentDTO.class)).thenReturn(componentDTO);
+        when(componentService.findById(entity.getId())).thenReturn(entity);
+        when(beanMappingServiceMock.mapTo(entity, ComponentDTO.class)).thenReturn(dto);
 
         //When
-        ComponentDTO resComponentDTO = componentFacade.findByID(testingComponent.getId());
+        ComponentDTO resComponentDTO = componentFacade.findByID(entity.getId());
 
         //Then
-        assertEquals(resComponentDTO,componentDTO);
+        assertEquals(resComponentDTO, dto);
     }
 
     @Test
     public void deleteComponentTest() {
 
         //when
-        componentFacade.deleteComponent(componentDTO);
+        componentFacade.deleteComponent(dto);
 
         //then
-        verify(componentService, times(1)).delete(testingComponent);
+        verify(componentService, times(1)).delete(entity);
     }
 
     @Test
     public void updateComponentTest() {
 
         //when
-        componentFacade.updateComponent(componentDTO);
+        componentFacade.updateComponent(dto);
 
         //then
-        verify(componentService, times(1)).update(testingComponent);
+        verify(componentService, times(1)).update(entity);
     }
 
     @Test
     public void addComponentTest() {
 
         //when
-        componentFacade.addComponent(componentDTO);
+        componentFacade.addComponent(dto);
 
         //then
-        verify(componentService, times(1)).add(testingComponent);
+        verify(componentService, times(1)).add(entity);
     }
 
     @Test
@@ -95,10 +84,10 @@ public class ComponentFacadeImplTest extends BaseFacadeTest {
 
         //Given
         List<Component> listComponent = new ArrayList<>();
-        listComponent.add(testingComponent);
+        listComponent.add(entity);
         when(componentService.getAllComponent()).thenReturn(listComponent);
         List<ComponentDTO> listDTOComponent = new ArrayList<>();
-        listDTOComponent.add(componentDTO);
+        listDTOComponent.add(dto);
         when(beanMappingServiceMock.mapTo(listComponent, ComponentDTO.class)).thenReturn(listDTOComponent);
 
         //When
@@ -106,7 +95,20 @@ public class ComponentFacadeImplTest extends BaseFacadeTest {
 
         //Then
         verify(componentService).getAllComponent();
-        assertEquals(resListComponentDTO.size(),1);
-        Assert.assertTrue(resListComponentDTO.contains(componentDTO));
+        assertEquals(resListComponentDTO.size(), 1);
+        Assert.assertTrue(resListComponentDTO.contains(dto));
+    }
+
+    @Override
+    protected Component createTestEntity() {
+        return createComponent();
+    }
+
+    @Override
+    protected ComponentDTO createTestDTO() {
+        ComponentDTO componentDTO = new ComponentDTO();
+        componentDTO.setType(ComponentType.ENGINE);
+        componentDTO.setName("testWithEngine");
+        return componentDTO;
     }
 }

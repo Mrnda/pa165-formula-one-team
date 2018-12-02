@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.dto.DriverDetailDTO;
 import cz.muni.fi.pa165.dto.DriverListItemDTO;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import cz.muni.fi.pa165.entity.Driver;
-import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.service.CharacteristicsValueService;
 import cz.muni.fi.pa165.service.DriverService;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static cz.muni.fi.pa165.enums.CharacteristicsType.AGGRESIVITY;
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -25,7 +25,7 @@ import static org.testng.AssertJUnit.assertTrue;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-public class DriverFacadeImplTests extends BaseFacadeTest {
+public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDTO> {
 
     @Mock
     private DriverService driverServiceMock;
@@ -39,12 +39,11 @@ public class DriverFacadeImplTests extends BaseFacadeTest {
     @Test
     public void registerDriver_withValidData_addsDefaultCharacteristics() {
         //Given
-        DriverDetailDTO driverDetail = createDetailDto();
         Driver driverEntity = createDriver();
-        when(beanMappingServiceMock.mapTo(driverDetail, Driver.class)).thenReturn(driverEntity);
+        when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(driverEntity);
 
         //When
-        driverFacade.registerDriver(driverDetail, "password");
+        driverFacade.registerDriver(dto, "password");
 
         //Then
         verify(driverServiceMock, times(1)).registerDriver(driverEntity, "password");
@@ -54,57 +53,51 @@ public class DriverFacadeImplTests extends BaseFacadeTest {
     @Test
     public void authenticate_withRegisteredDriver_returnsTrue() {
         //Given
-        DriverDetailDTO driverDetail = createDetailDto();
-        Driver driverEntity = createDriver();
         String password = "secret";
-        when(beanMappingServiceMock.mapTo(driverDetail, Driver.class)).thenReturn(driverEntity);
-        when(driverServiceMock.authenticate(driverEntity, password)).thenReturn(true);
+        when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(entity);
+        when(driverServiceMock.authenticate(entity, password)).thenReturn(true);
 
         //When
-        boolean result = driverFacade.authenticate(driverDetail, password);
+        boolean result = driverFacade.authenticate(dto, password);
 
         //Then
         assertTrue(result);
-        verify(driverServiceMock, times(1)).authenticate(driverEntity, password);
+        verify(driverServiceMock, times(1)).authenticate(entity, password);
     }
 
     @Test
     public void findDriverById_withExistingDriver_returnsItsDetail() {
         //Given
-        DriverDetailDTO driverDetail = createDetailDto();
-        Driver driverEntity = createDriver();
-        when(beanMappingServiceMock.mapTo(driverEntity, DriverDetailDTO.class)).thenReturn(driverDetail);
-        when(driverServiceMock.findDriverById(driverDetail.getId())).thenReturn(driverEntity);
+        when(beanMappingServiceMock.mapTo(entity, DriverDetailDTO.class)).thenReturn(dto);
+        when(driverServiceMock.findDriverById(dto.getId())).thenReturn(entity);
 
         //When
-        DriverDetailDTO foundDriver = driverFacade.findDriverById(driverDetail.getId());
+        DriverDetailDTO foundDriver = driverFacade.findDriverById(dto.getId());
 
         //Then
-        assertEquals(foundDriver, driverDetail);
+        assertEquals(foundDriver, dto);
     }
 
     @Test
     public void findDriverByEmail_withExistingDriver_returnsItsDetail() {
         //Given
-        DriverDetailDTO driverDetail = createDetailDto();
-        Driver driverEntity = createDriver();
-        when(beanMappingServiceMock.mapTo(driverEntity, DriverDetailDTO.class)).thenReturn(driverDetail);
-        when(driverServiceMock.findDriverByEmail(driverDetail.getEmail())).thenReturn(driverEntity);
+        when(beanMappingServiceMock.mapTo(entity, DriverDetailDTO.class)).thenReturn(dto);
+        when(driverServiceMock.findDriverByEmail(dto.getEmail())).thenReturn(entity);
 
         //When
-        DriverDetailDTO foundDriver = driverFacade.findDriverByEmail(driverDetail.getEmail());
+        DriverDetailDTO foundDriver = driverFacade.findDriverByEmail(dto.getEmail());
 
         //Then
-        assertEquals(foundDriver, driverDetail);
+        assertEquals(foundDriver, dto);
     }
 
     @Test
     public void getAllDrivers_withExistingDrivers_returnsAllListItemDtos() {
         //Given
-        DriverListItemDTO johnDoe = createListItemDto("John", "Doe", "john@doe.com", DriverStatus.TEST);
-        DriverListItemDTO janeDoe = createListItemDto("Jane", "Doe", "jane@doe.com", DriverStatus.MAIN);
-        Driver johnDoeEntity = createDriver("John", "Doe", "john@doe.com", DriverStatus.TEST);
-        Driver janeDoeEntity = createDriver("Jane", "Doe", "jane@doe.com", DriverStatus.MAIN);
+        DriverListItemDTO johnDoe = createListItemDto("John", "john@doe.com", DriverStatus.TEST);
+        DriverListItemDTO janeDoe = createListItemDto("Jane", "jane@doe.com", DriverStatus.MAIN);
+        Driver johnDoeEntity = createDriver("John", "john@doe.com", DriverStatus.TEST);
+        Driver janeDoeEntity = createDriver("Jane", "jane@doe.com", DriverStatus.MAIN);
         List<Driver> entitiesCollection = Arrays.asList(johnDoeEntity, janeDoeEntity);
         List<DriverListItemDTO> dtosCollection = Arrays.asList(johnDoe, janeDoe);
         when(beanMappingServiceMock.mapTo(entitiesCollection, DriverListItemDTO.class)).thenReturn(dtosCollection);
@@ -120,10 +113,10 @@ public class DriverFacadeImplTests extends BaseFacadeTest {
     @Test
     public void getAllDriversByStatus_withExistingDrivers_returnsAllListItemDtos() {
         //Given
-        DriverListItemDTO johnDoe = createListItemDto("John", "Doe", "john@doe.com", DriverStatus.TEST);
-        DriverListItemDTO janeDoe = createListItemDto("Jane", "Doe", "jane@doe.com", DriverStatus.TEST);
-        Driver johnDoeEntity = createDriver("John", "Doe", "john@doe.com", DriverStatus.TEST);
-        Driver janeDoeEntity = createDriver("Jane", "Doe", "jane@doe.com", DriverStatus.TEST);
+        DriverListItemDTO johnDoe = createListItemDto("John", "john@doe.com", DriverStatus.TEST);
+        DriverListItemDTO janeDoe = createListItemDto("Jane", "jane@doe.com", DriverStatus.TEST);
+        Driver johnDoeEntity = createDriver("John", "john@doe.com", DriverStatus.TEST);
+        Driver janeDoeEntity = createDriver("Jane", "jane@doe.com", DriverStatus.TEST);
         List<Driver> entitiesCollection = Arrays.asList(johnDoeEntity, janeDoeEntity);
         List<DriverListItemDTO> dtosCollection = Arrays.asList(johnDoe, janeDoe);
         when(beanMappingServiceMock.mapTo(entitiesCollection, DriverListItemDTO.class)).thenReturn(dtosCollection);
@@ -139,62 +132,41 @@ public class DriverFacadeImplTests extends BaseFacadeTest {
     @Test
     public void findDriverWithHighestCharacteristicsValue_withExistingDriver_returnsItsDetail() {
         //Given
-        DriverDetailDTO driverDetail = createDetailDto();
-        Driver driverEntity = createDriver();
-        when(beanMappingServiceMock.mapTo(driverEntity, DriverDetailDTO.class)).thenReturn(driverDetail);
-        when(driverServiceMock.findDriverWithHighestCharacteristicsValue(CharacteristicsType.AGGRESIVITY)).thenReturn(driverEntity);
+        when(beanMappingServiceMock.mapTo(entity, DriverDetailDTO.class)).thenReturn(dto);
+        when(driverServiceMock.findDriverWithHighestCharacteristicsValue(AGGRESIVITY)).thenReturn(entity);
 
         //When
-        DriverDetailDTO foundDriver = driverFacade.findDriverWithHighestCharacteristicsValue(CharacteristicsType.AGGRESIVITY);
+        DriverDetailDTO foundDriver = driverFacade.findDriverWithHighestCharacteristicsValue(AGGRESIVITY);
 
         //Then
-        assertEquals(foundDriver, driverDetail);
+        assertEquals(foundDriver, dto);
     }
 
     @Test
     public void updateCharacteristicsValue_withValidDate_updatesCharacteristics() {
         //Given
-        DriverDetailDTO driverDetail = createDetailDto();
-        Driver driverEntity = createDriver();
-        when(beanMappingServiceMock.mapTo(driverDetail, Driver.class)).thenReturn(driverEntity);
-        when(driverServiceMock.findDriverById(driverDetail.getId())).thenReturn(driverEntity);
-        when(beanMappingServiceMock.mapTo(driverEntity, DriverDetailDTO.class)).thenReturn(driverDetail);
-        CharacteristicsValueDTO characteristicsValueDTO = createCharacteristicsValueDto(driverDetail);
-        CharacteristicsValue characteristicsValue = createCharacteristicsValue(driverEntity);
+        when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(entity);
+        when(driverServiceMock.findDriverById(dto.getId())).thenReturn(entity);
+        when(beanMappingServiceMock.mapTo(entity, DriverDetailDTO.class)).thenReturn(dto);
+        CharacteristicsValueDTO characteristicsValueDTO = createCharacteristicsValueDto(dto);
+        CharacteristicsValue characteristicsValue = createCharacteristicsValue(entity);
         when(beanMappingServiceMock.mapTo(characteristicsValueDTO, CharacteristicsValue.class)).thenReturn(characteristicsValue);
 
         //When
         DriverDetailDTO updatedDriverDetailDTO = driverFacade.updateDriversCharacteristicsValue(characteristicsValueDTO);
 
         //Then
-        assertEquals(driverDetail, updatedDriverDetailDTO);
+        assertEquals(dto, updatedDriverDetailDTO);
         verify(characteristicsValueServiceMock, times(1)).update(characteristicsValue);
     }
 
-    private CharacteristicsValue createCharacteristicsValue(Driver driverEntity) {
-        return new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 50.0, driverEntity);
+    @Override
+    protected Driver createTestEntity() {
+        return createDriver();
     }
 
-    private CharacteristicsValueDTO createCharacteristicsValueDto(DriverDetailDTO driverDetail) {
-        CharacteristicsValueDTO characteristicsValueDTO = new CharacteristicsValueDTO();
-        characteristicsValueDTO.setDriver(driverDetail);
-        characteristicsValueDTO.setType(CharacteristicsType.AGGRESIVITY);
-        characteristicsValueDTO.setValue(50.0);
-        return characteristicsValueDTO;
-    }
-
-    private DriverListItemDTO createListItemDto(String name, String surname, String email, DriverStatus status ) {
-        DriverListItemDTO driverListItemDto = new DriverListItemDTO();
-        driverListItemDto.setName(name);
-        driverListItemDto.setSurname(surname);
-        driverListItemDto.setEmail(email);
-        driverListItemDto.setNationality("American");
-        driverListItemDto.setBirthday(createDate(2, 9, 1989));
-        driverListItemDto.setDriverStatus(status);
-        return driverListItemDto;
-    }
-
-    private DriverDetailDTO createDetailDto() {
+    @Override
+    protected DriverDetailDTO createTestDTO() {
         DriverDetailDTO driverDetailDTO = new DriverDetailDTO();
         driverDetailDTO.setName("John");
         driverDetailDTO.setSurname("Doe");
@@ -206,9 +178,32 @@ public class DriverFacadeImplTests extends BaseFacadeTest {
         return driverDetailDTO;
     }
 
-    private Driver createDriver(String name, String surname, String email, DriverStatus status) {
+    private CharacteristicsValue createCharacteristicsValue(Driver driverEntity) {
+        return new CharacteristicsValue(AGGRESIVITY, 50.0, driverEntity);
+    }
+
+    private CharacteristicsValueDTO createCharacteristicsValueDto(DriverDetailDTO driverDetail) {
+        CharacteristicsValueDTO characteristicsValueDTO = new CharacteristicsValueDTO();
+        characteristicsValueDTO.setDriver(driverDetail);
+        characteristicsValueDTO.setType(AGGRESIVITY);
+        characteristicsValueDTO.setValue(50.0);
+        return characteristicsValueDTO;
+    }
+
+    private DriverListItemDTO createListItemDto(String name, String email, DriverStatus status) {
+        DriverListItemDTO driverListItemDto = new DriverListItemDTO();
+        driverListItemDto.setName(name);
+        driverListItemDto.setSurname("Doe");
+        driverListItemDto.setEmail(email);
+        driverListItemDto.setNationality("American");
+        driverListItemDto.setBirthday(createDate(2, 9, 1989));
+        driverListItemDto.setDriverStatus(status);
+        return driverListItemDto;
+    }
+
+    private Driver createDriver(String name, String email, DriverStatus status) {
         return new Driver(name,
-                surname,
+                "Doe",
                 email,
                 "",
                 "American",

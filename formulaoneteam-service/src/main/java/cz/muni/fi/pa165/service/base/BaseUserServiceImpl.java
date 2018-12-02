@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.base;
 
 import cz.muni.fi.pa165.dao.base.UserDao;
 import cz.muni.fi.pa165.entity.base.User;
+import cz.muni.fi.pa165.service.facade.base.BaseUserService;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import cz.muni.fi.pa165.service.utils.Validator;
 
@@ -24,8 +25,8 @@ public abstract class BaseUserServiceImpl<T extends User, D extends UserDao<T>>
     }
 
     @Override
-    public boolean authenticate(T user, String password) {
-        return Validator.validatePassword(password, user.getPasswordHash());
+    public boolean authenticate(String email, String password) {
+        return Validator.validatePassword(password, dao.findByEmail(email).getPasswordHash());
     }
 
     @Override

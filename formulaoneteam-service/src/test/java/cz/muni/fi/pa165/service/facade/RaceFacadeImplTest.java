@@ -21,7 +21,7 @@ import static org.testng.AssertJUnit.assertEquals;
  * @author Adel Chakouri
  */
 
-public class RaceFacadeImplTest extends BaseFacadeTest {
+public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
 
     @Mock
     private RaceService raceService;
@@ -29,30 +29,19 @@ public class RaceFacadeImplTest extends BaseFacadeTest {
     @InjectMocks
     private RaceFacadeImpl raceFacade;
 
-    private RaceDTO raceDTO;
-
-    private Race race;
-
     @BeforeMethod
     public void setUp() {
-
-        raceDTO = new RaceDTO();
-        raceDTO.setDate(new Date());
-        raceDTO.setLocation("location");
-        raceDTO.setTitle("GP Monaco");
-
-        race = createRace();
-        when(beanMappingServiceMock.mapTo(raceDTO,Race.class)).thenReturn(race);
+        when(beanMappingServiceMock.mapTo(dto, Race.class)).thenReturn(entity);
     }
 
     @Test
-    public void getAllRacesTest(){
+    public void getAllRacesTest() {
         //Given
         List<Race> listRaces = new ArrayList<>();
-        listRaces.add(race);
+        listRaces.add(entity);
         when(raceService.getAll()).thenReturn(listRaces);
         List<RaceDTO> listDTORaces = new ArrayList<>();
-        listDTORaces.add(raceDTO);
+        listDTORaces.add(dto);
         when(beanMappingServiceMock.mapTo(listRaces, RaceDTO.class)).thenReturn(listDTORaces);
 
         //When
@@ -60,47 +49,61 @@ public class RaceFacadeImplTest extends BaseFacadeTest {
 
         //Then
         verify(raceService).getAll();
-        assertEquals(resListRaceDTO.size(),1);
-        Assert.assertTrue(resListRaceDTO.contains(raceDTO));
+        assertEquals(resListRaceDTO.size(), 1);
+        Assert.assertTrue(resListRaceDTO.contains(dto));
     }
 
     @Test
     public void findRaceById() {
         //Given
-        when(beanMappingServiceMock.mapTo(race, RaceDTO.class)).thenReturn(raceDTO);
-        when(raceService.findById(3L)).thenReturn(race);
+        when(beanMappingServiceMock.mapTo(entity, RaceDTO.class)).thenReturn(dto);
+        when(raceService.findById(3L)).thenReturn(entity);
 
         //When
-        RaceDTO resRaceDTO = raceFacade.findRaceByID(race.getId());
+        RaceDTO resRaceDTO = raceFacade.findRaceByID(entity.getId());
 
         //Then
-        assertEquals(resRaceDTO,raceDTO);
+        assertEquals(resRaceDTO, dto);
     }
 
     @Test
     public void deleteRaceTest() {
         //When
-        raceFacade.deleteRace(raceDTO);
+        raceFacade.deleteRace(dto);
 
         //Then
-        verify(raceService, times(1)).remove(race);
+        verify(raceService, times(1)).remove(entity);
     }
 
     @Test
     public void updateRaceTest() {
         //When
-        raceFacade.updateRace(raceDTO);
+        raceFacade.updateRace(dto);
 
         //Then
-        verify(raceService, times(1)).update(race);
+        verify(raceService, times(1)).update(entity);
     }
 
     @Test
     public void addRaceTest() {
         //When
-        raceFacade.addRace(raceDTO);
+        raceFacade.addRace(dto);
 
         //Then
-        verify(raceService, times(1)).add(race);
+        verify(raceService, times(1)).add(entity);
+    }
+
+    @Override
+    protected Race createTestEntity() {
+        return createRace();
+    }
+
+    @Override
+    protected RaceDTO createTestDTO() {
+        RaceDTO raceDTO = new RaceDTO();
+        raceDTO.setDate(new Date());
+        raceDTO.setLocation("location");
+        raceDTO.setTitle("GP Monaco");
+        return raceDTO;
     }
 }

@@ -9,8 +9,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -18,7 +20,7 @@ import static org.testng.AssertJUnit.assertEquals;
  * @author Adel Chakouri
  */
 
-public class RaceParticipationFacadeImplTest extends BaseFacadeTest {
+public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticipation, RaceParticipationDTO> {
 
     @Mock
     private RaceParticipationService raceParticipationService;
@@ -26,32 +28,19 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest {
     @InjectMocks
     private RaceParticipationFacadeImpl raceParticipationFacade;
 
-    private RaceParticipationDTO raceParticipationDTO;
-
-    private RaceParticipation raceParticipation;
-
-
     @BeforeMethod
     public void setUp() {
-
-        raceParticipationDTO = new RaceParticipationDTO();
-        raceParticipationDTO.setCar(createCarSetup());
-        raceParticipationDTO.setDriver(createDriver());
-        raceParticipationDTO.setRace(createRace());
-        raceParticipationDTO.setResultPosition(1);
-
-        raceParticipation = createRaceParticipation();
-        when(beanMappingServiceMock.mapTo(raceParticipationDTO,RaceParticipation.class)).thenReturn(raceParticipation);
+        when(beanMappingServiceMock.mapTo(dto, RaceParticipation.class)).thenReturn(entity);
     }
 
     @Test
-    public void getAllRaceParticipationTest(){
+    public void getAllRaceParticipationTest() {
         //Given
         List<RaceParticipation> listRaceParticipation = new ArrayList<>();
-        listRaceParticipation.add(raceParticipation);
+        listRaceParticipation.add(entity);
         when(raceParticipationService.getAll()).thenReturn(listRaceParticipation);
         List<RaceParticipationDTO> listDTORaceParticipation = new ArrayList<>();
-        listDTORaceParticipation.add(raceParticipationDTO);
+        listDTORaceParticipation.add(dto);
         when(beanMappingServiceMock.mapTo(listRaceParticipation, RaceParticipationDTO.class)).thenReturn(listDTORaceParticipation);
 
         //When
@@ -59,47 +48,62 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest {
 
         //Then
         verify(raceParticipationService).getAll();
-        assertEquals(resListRaceParticipationDTO.size(),1);
-        Assert.assertTrue(resListRaceParticipationDTO.contains(raceParticipationDTO));
+        assertEquals(resListRaceParticipationDTO.size(), 1);
+        Assert.assertTrue(resListRaceParticipationDTO.contains(dto));
     }
 
     @Test
     public void findRaceParticipationById() {
         //Given
-        when(beanMappingServiceMock.mapTo(raceParticipation, RaceParticipationDTO.class)).thenReturn(raceParticipationDTO);
-        when(raceParticipationService.findById(1)).thenReturn(raceParticipation);
+        when(beanMappingServiceMock.mapTo(entity, RaceParticipationDTO.class)).thenReturn(dto);
+        when(raceParticipationService.findById(1)).thenReturn(entity);
 
         //When
-        RaceParticipationDTO resRaceParticipationDTO = raceParticipationFacade.findRaceParticipationById(raceParticipation.getId());
+        RaceParticipationDTO resRaceParticipationDTO = raceParticipationFacade.findRaceParticipationById(entity.getId());
 
         //Then
-        assertEquals(resRaceParticipationDTO,raceParticipationDTO);
+        assertEquals(resRaceParticipationDTO, dto);
     }
 
     @Test
     public void deleteRaceParticipationTest() {
-       //When
-        raceParticipationFacade.deleteRaceParticipation(raceParticipationDTO);
+        //When
+        raceParticipationFacade.deleteRaceParticipation(dto);
 
         //Then
-        verify(raceParticipationService, times(1)).remove(raceParticipation);
+        verify(raceParticipationService, times(1)).remove(entity);
     }
 
     @Test
     public void updateRaceParticipationTest() {
-       //When
-        raceParticipationFacade.updateRaceParticipation(raceParticipationDTO);
+        //When
+        raceParticipationFacade.updateRaceParticipation(dto);
 
         //Then
-        verify(raceParticipationService, times(1)).update(raceParticipation);
+        verify(raceParticipationService, times(1)).update(entity);
     }
 
     @Test
     public void addRaceParticipationTest() {
         //When
-        raceParticipationFacade.addRaceParticipation(raceParticipationDTO);
+        raceParticipationFacade.addRaceParticipation(dto);
 
         //Then
-        verify(raceParticipationService, times(1)).add(raceParticipation);
+        verify(raceParticipationService, times(1)).add(entity);
+    }
+
+    @Override
+    protected RaceParticipation createTestEntity() {
+        return createRaceParticipation();
+    }
+
+    @Override
+    protected RaceParticipationDTO createTestDTO() {
+        RaceParticipationDTO raceParticipationDTO = new RaceParticipationDTO();
+        raceParticipationDTO.setCar(createCarSetup());
+        raceParticipationDTO.setDriver(createDriver());
+        raceParticipationDTO.setRace(createRace());
+        raceParticipationDTO.setResultPosition(1);
+        return raceParticipationDTO;
     }
 }

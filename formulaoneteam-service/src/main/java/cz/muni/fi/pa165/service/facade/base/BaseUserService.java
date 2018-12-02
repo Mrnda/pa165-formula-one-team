@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.service.base;
+package cz.muni.fi.pa165.service.facade.base;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
@@ -9,7 +9,7 @@ public interface BaseUserService<T extends BaseEntity> extends BaseService<T> {
 
     void register(T entity, String unencryptedPassword);
 
-    boolean authenticate(T entity, String password);
+    boolean authenticate(String email, String password);
 
     T findByEmail(String email);
 }

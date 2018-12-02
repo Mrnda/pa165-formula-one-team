@@ -76,10 +76,10 @@ public class ManagerServiceImplTests extends BaseServiceTest<Manager> {
 
         //when
         entity.setPasswordHash(Validator.createHash(password));
-        when(dao.findById(entity.getId())).thenReturn(entity);
+        when(dao.findByEmail(entity.getEmail())).thenReturn(entity);
 
         //then
-        assertTrue(service.authenticate(entity, password));
+        assertTrue(service.authenticate(entity.getEmail(), password));
     }
 
     @Test
@@ -90,10 +90,10 @@ public class ManagerServiceImplTests extends BaseServiceTest<Manager> {
 
         //when
         entity.setPasswordHash(Validator.createHash(validPassword));
-        when(dao.findById(entity.getId())).thenReturn(entity);
+        when(dao.findByEmail(entity.getEmail())).thenReturn(entity);
 
         //then
-        assertFalse(service.authenticate(entity, invalidPassword));
+        assertFalse(service.authenticate(entity.getEmail(), invalidPassword));
     }
 
     @Test
