@@ -226,8 +226,6 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
                 race,
                 RaceParticipation.NO_RESULT_POSITION);
         verify(dao, times(2)).add(firstParticipation);
-        assertEquals(2, raceParticipations.size());
-        assertTrue(raceParticipations.contains(firstParticipation));
     }
 
     @Override

@@ -10,13 +10,10 @@ import cz.muni.fi.pa165.service.RaceParticipationService;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import cz.muni.fi.pa165.service.facade.base.BaseEntityFacadeImpl;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Adel Chakouri
@@ -51,7 +48,7 @@ public class RaceParticipationFacadeImpl
                         beanMappingService.mapTo(worldChampionshipSetupDTO.getSecondDriver(), Driver.class));
 
         final List<RaceParticipation> raceParticipations =
-                raceParticipationService.participateInWorldChampionship(
+                service.participateInWorldChampionship(
                         worldChampionshipSetupDTO.getDate(),
                         worldChampionshipSetupDTO.getLocation(),
                         Arrays.asList(firstDriverCarSetupPair, secondDriverCarSetupPair));
