@@ -11,8 +11,8 @@ import java.util.Date;
  */
 public class TestDriveDTO extends BaseDTO {
 
-    private CarSetup car;
-    private Driver driver;
+    private CarSetupDTO car;
+    private DriverDetailDTO driver;
     private String notes;
     private Date date;
 
@@ -24,19 +24,19 @@ public class TestDriveDTO extends BaseDTO {
         this.date = date;
     }
 
-    public CarSetup getCar() {
+    public CarSetupDTO getCar() {
         return car;
     }
 
-    public void setCar(CarSetup car) {
+    public void setCar(CarSetupDTO car) {
         this.car = car;
     }
 
-    public Driver getDriver() {
+    public DriverDetailDTO getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
+    public void setDriver(DriverDetailDTO driver) {
         this.driver = driver;
     }
 

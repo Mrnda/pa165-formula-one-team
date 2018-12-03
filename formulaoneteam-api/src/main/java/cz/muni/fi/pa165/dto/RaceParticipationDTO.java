@@ -10,32 +10,32 @@ import cz.muni.fi.pa165.entity.Race;
  */
 public class RaceParticipationDTO extends BaseDTO {
 
-    private CarSetup car;
-    private Driver driver;
-    private Race race;
+    private CarSetupDTO car;
+    private DriverDetailDTO driver;
+    private RaceDTO race;
     private int resultPosition;
 
-    public CarSetup getCar() {
+    public CarSetupDTO getCar() {
         return car;
     }
 
-    public void setCar(CarSetup car) {
+    public void setCar(CarSetupDTO car) {
         this.car = car;
     }
 
-    public Driver getDriver() {
+    public DriverDetailDTO getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
+    public void setDriver(DriverDetailDTO driver) {
         this.driver = driver;
     }
 
-    public Race getRace() {
+    public RaceDTO getRace() {
         return race;
     }
 
-    public void setRace(Race race) {
+    public void setRace(RaceDTO race) {
         this.race = race;
     }
 
