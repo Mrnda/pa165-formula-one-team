@@ -7,7 +7,6 @@ import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.service.BeanMappingService;
-import org.dozer.DozerBeanMapper;
 import org.junit.Before;
 import org.mockito.Mock;
 
@@ -18,9 +17,6 @@ import java.util.Date;
  * @author elderanakain (Arcadii Rubailo)
  */
 public abstract class BaseFacadeTest<E extends BaseEntity, DTO extends BaseDTO> extends BaseTest {
-
-    @Mock
-    private DozerBeanMapper dozerBeanMapper;
 
     @Mock
     protected BeanMappingService beanMappingServiceMock;

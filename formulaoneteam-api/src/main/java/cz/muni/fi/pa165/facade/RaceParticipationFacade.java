@@ -5,22 +5,13 @@ import cz.muni.fi.pa165.dto.WorldChampionshipSetupDTO;
 
 import java.util.Collection;
 import java.util.List;
+import cz.muni.fi.pa165.entity.RaceParticipation;
+import cz.muni.fi.pa165.facade.base.BaseEntityFacade;
 
 /**
  * @author Adel Chakouri
  */
 
-public interface RaceParticipationFacade {
-
-    RaceParticipationDTO findRaceParticipationById(long id);
-
-    void deleteRaceParticipation(RaceParticipationDTO raceParticipationDTO);
-
-    void addRaceParticipation(RaceParticipationDTO raceParticipationDTO);
-
-    void updateRaceParticipation(RaceParticipationDTO raceParticipationDTO);
-
-    List<RaceParticipationDTO> getAllRaceParticipation();
-
+public interface RaceParticipationFacade extends BaseEntityFacade<RaceParticipationDTO, RaceParticipation> {
     List<RaceParticipationDTO> participateInWorldChampionship(WorldChampionshipSetupDTO worldChampionshipSetupDTO);
 }

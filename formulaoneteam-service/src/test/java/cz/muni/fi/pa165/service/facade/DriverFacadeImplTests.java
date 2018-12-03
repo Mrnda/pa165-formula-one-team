@@ -15,6 +15,7 @@ import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static cz.muni.fi.pa165.enums.CharacteristicsType.AGGRESIVITY;
@@ -43,7 +44,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(driverEntity);
 
         //When
-        driverFacade.registerDriver(dto, "password");
+        driverFacade.register(dto, "password");
 
         //Then
         verify(driverServiceMock, times(1)).register(driverEntity, "password");
@@ -55,14 +56,14 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         //Given
         String password = "secret";
         when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(entity);
-        when(driverServiceMock.authenticate(entity.getEmail(), password)).thenReturn(true);
+        when(driverServiceMock.authenticate(dto.getEmail(), password)).thenReturn(true);
 
         //When
-        boolean result = driverFacade.authenticate(dto, password);
+        boolean result = driverFacade.authenticate(dto.getEmail(), password);
 
         //Then
         assertTrue(result);
-        verify(driverServiceMock, times(1)).authenticate(entity.getEmail(), password);
+        verify(driverServiceMock, times(1)).authenticate(dto.getEmail(), password);
     }
 
     @Test
@@ -72,7 +73,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         when(driverServiceMock.findById(dto.getId())).thenReturn(entity);
 
         //When
-        DriverDetailDTO foundDriver = driverFacade.findDriverById(dto.getId());
+        DriverDetailDTO foundDriver = driverFacade.findById(dto.getId());
 
         //Then
         assertEquals(foundDriver, dto);
@@ -85,7 +86,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         when(driverServiceMock.findByEmail(dto.getEmail())).thenReturn(entity);
 
         //When
-        DriverDetailDTO foundDriver = driverFacade.findDriverByEmail(dto.getEmail());
+        DriverDetailDTO foundDriver = driverFacade.findByEmail(dto.getEmail());
 
         //Then
         assertEquals(foundDriver, dto);

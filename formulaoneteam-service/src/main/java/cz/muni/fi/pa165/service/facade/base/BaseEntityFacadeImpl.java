@@ -13,16 +13,19 @@ public abstract class BaseEntityFacadeImpl<DTO extends BaseDTO, E extends BaseEn
 
     @Override
     public void add(DTO dto) {
+        if (dto == null) throw new IllegalArgumentException("null DTO, cannot add");
         service.add(beanMappingService.mapTo(dto, getEntityClass()));
     }
 
     @Override
     public void remove(DTO dto) {
+        if (dto == null) throw new IllegalArgumentException("null DTO, cannot delete");
         service.remove(beanMappingService.mapTo(dto, getEntityClass()));
     }
 
     @Override
     public void update(DTO dto) {
+        if (dto == null) throw new IllegalArgumentException("null raceDTO, cannot update");
         service.update(beanMappingService.mapTo(dto, getEntityClass()));
     }
 }
