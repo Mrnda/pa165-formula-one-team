@@ -106,9 +106,6 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
 
     @Override
     protected ComponentDTO createTestDTO() {
-        ComponentDTO componentDTO = new ComponentDTO();
-        componentDTO.setType(ComponentType.ENGINE);
-        componentDTO.setName("testWithEngine");
-        return componentDTO;
+        return createComponentDTO();
     }
 }

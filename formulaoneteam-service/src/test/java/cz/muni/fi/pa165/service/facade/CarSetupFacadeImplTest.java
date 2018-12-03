@@ -104,13 +104,6 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
 
     @Override
     protected CarSetupDTO createTestDTO() {
-        CarSetupDTO dto = new CarSetupDTO();
-        dto.setEngine(new ComponentDTO());
-        dto.setSuspension(new ComponentDTO());
-        dto.setBrakes(new ComponentDTO());
-        dto.setCover(new ComponentDTO());
-        dto.setTires(new ComponentDTO());
-        dto.setTransmission(new ComponentDTO());
-        return dto;
+        return createCarSetupDTO();
     }
 }

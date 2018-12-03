@@ -1,12 +1,14 @@
 package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.RaceParticipationDTO;
+import cz.muni.fi.pa165.dto.WorldChampionshipSetupDTO;
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.service.RaceParticipationService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.data.util.Pair;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -92,6 +94,39 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
         verify(raceParticipationService, times(1)).add(entity);
     }
 
+    @Test
+    public void participateInWorldChampionship_createsTheChampionship() {
+        //Given
+        final WorldChampionshipSetupDTO worldChampionshipDTO = createWorldChampionshipDTO();
+        final Driver driverEntity = createDriver();
+        final CarSetup carSetupEntity = createCarSetup();
+        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getFirstDriver(), Driver.class)).thenReturn(driverEntity);
+        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getSecondDriver(), Driver.class)).thenReturn(driverEntity);
+        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getFirstCarSetup(), CarSetup.class)).thenReturn(carSetupEntity);
+        when(beanMappingServiceMock.mapTo(worldChampionshipDTO.getSecondCarSetup(), CarSetup.class)).thenReturn(carSetupEntity);
+
+        //When
+        final List<RaceParticipationDTO> raceParticipationDTOS = raceParticipationFacade.participateInWorldChampionship(worldChampionshipDTO);
+
+        //Then
+        verify(raceParticipationService, times(1))
+                .participateInWorldChampionship(worldChampionshipDTO.getDate(),
+                        worldChampionshipDTO.getLocation(),
+                        Pair.of(carSetupEntity, driverEntity),
+                        Pair.of(carSetupEntity, driverEntity));
+    }
+
+    private WorldChampionshipSetupDTO createWorldChampionshipDTO() {
+        final WorldChampionshipSetupDTO worldChampionshipSetupDTO = new WorldChampionshipSetupDTO();
+        worldChampionshipSetupDTO.setDate(createDate(2, 11, 2019));
+        worldChampionshipSetupDTO.setLocation("Barcelona");
+        worldChampionshipSetupDTO.setFirstCarSetup(createCarSetupDTO());
+        worldChampionshipSetupDTO.setSecondCarSetup(createCarSetupDTO());
+        worldChampionshipSetupDTO.setFirstDriver(createDriverDetailDTO());
+        worldChampionshipSetupDTO.setSecondDriver(createDriverDetailDTO());
+        return worldChampionshipSetupDTO;
+    }
+
     @Override
     protected RaceParticipation createTestEntity() {
         return createRaceParticipation();
@@ -99,11 +134,6 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
 
     @Override
     protected RaceParticipationDTO createTestDTO() {
-        RaceParticipationDTO raceParticipationDTO = new RaceParticipationDTO();
-        raceParticipationDTO.setCar(createCarSetup());
-        raceParticipationDTO.setDriver(createDriver());
-        raceParticipationDTO.setRace(createRace());
-        raceParticipationDTO.setResultPosition(1);
-        return raceParticipationDTO;
+        return creaateRaceParticipationDTO();
     }
 }

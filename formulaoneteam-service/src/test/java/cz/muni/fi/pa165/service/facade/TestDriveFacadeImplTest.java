@@ -101,11 +101,6 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
 
     @Override
     protected TestDriveDTO createTestDTO() {
-        TestDriveDTO testDriveDTO = new TestDriveDTO();
-        testDriveDTO.setCar(createCarSetup());
-        testDriveDTO.setDate(new Date());
-        testDriveDTO.setDriver(createDriver());
-        testDriveDTO.setNotes("notes");
-        return testDriveDTO;
+        return createTestDriveDTO();
     }
 }

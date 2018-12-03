@@ -100,10 +100,6 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
 
     @Override
     protected RaceDTO createTestDTO() {
-        RaceDTO raceDTO = new RaceDTO();
-        raceDTO.setDate(new Date());
-        raceDTO.setLocation("location");
-        raceDTO.setTitle("GP Monaco");
-        return raceDTO;
+        return createRaceDTO();
     }
 }
