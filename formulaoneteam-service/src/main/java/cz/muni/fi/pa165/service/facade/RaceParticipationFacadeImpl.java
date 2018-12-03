@@ -65,13 +65,21 @@ public class RaceParticipationFacadeImpl implements RaceParticipationFacade {
     public List<RaceParticipationDTO> participateInWorldChampionship(WorldChampionshipSetupDTO worldChampionshipSetupDTO) {
         if (worldChampionshipSetupDTO == null)
             throw new IllegalArgumentException("worldChampionshipSetupDTO can't be null");
-        final Pair<CarSetup, Driver> firstDriverCarSetupPair = Pair.of(beanMappingService.mapTo(worldChampionshipSetupDTO.getFirstCarSetup(), CarSetup.class),
-                beanMappingService.mapTo(worldChampionshipSetupDTO.getFirstDriver(), Driver.class));
-        final Pair<CarSetup, Driver> secondDriverCarSetupPair = Pair.of(beanMappingService.mapTo(worldChampionshipSetupDTO.getSecondCarSetup(), CarSetup.class),
-                beanMappingService.mapTo(worldChampionshipSetupDTO.getSecondDriver(), Driver.class));
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(worldChampionshipSetupDTO.getDate(),
-                worldChampionshipSetupDTO.getLocation(),
-                Arrays.asList(firstDriverCarSetupPair, secondDriverCarSetupPair));
+
+        final Pair<CarSetup, Driver> firstDriverCarSetupPair =
+                Pair.of(beanMappingService.mapTo(worldChampionshipSetupDTO.getFirstCarSetup(), CarSetup.class),
+                        beanMappingService.mapTo(worldChampionshipSetupDTO.getFirstDriver(), Driver.class));
+
+        final Pair<CarSetup, Driver> secondDriverCarSetupPair =
+                Pair.of(beanMappingService.mapTo(worldChampionshipSetupDTO.getSecondCarSetup(), CarSetup.class),
+                        beanMappingService.mapTo(worldChampionshipSetupDTO.getSecondDriver(), Driver.class));
+
+        final List<RaceParticipation> raceParticipations =
+                raceParticipationService.participateInWorldChampionship(
+                        worldChampionshipSetupDTO.getDate(),
+                        worldChampionshipSetupDTO.getLocation(),
+                        Arrays.asList(firstDriverCarSetupPair, secondDriverCarSetupPair));
+
         return beanMappingService.mapTo(raceParticipations, RaceParticipationDTO.class);
     }
 }
