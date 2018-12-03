@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class WorldChampionshipSetupDTO {
     private Date date;
@@ -56,5 +57,23 @@ public class WorldChampionshipSetupDTO {
 
     public void setSecondDriver(DriverDetailDTO secondDriver) {
         this.secondDriver = secondDriver;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof WorldChampionshipSetupDTO)) return false;
+        WorldChampionshipSetupDTO that = (WorldChampionshipSetupDTO) o;
+        return Objects.equals(getDate(), that.getDate()) &&
+                Objects.equals(getLocation(), that.getLocation()) &&
+                Objects.equals(getFirstCarSetup(), that.getFirstCarSetup()) &&
+                Objects.equals(getFirstDriver(), that.getFirstDriver()) &&
+                Objects.equals(getSecondCarSetup(), that.getSecondCarSetup()) &&
+                Objects.equals(getSecondDriver(), that.getSecondDriver());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDate(), getLocation(), getFirstCarSetup(), getFirstDriver(), getSecondCarSetup(), getSecondDriver());
     }
 }
