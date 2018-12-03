@@ -25,10 +25,10 @@ public class RaceParticipationServiceImpl
         implements RaceParticipationService {
 
     @Inject
-    RaceService raceService;
+    private RaceService raceService;
 
     @Inject
-    DateService dateService;
+    private DateService dateService;
 
     @Override
     public List<RaceParticipation> participateInWorldChampionship(Date date, String location, List<Pair<CarSetup, Driver>> setups) {
