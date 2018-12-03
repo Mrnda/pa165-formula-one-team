@@ -28,7 +28,7 @@ public class ComponentFacadeImpl implements ComponentFacade {
 
     @Override
     public List<ComponentDTO> getAllComponent() {
-        List<Component> allComponentEntities = componentService.getAllComponent();
+        List<Component> allComponentEntities = componentService.getAll();
         return beanMappingService.mapTo(allComponentEntities, ComponentDTO.class);
     }
 
@@ -36,7 +36,7 @@ public class ComponentFacadeImpl implements ComponentFacade {
     public void deleteComponent(ComponentDTO componentDTO) {
         if (componentDTO == null) throw new IllegalArgumentException("null componentDTO, cannot delete");
 
-        componentService.delete(beanMappingService.mapTo(componentDTO, Component.class));
+        componentService.remove(beanMappingService.mapTo(componentDTO, Component.class));
     }
 
     @Override

@@ -2,25 +2,21 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.characteristics.CharacteristicsValueDao;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
-import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.service.CharacteristicsValueServiceImpl;
-import cz.muni.fi.pa165.service.base.BaseTest;
-import org.junit.Before;
+import cz.muni.fi.pa165.service.base.BaseServiceTest;
+import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.testng.annotations.BeforeClass;
 
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.fail;
 
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-public class CharacteristicsValueServiceImplTests extends BaseTest {
-
-    private CharacteristicsValue testingValue;
+public class CharacteristicsValueServiceImplTests extends BaseServiceTest<CharacteristicsValue> {
 
     @Mock
     private CharacteristicsValueDao characteristicsValueDaoMock;
@@ -28,52 +24,78 @@ public class CharacteristicsValueServiceImplTests extends BaseTest {
     @InjectMocks
     private CharacteristicsValueServiceImpl characteristicsValueService;
 
-    @BeforeClass
-    public void setUpClass() {
-        MockitoAnnotations.initMocks(this);
-    }
-
-    @Before
-    public void setUp() {
-        testingValue = new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100, null);
-    }
-
     @Test
     public void addValue_withValidValues_valueAddCalled() {
         //When
-        characteristicsValueService.add(testingValue);
+        characteristicsValueService.add(entity);
 
         //Then
-        verify(characteristicsValueDaoMock, times(1)).add(testingValue);
+        verify(characteristicsValueDaoMock, times(1)).add(entity);
     }
 
     @Test
     public void findById_withExistingValue_valueReturned() {
         //Given
-        when(characteristicsValueDaoMock.findById(testingValue.getId())).thenReturn(testingValue);
+        when(characteristicsValueDaoMock.findById(entity.getId())).thenReturn(entity);
 
         //When
-        CharacteristicsValue value = characteristicsValueService.findById(testingValue.getId());
+        CharacteristicsValue value = characteristicsValueService.findById(entity.getId());
 
         //Then
-        assertEquals(testingValue, value);
+        assertEquals(entity, value);
     }
 
     @Test
     public void updateValue_withValidValues_valueUpdated() {
         //When
-        characteristicsValueService.update(testingValue);
+        characteristicsValueService.update(entity);
 
         //Then
-        verify(characteristicsValueDaoMock, times(1)).update(testingValue);
+        verify(characteristicsValueDaoMock, times(1)).update(entity);
     }
 
     @Test
     public void removeValue_withValidValues_valueDeleted() {
         //When
-        characteristicsValueService.delete(testingValue);
+        characteristicsValueService.remove(entity);
 
         //Then
-        verify(characteristicsValueDaoMock, times(1)).delete(testingValue);
+        verify(characteristicsValueDaoMock, times(1)).delete(entity);
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void add_throwsException() {
+        //when
+        characteristicsValueService.add(null);
+
+        //then
+        fail("Exception is not thrown");
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void update_exceptionIsThrown() {
+        //given
+        entity.setId(-1);
+
+        //when
+        when(characteristicsValueService.findById(entity.getId())).thenReturn(entity);
+        characteristicsValueService.update(entity);
+
+        //then
+        fail("Exception is not thrown");
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void remove_exceptionIsThrown() {
+        //when
+        characteristicsValueService.remove(null);
+
+        //then
+        fail("Exception is not thrown");
+    }
+
+    @Override
+    protected CharacteristicsValue createTestEntity() {
+        return createCharacteristicsValue();
     }
 }

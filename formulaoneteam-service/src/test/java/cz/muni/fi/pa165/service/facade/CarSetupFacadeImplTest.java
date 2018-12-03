@@ -6,10 +6,10 @@ import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.service.CarSetupService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,6 @@ import static org.testng.AssertJUnit.assertEquals;
 /**
  * @author Théo Desjardins
  */
-
 public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO> {
     
     @Mock
@@ -33,6 +32,7 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
 
     @BeforeMethod
     public void setUp() {
+        super.setUp();
         when(beanMappingServiceMock.mapTo(dto, CarSetup.class)).thenReturn(entity);
     }
 
@@ -54,7 +54,7 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
         carSetupFacade.deleteCarSetup(dto);
 
         //then
-        verify(carSetupService, times(1)).delete(entity);
+        verify(carSetupService, times(1)).remove(entity);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
         //Given
         List<CarSetup> listCarSetup = new ArrayList<>();
         listCarSetup.add(entity);
-        when(carSetupService.getAllCarSetup()).thenReturn(listCarSetup);
+        when(carSetupService.getAll()).thenReturn(listCarSetup);
         List<CarSetupDTO> listDTOCarSetup = new ArrayList<>();
         listDTOCarSetup.add(dto);
         when(beanMappingServiceMock.mapTo(listCarSetup, CarSetupDTO.class)).thenReturn(listDTOCarSetup);
@@ -92,7 +92,7 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
         List<CarSetupDTO> resListdto = new ArrayList<>(carSetupFacade.getAllCarSetup());
 
         //Then
-        verify(carSetupService).getAllCarSetup();
+        verify(carSetupService).getAll();
         assertEquals(resListdto.size(), 1);
         Assert.assertTrue(resListdto.contains(dto));
     }

@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.service.facade.base.BaseEntityService;
 
 /**
  * @author Ivan Dendis
- * */
+ */
 public interface ComponentParameterService extends BaseEntityService<ComponentParameter> {
-
 }

@@ -1,22 +1,13 @@
 package cz.muni.fi.pa165.dao.carsetup;
 
-import cz.muni.fi.pa165.AppContextConfig;
+import cz.muni.fi.pa165.dao.base.BaseTest;
 import cz.muni.fi.pa165.dao.component.ComponentDao;
 import cz.muni.fi.pa165.entity.CarSetup;
-import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.entity.Component;
-
+import cz.muni.fi.pa165.enums.ComponentType;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-
 import java.util.List;
 
 import static org.testng.AssertJUnit.*;
@@ -24,11 +15,7 @@ import static org.testng.AssertJUnit.*;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-@ContextConfiguration(classes = AppContextConfig.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
-@Transactional
-@RunWith(SpringJUnit4ClassRunner.class)
-public class CarSetupDaoTest extends AbstractTestNGSpringContextTests {
+public class CarSetupDaoTest extends BaseTest {
 
     @Inject
     private CarSetupDao carSetupDao;

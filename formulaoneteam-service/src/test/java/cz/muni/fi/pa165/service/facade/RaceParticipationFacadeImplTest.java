@@ -1,16 +1,17 @@
 package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.RaceParticipationDTO;
+import cz.muni.fi.pa165.entity.RaceParticipation;
 import cz.muni.fi.pa165.dto.WorldChampionshipSetupDTO;
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.service.RaceParticipationService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Assert;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.util.Pair;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,6 @@ import static org.testng.AssertJUnit.assertEquals;
 /**
  * @author Adel Chakouri
  */
-
 public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticipation, RaceParticipationDTO> {
 
     @Mock
@@ -32,6 +32,8 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
 
     @BeforeMethod
     public void setUp() {
+        super.setUp();
+
         when(beanMappingServiceMock.mapTo(dto, RaceParticipation.class)).thenReturn(entity);
     }
 

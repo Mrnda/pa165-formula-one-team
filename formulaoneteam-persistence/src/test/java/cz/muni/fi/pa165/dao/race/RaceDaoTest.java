@@ -5,10 +5,8 @@ import cz.muni.fi.pa165.dao.base.BaseTest;
 import cz.muni.fi.pa165.entity.Race;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import javax.inject.Inject;
-import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.assertNotNull;

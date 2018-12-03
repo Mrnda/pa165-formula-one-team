@@ -2,42 +2,20 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.carsetup.CarSetupDao;
 import cz.muni.fi.pa165.entity.CarSetup;
+import cz.muni.fi.pa165.service.base.BaseEntityServiceImpl;
+import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
-import java.util.List;
 
 /**
  * @author Théo Desjardins
  */
 @Service
-public class CarSetupServiceImpl implements CarSetupService {
-
-    @Inject
-    private CarSetupDao carSetupDao;
+public class CarSetupServiceImpl extends BaseEntityServiceImpl<CarSetup, CarSetupDao> implements CarSetupService {
 
     @Override
-    public CarSetup findById(long id) {
-        return carSetupDao.findById(id);
-    }
-
-    @Override
-    public void add(CarSetup carSetup) {
-        carSetupDao.add(carSetup);
-    }
-
-    @Override
-    public void update(CarSetup carSetup) {
-        carSetupDao.update(carSetup);
-    }
-
-    @Override
-    public void delete(CarSetup carSetup) {
-        carSetupDao.delete(carSetup);
-    }
-
-    @Override
-    public List<CarSetup> getAllCarSetup() {
-        return carSetupDao.findAll();
+    public void validateEntity(CarSetup entity) {
+        if (entity == null || !entity.isConfigured()) {
+            throw new FormulaOneTeamException("CarSetup is null or not configured.");
+        }
     }
 }

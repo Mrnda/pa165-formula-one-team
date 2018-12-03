@@ -1,17 +1,10 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
+import cz.muni.fi.pa165.service.facade.base.BaseEntityService;
 
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-public interface CharacteristicsValueService {
-
-    CharacteristicsValue findById(long id);
-
-    void update(CharacteristicsValue value);
-
-    void add(CharacteristicsValue value);
-
-    void delete(CharacteristicsValue value);
+public interface CharacteristicsValueService extends BaseEntityService<CharacteristicsValue> {
 }

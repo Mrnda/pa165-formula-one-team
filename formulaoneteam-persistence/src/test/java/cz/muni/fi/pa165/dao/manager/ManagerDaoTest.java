@@ -1,16 +1,9 @@
 package cz.muni.fi.pa165.dao.manager;
 
-import cz.muni.fi.pa165.AppContextConfig;
+import cz.muni.fi.pa165.dao.base.BaseTest;
 import cz.muni.fi.pa165.entity.Manager;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -22,11 +15,7 @@ import static org.testng.AssertJUnit.assertNotNull;
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
-@ContextConfiguration(classes = AppContextConfig.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
-@Transactional
-@RunWith(SpringJUnit4ClassRunner.class)
-public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
+public class ManagerDaoTest extends BaseTest {
 
     @Inject
     private ManagerDao managerDao;

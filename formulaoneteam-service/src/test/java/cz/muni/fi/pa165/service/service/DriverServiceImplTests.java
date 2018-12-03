@@ -13,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.dao.DataAccessException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,7 +38,7 @@ public class DriverServiceImplTests extends BaseTest {
 
     @Before
     public void setUp() {
-        testingDriver = createTestingDriver();
+        testingDriver = createDriver();
     }
 
     @Test
@@ -48,7 +47,7 @@ public class DriverServiceImplTests extends BaseTest {
         String password = "password";
 
         //When
-        driverService.registerDriver(testingDriver, password);
+        driverService.register(testingDriver, password);
 
         //Then
         verify(driverDaoMock, times(1)).add(testingDriver);
@@ -61,7 +60,7 @@ public class DriverServiceImplTests extends BaseTest {
         String password = "";
 
         //When
-        driverService.registerDriver(testingDriver, password);
+        driverService.register(testingDriver, password);
 
         //Then
     }
@@ -73,7 +72,7 @@ public class DriverServiceImplTests extends BaseTest {
 
         //When
         testingDriver.setEmail("");
-        driverService.registerDriver(testingDriver, password);
+        driverService.register(testingDriver, password);
 
         //Then
     }
@@ -83,10 +82,10 @@ public class DriverServiceImplTests extends BaseTest {
         //Given
         String password = "password";
         testingDriver.setPasswordHash(Validator.createHash(password));
-        when(driverDaoMock.findById(testingDriver.getId())).thenReturn(testingDriver);
+        when(driverDaoMock.findByEmail(testingDriver.getEmail())).thenReturn(testingDriver);
 
         //When
-        boolean result = driverService.authenticate(testingDriver, password);
+        boolean result = driverService.authenticate(testingDriver.getEmail(), password);
 
         //Then
         assertTrue(result);
@@ -98,10 +97,10 @@ public class DriverServiceImplTests extends BaseTest {
         String validPassword = "password";
         testingDriver.setPasswordHash(Validator.createHash(validPassword));
         String invalidPassword = "invalid_password";
-        when(driverDaoMock.findById(testingDriver.getId())).thenReturn(testingDriver);
+        when(driverDaoMock.findByEmail(testingDriver.getEmail())).thenReturn(testingDriver);
 
         //When
-        boolean result = driverService.authenticate(testingDriver, invalidPassword);
+        boolean result = driverService.authenticate(testingDriver.getEmail(), invalidPassword);
 
         //Then
         assertFalse(result);
@@ -113,7 +112,7 @@ public class DriverServiceImplTests extends BaseTest {
         when(driverDaoMock.findById(testingDriver.getId())).thenReturn(testingDriver);
 
         //When
-        final Driver foundDriver = driverService.findDriverById(testingDriver.getId());
+        final Driver foundDriver = driverService.findById(testingDriver.getId());
 
         //Then
         assertEquals(testingDriver, foundDriver);
@@ -125,7 +124,7 @@ public class DriverServiceImplTests extends BaseTest {
         when(driverDaoMock.findByEmail(testingDriver.getEmail())).thenReturn(testingDriver);
 
         //When
-        final Driver foundDriver = driverService.findDriverByEmail(testingDriver.getEmail());
+        final Driver foundDriver = driverService.findByEmail(testingDriver.getEmail());
 
         //Then
         assertEquals(testingDriver, foundDriver);
@@ -140,7 +139,7 @@ public class DriverServiceImplTests extends BaseTest {
         when(driverDaoMock.findAll()).thenReturn(allDrivers);
 
         //When
-        List<Driver> allFoundDrivers = driverService.getAllDrivers();
+        List<Driver> allFoundDrivers = driverService.getAll();
 
         //Then
         assertEquals(3, allFoundDrivers.size());
@@ -214,7 +213,7 @@ public class DriverServiceImplTests extends BaseTest {
     @Test
     public void deleteDriver_withExistingDriver_driverDeleteCalled() {
         //When
-        driverService.deleteDriver(testingDriver);
+        driverService.remove(testingDriver);
 
         //Then
         verify(driverDaoMock, times(1)).delete(testingDriver);
@@ -228,7 +227,7 @@ public class DriverServiceImplTests extends BaseTest {
         //When
         testingDriver.setEmail("test@test.cz");
         testingDriver.setPasswordHash("some random password hash");
-        Driver updatedDriver = driverService.updateDriver(testingDriver);
+        Driver updatedDriver = driverService.update(testingDriver);
 
         //Then
         verify(driverDaoMock, times(1)).update(testingDriver);
@@ -242,7 +241,7 @@ public class DriverServiceImplTests extends BaseTest {
 
         //When
         testingDriver.setEmail("");
-        Driver updatedDriver = driverService.updateDriver(testingDriver);
+        Driver updatedDriver = driverService.update(testingDriver);
 
         //Then
     }
