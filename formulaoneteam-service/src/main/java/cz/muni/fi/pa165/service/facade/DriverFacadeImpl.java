@@ -26,7 +26,7 @@ public class DriverFacadeImpl
 
     @Override
     public void register(DriverDetailDTO driver, String unencryptedPassword) {
-        Driver driverEntity = beanMappingService.mapTo(driver, Driver.class);
+        Driver driverEntity = beanMappingService.mapTo(driver, getEntityClass());
         if (driver.getCharacteristics().size() == 0) {
             addDefaultCharacteristicValuesToDriver(driverEntity);
         }
@@ -48,14 +48,14 @@ public class DriverFacadeImpl
     @Override
     public DriverDetailDTO findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType) {
         Driver driverEntity = service.findDriverWithHighestCharacteristicsValue(characteristicsType);
-        return beanMappingService.mapTo(driverEntity, DriverDetailDTO.class);
+        return beanMappingService.mapTo(driverEntity, getDtoClass());
     }
 
     @Override
     public DriverDetailDTO updateDriversCharacteristicsValue(CharacteristicsValueDTO characteristicsValueDTO) {
         CharacteristicsValue characteristicsValue = beanMappingService.mapTo(characteristicsValueDTO, CharacteristicsValue.class);
         characteristicsValueService.update(characteristicsValue);
-        return beanMappingService.mapTo(service.findById(characteristicsValueDTO.getDriver().getId()), DriverDetailDTO.class);
+        return beanMappingService.mapTo(service.findById(characteristicsValueDTO.getDriver().getId()), getDtoClass());
     }
 
     @Override

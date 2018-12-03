@@ -26,12 +26,15 @@ public abstract class BaseFacadeImpl<DTO extends BaseDTO, E extends BaseEntity, 
 
     @Override
     public DTO findById(long id) {
+        E entity = service.findById(id);
+        if (entity == null) throw new IllegalArgumentException("cannot find entity by this id");
         return beanMappingService.mapTo(service.findById(id), getDtoClass());
     }
 
     @Override
     public List<DTO> getAll() {
-        return beanMappingService.mapTo(service.getAll(), getDtoClass());
+        List<E> allEntities = service.getAll();
+        return beanMappingService.mapTo(allEntities, getDtoClass());
     }
 
     protected abstract Class<DTO> getDtoClass();

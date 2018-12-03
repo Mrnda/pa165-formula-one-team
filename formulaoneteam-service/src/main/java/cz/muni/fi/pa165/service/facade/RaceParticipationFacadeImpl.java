@@ -3,56 +3,28 @@ package cz.muni.fi.pa165.service.facade;
 import cz.muni.fi.pa165.dto.RaceParticipationDTO;
 import cz.muni.fi.pa165.entity.RaceParticipation;
 import cz.muni.fi.pa165.facade.RaceParticipationFacade;
-import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.RaceParticipationService;
+import cz.muni.fi.pa165.service.facade.base.BaseEntityFacadeImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.inject.Inject;
-import java.util.List;
 
 /**
  * @author Adel Chakouri
  */
 @Service
 @Transactional
-public class RaceParticipationFacadeImpl implements RaceParticipationFacade {
-
-    @Inject
-    private RaceParticipationService raceParticipationService;
-
-    @Inject
-    private BeanMappingService beanMappingService;
+public class RaceParticipationFacadeImpl
+        extends BaseEntityFacadeImpl<RaceParticipationDTO, RaceParticipation, RaceParticipationService>
+        implements RaceParticipationFacade {
 
     @Override
-    public RaceParticipationDTO findRaceParticipationById(long id) {
-        RaceParticipation raceParticipation = raceParticipationService.findById(id);
-        return (raceParticipation == null) ? null : beanMappingService.mapTo(raceParticipation, RaceParticipationDTO.class);
+    protected Class<RaceParticipationDTO> getDtoClass() {
+        return RaceParticipationDTO.class;
     }
 
     @Override
-    public void deleteRaceParticipation(RaceParticipationDTO raceParticipationDTO) {
-        if (raceParticipationDTO == null) throw new IllegalArgumentException("null raceParticipationDTO, cannot delete");
-        raceParticipationService.remove(beanMappingService.mapTo(raceParticipationDTO, RaceParticipation.class));
-    }
-
-    @Override
-    public void addRaceParticipation(RaceParticipationDTO raceParticipationDTO) {
-        if (raceParticipationDTO == null) throw new IllegalArgumentException("null raceParticipationDTO, cannot add");
-        RaceParticipation raceParticipation = beanMappingService.mapTo(raceParticipationDTO, RaceParticipation.class);
-        raceParticipationService.add(raceParticipation);
-    }
-
-    @Override
-    public void updateRaceParticipation(RaceParticipationDTO raceParticipationDTO) {
-        if (raceParticipationDTO == null) throw new IllegalArgumentException("null raceParticipationDTO, cannot update");
-        raceParticipationService.update(beanMappingService.mapTo(raceParticipationDTO, RaceParticipation.class));
-    }
-
-    @Override
-    public List<RaceParticipationDTO> getAllRaceParticipation() {
-        List<RaceParticipation> allRacesEntities = raceParticipationService.getAll();
-        return beanMappingService.mapTo(allRacesEntities, RaceParticipationDTO.class);
+    protected Class<RaceParticipation> getEntityClass() {
+        return RaceParticipation.class;
     }
 }
 

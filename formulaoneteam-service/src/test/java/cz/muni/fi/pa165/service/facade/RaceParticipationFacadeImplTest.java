@@ -44,7 +44,7 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
         when(beanMappingServiceMock.mapTo(listRaceParticipation, RaceParticipationDTO.class)).thenReturn(listDTORaceParticipation);
 
         //When
-        List<RaceParticipationDTO> resListRaceParticipationDTO = new ArrayList<>(raceParticipationFacade.getAllRaceParticipation());
+        List<RaceParticipationDTO> resListRaceParticipationDTO = new ArrayList<>(raceParticipationFacade.getAll());
 
         //Then
         verify(raceParticipationService).getAll();
@@ -59,7 +59,7 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
         when(raceParticipationService.findById(1)).thenReturn(entity);
 
         //When
-        RaceParticipationDTO resRaceParticipationDTO = raceParticipationFacade.findRaceParticipationById(entity.getId());
+        RaceParticipationDTO resRaceParticipationDTO = raceParticipationFacade.findById(entity.getId());
 
         //Then
         assertEquals(resRaceParticipationDTO, dto);
@@ -68,7 +68,7 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
     @Test
     public void deleteRaceParticipationTest() {
         //When
-        raceParticipationFacade.deleteRaceParticipation(dto);
+        raceParticipationFacade.remove(dto);
 
         //Then
         verify(raceParticipationService, times(1)).remove(entity);
@@ -77,7 +77,7 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
     @Test
     public void updateRaceParticipationTest() {
         //When
-        raceParticipationFacade.updateRaceParticipation(dto);
+        raceParticipationFacade.update(dto);
 
         //Then
         verify(raceParticipationService, times(1)).update(entity);
@@ -86,7 +86,7 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
     @Test
     public void addRaceParticipationTest() {
         //When
-        raceParticipationFacade.addRaceParticipation(dto);
+        raceParticipationFacade.add(dto);
 
         //Then
         verify(raceParticipationService, times(1)).add(entity);

@@ -45,7 +45,7 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
         when(beanMappingServiceMock.mapTo(listRaces, RaceDTO.class)).thenReturn(listDTORaces);
 
         //When
-        List<RaceDTO> resListRaceDTO = new ArrayList<>(raceFacade.getAllRaces());
+        List<RaceDTO> resListRaceDTO = new ArrayList<>(raceFacade.getAll());
 
         //Then
         verify(raceService).getAll();
@@ -60,7 +60,7 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
         when(raceService.findById(3L)).thenReturn(entity);
 
         //When
-        RaceDTO resRaceDTO = raceFacade.findRaceByID(entity.getId());
+        RaceDTO resRaceDTO = raceFacade.findById(entity.getId());
 
         //Then
         assertEquals(resRaceDTO, dto);
@@ -69,7 +69,7 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
     @Test
     public void deleteRaceTest() {
         //When
-        raceFacade.deleteRace(dto);
+        raceFacade.remove(dto);
 
         //Then
         verify(raceService, times(1)).remove(entity);
@@ -78,7 +78,7 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
     @Test
     public void updateRaceTest() {
         //When
-        raceFacade.updateRace(dto);
+        raceFacade.update(dto);
 
         //Then
         verify(raceService, times(1)).update(entity);
@@ -87,7 +87,7 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
     @Test
     public void addRaceTest() {
         //When
-        raceFacade.addRace(dto);
+        raceFacade.add(dto);
 
         //Then
         verify(raceService, times(1)).add(entity);

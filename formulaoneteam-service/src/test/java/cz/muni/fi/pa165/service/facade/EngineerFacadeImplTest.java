@@ -2,11 +2,9 @@ package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.EngineerDTO;
 import cz.muni.fi.pa165.entity.Engineer;
+import cz.muni.fi.pa165.enums.EngineerSpecialization;
 import cz.muni.fi.pa165.service.EngineerService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
-import cz.muni.fi.pa165.service.facade.EngineerFacadeImpl;
-import cz.muni.fi.pa165.enums.EngineerSpecialization;
-
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,9 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
-import static org.testng.AssertJUnit.fail;
+import static org.testng.AssertJUnit.*;
 
 /**
  * @author Ivan Dendis

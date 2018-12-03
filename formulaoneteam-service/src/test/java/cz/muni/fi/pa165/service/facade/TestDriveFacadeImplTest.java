@@ -45,7 +45,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
         when(beanMappingServiceMock.mapTo(listTestDrive, TestDriveDTO.class)).thenReturn(listDTOTestDrive);
 
         //When
-        List<TestDriveDTO> resListTestDriveDTO = new ArrayList<>(testDriveFacade.getAllTestDrive());
+        List<TestDriveDTO> resListTestDriveDTO = new ArrayList<>(testDriveFacade.getAll());
 
         //Then
         verify(testDriveService).getAll();
@@ -60,7 +60,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
         when(testDriveService.findById(22)).thenReturn(entity);
 
         //When
-        TestDriveDTO resTestDriveDTO = testDriveFacade.findTestDriveByID(entity.getId());
+        TestDriveDTO resTestDriveDTO = testDriveFacade.findById(entity.getId());
 
         //Then
         assertEquals(resTestDriveDTO, dto);
@@ -69,7 +69,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
     @Test
     public void deleteTestDriveTest() {
         //When
-        testDriveFacade.deleteTestDrive(dto);
+        testDriveFacade.remove(dto);
 
         //Then
         verify(testDriveService, times(1)).remove(entity);
@@ -78,7 +78,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
     @Test
     public void updateTestDriveTest() {
         //When
-        testDriveFacade.updateTestDrive(dto);
+        testDriveFacade.update(dto);
 
         //Then
         verify(testDriveService, times(1)).update(entity);
@@ -87,7 +87,7 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
     @Test
     public void addTestDriveTest() {
         //When
-        testDriveFacade.addTestDrive(dto);
+        testDriveFacade.add(dto);
 
         //Then
         verify(testDriveService, times(1)).add(entity);
