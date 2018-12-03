@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Adel Chakouri
@@ -55,7 +56,14 @@ public class RaceParticipationServiceImpl
             participations.add(participation);
         }
 
-        return participations;
+        return findByRaceId(race.getId());
+    }
+
+    @Override
+    public List<RaceParticipation> findByRaceId(Long id) {
+        return getAll().stream()
+                .filter(raceParticipation -> raceParticipation.getRace().getId() == id)
+                .collect(Collectors.toList());
     }
 
     @Override

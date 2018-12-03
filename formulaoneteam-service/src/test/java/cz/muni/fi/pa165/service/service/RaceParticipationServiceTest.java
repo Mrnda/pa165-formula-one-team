@@ -120,6 +120,28 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         Assert.assertTrue(resultRaceList.contains(entity));
     }
 
+    @Test
+    public void findByRaceId_returnsCorrectParticipations() {
+        //given
+        List<RaceParticipation> raceList = new ArrayList<>();
+        RaceParticipation raceParticipation = createTestEntity();
+        raceList.add(raceParticipation);
+        raceParticipation = createTestEntity();
+        raceList.add(raceParticipation);
+        raceParticipation = createTestEntity();
+        raceParticipation.getRace().setId(124);
+        raceList.add(raceParticipation);
+        when(dao.findAll()).thenReturn(raceList);
+
+        //when
+        List<RaceParticipation> resultRaceList = raceParticipationService.findByRaceId(124L);
+
+        //then
+        Assert.assertNotNull(resultRaceList);
+        Assert.assertEquals(resultRaceList.size(), 1);
+        Assert.assertTrue(resultRaceList.contains(raceParticipation));
+    }
+
     @Test(expected = FormulaOneTeamException.class)
     public void participateInWorldChampionship_championshipInPast_throws() {
         //Given
