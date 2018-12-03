@@ -17,10 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
@@ -133,7 +130,7 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.getCurrentDate()).thenReturn(createDate(2, 11, 2018));
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, firstDriverCarSetup, secondDriverCarSetup);
+        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
     }
 
     @Test(expected = FormulaOneTeamException.class)
@@ -148,7 +145,21 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.getCurrentDate()).thenReturn(createDate(2, 11, 2018));
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, firstDriverCarSetup, secondDriverCarSetup);
+        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void participateInWorldChampionship_withThreeSetups_throws() {
+        //Given
+        final Date date = createDate(2, 12, 2018);
+        final String location = "Barcelona";
+        final Pair<CarSetup, Driver> firstDriverCarSetup = Pair.of(createCarSetup(), createDriver());
+        final Pair<CarSetup, Driver> secondDriverCarSetup = Pair.of(createCarSetup(), createDriver());
+        final Pair<CarSetup, Driver> thirdDriverCarSetup = Pair.of(createCarSetup(), createDriver());
+        when(dateServiceMock.getCurrentDate()).thenReturn(createDate(2, 11, 2018));
+
+        //When
+        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup, thirdDriverCarSetup));
     }
 
     @Test
@@ -164,7 +175,7 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.createCalendarForDate(date)).thenReturn(calendar);
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, firstDriverCarSetup, secondDriverCarSetup);
+        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
 
         //Then
         final Race race = new Race(date, "2018 world championship", location);
@@ -184,7 +195,7 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         when(dateServiceMock.createCalendarForDate(date)).thenReturn(calendar);
 
         //When
-        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, firstDriverCarSetup, secondDriverCarSetup);
+        final List<RaceParticipation> raceParticipations = raceParticipationService.participateInWorldChampionship(date, location, Arrays.asList(firstDriverCarSetup, secondDriverCarSetup));
 
         //Then
         final Race race = new Race(date, "2018 world championship", location);

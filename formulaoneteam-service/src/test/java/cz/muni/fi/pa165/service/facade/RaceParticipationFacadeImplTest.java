@@ -14,6 +14,7 @@ import org.springframework.data.util.Pair;
 import org.testng.annotations.BeforeMethod;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -114,8 +115,7 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
         verify(raceParticipationService, times(1))
                 .participateInWorldChampionship(worldChampionshipDTO.getDate(),
                         worldChampionshipDTO.getLocation(),
-                        Pair.of(carSetupEntity, driverEntity),
-                        Pair.of(carSetupEntity, driverEntity));
+                        Arrays.asList(Pair.of(carSetupEntity, driverEntity), Pair.of(carSetupEntity, driverEntity)));
     }
 
     private WorldChampionshipSetupDTO createWorldChampionshipDTO() {

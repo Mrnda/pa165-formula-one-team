@@ -13,5 +13,5 @@ import java.util.List;
  * @author Adel Chakouri
  */
 public interface RaceParticipationService extends BaseEntityService<RaceParticipation> {
-    List<RaceParticipation> participateInWorldChampionship(Date date, String location, Pair<CarSetup, Driver> firstSetup, Pair<CarSetup, Driver> secondSetup);
+    List<RaceParticipation> participateInWorldChampionship(Date date, String location, List<Pair<CarSetup, Driver>> setups);
 }
