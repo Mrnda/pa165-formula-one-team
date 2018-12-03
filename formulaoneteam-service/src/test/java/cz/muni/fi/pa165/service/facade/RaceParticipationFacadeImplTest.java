@@ -97,8 +97,14 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
         verify(raceParticipationService, times(1)).add(entity);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void participateInWorldChampionship_withNullValue_throwsException() {
+        //When
+        raceParticipationFacade.participateInWorldChampionship(null);
+    }
+
     @Test
-    public void participateInWorldChampionship_createsTheChampionship() {
+    public void participateInWorldChampionship_withValidData_createsTheChampionship() {
         //Given
         final WorldChampionshipSetupDTO worldChampionshipDTO = createWorldChampionshipDTO();
         final Driver driverEntity = createDriver();
