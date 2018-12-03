@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.RaceParticipationDTO;
+import cz.muni.fi.pa165.dto.WorldChampionshipSetupDTO;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,4 +21,6 @@ public interface RaceParticipationFacade {
     void updateRaceParticipation(RaceParticipationDTO raceParticipationDTO);
 
     List<RaceParticipationDTO> getAllRaceParticipation();
+
+    List<RaceParticipationDTO> participateInWorldChampionship(WorldChampionshipSetupDTO worldChampionshipSetupDTO);
 }
