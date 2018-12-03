@@ -35,7 +35,7 @@ public class RaceParticipationServiceImpl
 
     @Override
     public List<RaceParticipation> participateInWorldChampionship(Date date, String location, Pair<CarSetup, Driver> firstSetup, Pair<CarSetup, Driver> secondSetup) {
-        if (!dateService.getCurrentDate().after(date)) {
+        if (!date.after(dateService.getCurrentDate())) {
             throw new FormulaOneTeamException("World championship has to be created in future");
         }
 
