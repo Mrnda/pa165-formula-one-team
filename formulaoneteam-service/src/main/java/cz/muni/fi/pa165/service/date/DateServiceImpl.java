@@ -14,12 +14,6 @@ public class DateServiceImpl implements DateService {
     }
 
     @Override
-    public boolean isInFuture(Date date) {
-        final Date currentDate = getCurrentDate();
-        return date.after(currentDate);
-    }
-
-    @Override
     public Calendar createCalendarForDate(Date date) {
         final Calendar calendar = createCalendar();
         calendar.setTime(date);
