@@ -6,14 +6,14 @@ import cz.muni.fi.pa165.facade.RaceFacade;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.RaceService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author Adel Chakouri
  */
-
 @Service
 @Transactional
 public class RaceFacadeImpl implements RaceFacade {

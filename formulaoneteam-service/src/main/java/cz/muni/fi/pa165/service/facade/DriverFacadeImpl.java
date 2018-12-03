@@ -8,13 +8,11 @@ import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
-import cz.muni.fi.pa165.service.BeanMappingService;
-import cz.muni.fi.pa165.service.CharacteristicsValueService;
 import cz.muni.fi.pa165.service.DriverService;
+import cz.muni.fi.pa165.service.facade.base.BaseUserFacadeImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -22,59 +20,34 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class DriverFacadeImpl implements DriverFacade {
-
-    @Inject
-    private CharacteristicsValueService characteristicsValueService;
-
-    @Inject
-    private DriverService driverService;
-
-    @Inject
-    private BeanMappingService beanMappingService;
+public class DriverFacadeImpl
+        extends BaseUserFacadeImpl<DriverDetailDTO, Driver, DriverService>
+        implements DriverFacade {
 
     @Override
-    public void registerDriver(DriverDetailDTO driver, String unencryptedPassword) {
-        Driver driverEntity = getDriverEntityFromDriverDetailDTO(driver);
+    public void register(DriverDetailDTO driver, String unencryptedPassword) {
+        Driver driverEntity = beanMappingService.mapTo(driver, Driver.class);
         if (driver.getCharacteristics().size() == 0) {
             addDefaultCharacteristicValuesToDriver(driverEntity);
         }
-        driverService.register(driverEntity, unencryptedPassword);
-    }
-
-    @Override
-    public boolean authenticate(DriverDetailDTO driver, String password) {
-        Driver driverEntity = getDriverEntityFromDriverDetailDTO(driver);
-        return driverService.authenticate(driverEntity.getEmail(), password);
-    }
-
-    @Override
-    public DriverDetailDTO findDriverById(long id) {
-        Driver driverEntity = driverService.findById(id);
-        return beanMappingService.mapTo(driverEntity, DriverDetailDTO.class);
-    }
-
-    @Override
-    public DriverDetailDTO findDriverByEmail(String email) {
-        Driver driverEntity = driverService.findByEmail(email);
-        return beanMappingService.mapTo(driverEntity, DriverDetailDTO.class);
+        service.register(driverEntity, unencryptedPassword);
     }
 
     @Override
     public List<DriverListItemDTO> getAllDrivers() {
-        List<Driver> allDriverEntities = driverService.getAll();
+        List<Driver> allDriverEntities = service.getAll();
         return beanMappingService.mapTo(allDriverEntities, DriverListItemDTO.class);
     }
 
     @Override
     public List<DriverListItemDTO> getAllDriversByStatus(DriverStatus status) {
-        List<Driver> allDriverEntities = driverService.getAllDriversByStatus(status);
+        List<Driver> allDriverEntities = service.getAllDriversByStatus(status);
         return beanMappingService.mapTo(allDriverEntities, DriverListItemDTO.class);
     }
 
     @Override
     public DriverDetailDTO findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType) {
-        Driver driverEntity = driverService.findDriverWithHighestCharacteristicsValue(characteristicsType);
+        Driver driverEntity = service.findDriverWithHighestCharacteristicsValue(characteristicsType);
         return beanMappingService.mapTo(driverEntity, DriverDetailDTO.class);
     }
 
@@ -82,7 +55,17 @@ public class DriverFacadeImpl implements DriverFacade {
     public DriverDetailDTO updateDriversCharacteristicsValue(CharacteristicsValueDTO characteristicsValueDTO) {
         CharacteristicsValue characteristicsValue = beanMappingService.mapTo(characteristicsValueDTO, CharacteristicsValue.class);
         characteristicsValueService.update(characteristicsValue);
-        return beanMappingService.mapTo(driverService.findById(characteristicsValueDTO.getDriver().getId()), DriverDetailDTO.class);
+        return beanMappingService.mapTo(service.findById(characteristicsValueDTO.getDriver().getId()), DriverDetailDTO.class);
+    }
+
+    @Override
+    protected Class<DriverDetailDTO> getDtoClass() {
+        return DriverDetailDTO.class;
+    }
+
+    @Override
+    protected Class<Driver> getEntityClass() {
+        return Driver.class;
     }
 
     private void addDefaultCharacteristicValuesToDriver(Driver driver) {
@@ -101,9 +84,5 @@ public class DriverFacadeImpl implements DriverFacade {
         value = new CharacteristicsValue(CharacteristicsType.STEERING, 0, driver);
         characteristicsValueService.add(value);
         driver.addCharacteristic(value);
-    }
-
-    private Driver getDriverEntityFromDriverDetailDTO(DriverDetailDTO driver) {
-        return beanMappingService.mapTo(driver, Driver.class);
     }
 }

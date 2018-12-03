@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.testng.annotations.BeforeMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
     @InjectMocks
     private CarSetupFacadeImpl carSetupFacade;
 
-    @BeforeMethod
+    @Override
     public void setUp() {
         super.setUp();
         when(beanMappingServiceMock.mapTo(dto, CarSetup.class)).thenReturn(entity);
@@ -42,7 +41,7 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
         when(carSetupService.findById(entity.getId())).thenReturn(entity);
         when(beanMappingServiceMock.mapTo(entity, CarSetupDTO.class)).thenReturn(dto);
         //When
-        CarSetupDTO resdto = carSetupFacade.findByID(entity.getId());
+        CarSetupDTO resdto = carSetupFacade.findById(entity.getId());
         //Then
         assertEquals(resdto, dto);
     }
@@ -51,7 +50,7 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
     public void deleteCarSetupTest() {
 
         //when
-        carSetupFacade.deleteCarSetup(dto);
+        carSetupFacade.remove(dto);
 
         //then
         verify(carSetupService, times(1)).remove(entity);
@@ -61,7 +60,7 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
     public void updateCarSetupTest() {
 
         //when
-        carSetupFacade.updateCarSetup(dto);
+        carSetupFacade.update(dto);
 
         //then
         verify(carSetupService, times(1)).update(entity);
@@ -71,7 +70,7 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
     public void addCarSetupTest() {
 
         //when
-        carSetupFacade.addCarSetup(dto);
+        carSetupFacade.add(dto);
 
         //then
         verify(carSetupService, times(1)).add(entity);
@@ -89,7 +88,7 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
         when(beanMappingServiceMock.mapTo(listCarSetup, CarSetupDTO.class)).thenReturn(listDTOCarSetup);
 
         //When
-        List<CarSetupDTO> resListdto = new ArrayList<>(carSetupFacade.getAllCarSetup());
+        List<CarSetupDTO> resListdto = new ArrayList<>(carSetupFacade.getAll());
 
         //Then
         verify(carSetupService).getAll();

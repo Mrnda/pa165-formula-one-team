@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.testng.annotations.BeforeMethod;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +27,7 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
     @InjectMocks
     private RaceFacadeImpl raceFacade;
 
-    @BeforeMethod
+    @Override
     public void setUp() {
         super.setUp();
 

@@ -4,10 +4,12 @@ import cz.muni.fi.pa165.dao.component.ComponentDao;
 import cz.muni.fi.pa165.entity.Component;
 import cz.muni.fi.pa165.service.base.BaseEntityServiceImpl;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Théo Desjardins
  */
+@Service
 public class ComponentServiceImpl extends BaseEntityServiceImpl<Component, ComponentDao> implements ComponentService {
 
     @Override

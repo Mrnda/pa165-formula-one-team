@@ -5,14 +5,15 @@ import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.service.config.ServiceConfiguration;
 import org.junit.Rule;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeClass;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
@@ -23,10 +24,6 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
-    @BeforeClass
-    public void setUpClass() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     protected Date createDate(int day, int month, int year) {
         Calendar calendar = Calendar.getInstance();

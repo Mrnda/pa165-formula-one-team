@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.testng.annotations.BeforeMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
     @InjectMocks
     private ComponentFacadeImpl componentFacade;
 
-    @BeforeMethod
+    @Override
     public void setUp() {
         super.setUp();
 
@@ -45,7 +44,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         when(beanMappingServiceMock.mapTo(entity, ComponentDTO.class)).thenReturn(dto);
 
         //When
-        ComponentDTO resComponentDTO = componentFacade.findByID(entity.getId());
+        ComponentDTO resComponentDTO = componentFacade.findById(entity.getId());
 
         //Then
         assertEquals(resComponentDTO, dto);
@@ -55,7 +54,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
     public void deleteComponentTest() {
 
         //when
-        componentFacade.deleteComponent(dto);
+        componentFacade.remove(dto);
 
         //then
         verify(componentService, times(1)).remove(entity);
@@ -65,7 +64,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
     public void updateComponentTest() {
 
         //when
-        componentFacade.updateComponent(dto);
+        componentFacade.update(dto);
 
         //then
         verify(componentService, times(1)).update(entity);
@@ -75,7 +74,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
     public void addComponentTest() {
 
         //when
-        componentFacade.addComponent(dto);
+        componentFacade.add(dto);
 
         //then
         verify(componentService, times(1)).add(entity);
@@ -93,7 +92,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         when(beanMappingServiceMock.mapTo(listComponent, ComponentDTO.class)).thenReturn(listDTOComponent);
 
         //When
-        List<ComponentDTO> resListComponentDTO = new ArrayList<>(componentFacade.getAllComponent());
+        List<ComponentDTO> resListComponentDTO = new ArrayList<>(componentFacade.getAll());
 
         //Then
         verify(componentService).getAll();
