@@ -1,16 +1,272 @@
-import org.springframework.stereotype.Component;
+import cz.muni.fi.pa165.entity.*;
+import cz.muni.fi.pa165.enums.CharacteristicsType;
+import cz.muni.fi.pa165.enums.ComponentType;
+import cz.muni.fi.pa165.enums.DriverStatus;
+import cz.muni.fi.pa165.enums.EngineerSpecialization;
+import cz.muni.fi.pa165.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author mrnda (Michal Mrnuštík)
  */
 
-@Component
+@org.springframework.stereotype.Component
 @Transactional
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
+    public static final String DEFAULT_USER_PASSWORD = "password";
+    @Autowired
+    CarSetupService carSetupService;
+
+    @Autowired
+    CharacteristicsValueService characteristicsValueService;
+
+    @Autowired
+    ComponentService componentService;
+
+    @Autowired
+    ComponentParameterService componentParameterService;
+
+    @Autowired
+    DriverService driverService;
+
+    @Autowired
+    EngineerService engineerService;
+
+    @Autowired
+    ManagerService managerService;
+
+    @Autowired
+    RaceService raceService;
+
+    @Autowired
+    RaceParticipationService raceParticipationService;
+
+    @Autowired
+    TestDriveService testDriveService;
+
+
     @Override
     public void loadData() {
+        createManager("Ross", "Parker", "ross@parker.com", DEFAULT_USER_PASSWORD);
 
+        createEngineer("Sun", "Li", "sun@engineers.com", DEFAULT_USER_PASSWORD, EngineerSpecialization.AERODYNAMICS);
+        createEngineer("Tommy", "Lee", "Tommy@engineers.com", DEFAULT_USER_PASSWORD, EngineerSpecialization.ENGINES);
+        createEngineer("Orson", "Wells", "Orson@engineers.com", DEFAULT_USER_PASSWORD, EngineerSpecialization.FLUID_MECHANICS);
+        createEngineer("Karen", "Gillian", "Karen@engineers.com", DEFAULT_USER_PASSWORD, EngineerSpecialization.EMISSIONS);
+        createEngineer("Robert", "Ford", "Robert@engineers.com", DEFAULT_USER_PASSWORD, EngineerSpecialization.THERMODYNAMICS);
+
+        final Driver fernardoAlonso = createDriver("Fernando",
+                "Alonso",
+                "fernardo@alonso.cz",
+                DEFAULT_USER_PASSWORD,
+                "Spanish",
+                createDate(29, 6, 1981),
+                DriverStatus.MAIN,
+                new ArrayList<>());
+        createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100, fernardoAlonso);
+        createCharacteristicsValue(CharacteristicsType.STEERING, 50, fernardoAlonso);
+        createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 15, fernardoAlonso);
+        createCharacteristicsValue(CharacteristicsType.ENDURANCE, 4, fernardoAlonso);
+        final Driver michaelSchumacher = createDriver("Michael",
+                "Schumacher",
+                "micheal@schumacher.cz",
+                DEFAULT_USER_PASSWORD,
+                "German",
+                createDate(3, 1, 1969),
+                DriverStatus.MAIN,
+                new ArrayList<>());
+        createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 40, michaelSchumacher);
+        createCharacteristicsValue(CharacteristicsType.STEERING, 100, michaelSchumacher);
+        createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 20, michaelSchumacher);
+        createCharacteristicsValue(CharacteristicsType.ENDURANCE, 60, michaelSchumacher);
+
+        final Driver testDriver1 = createDriver("Miki",
+                "Raikonen",
+                "miki@raikonen.fi",
+                DEFAULT_USER_PASSWORD,
+                "Finish",
+                createDate(3, 1, 1995),
+                DriverStatus.TEST,
+                new ArrayList<>());
+        createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 10, testDriver1);
+        createCharacteristicsValue(CharacteristicsType.STEERING, 15, testDriver1);
+        createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 20, testDriver1);
+        createCharacteristicsValue(CharacteristicsType.ENDURANCE, 30, testDriver1);
+        createCharacteristicsValue(CharacteristicsType.PATIENCE, 8, testDriver1);
+
+        final Driver testDriver2 = createDriver("John",
+                "Doe",
+                "john@doe.com",
+                DEFAULT_USER_PASSWORD,
+                "American",
+                createDate(4, 11, 1998),
+                DriverStatus.TEST,
+                new ArrayList<>());
+        createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 10, testDriver2);
+        createCharacteristicsValue(CharacteristicsType.STEERING, 15, testDriver2);
+        createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 20, testDriver2);
+        createCharacteristicsValue(CharacteristicsType.ENDURANCE, 30, testDriver2);
+        createCharacteristicsValue(CharacteristicsType.PATIENCE, 8, testDriver2);
+
+        List<ComponentParameter> engine1Parameters = new ArrayList<>();
+        engine1Parameters.add(createComponentParameter("Power", "114kW"));
+        engine1Parameters.add(createComponentParameter("Torque", "1500Nm"));
+        final Component engine1 = createComponent("Engine no.1", ComponentType.ENGINE, engine1Parameters);
+        List<ComponentParameter> engine2Parameters = new ArrayList<>();
+        engine2Parameters.add(createComponentParameter("Power", "180kW"));
+        engine2Parameters.add(createComponentParameter("Torque", "1800Nm"));
+        final Component engine2 = createComponent("Engine no.2", ComponentType.ENGINE, engine2Parameters);
+
+        List<ComponentParameter> brakeParameters = new ArrayList<>();
+        brakeParameters.add(createComponentParameter("Max brake force", "25kN"));
+        final Component brake = createComponent("Brakes", ComponentType.BRAKES, brakeParameters);
+
+        List<ComponentParameter> suspensionParameters = new ArrayList<>();
+        suspensionParameters.add(createComponentParameter("Type", "Dependent"));
+        final Component suspension = createComponent("Suspension", ComponentType.SUSPENSION, suspensionParameters);
+
+        List<ComponentParameter> transmissionParameters = new ArrayList<>();
+        transmissionParameters.add(createComponentParameter("Type", "Automatic"));
+        transmissionParameters.add(createComponentParameter("Number of gears", "8"));
+        final Component transmission = createComponent("Suspension", ComponentType.TRANSMISSION, transmissionParameters);
+
+        List<ComponentParameter> tires1Parameters = new ArrayList<>();
+        tires1Parameters.add(createComponentParameter("Manufacturer", "Michellin"));
+        tires1Parameters.add(createComponentParameter("Nominal section width", "205mm"));
+        final Component tires1 = createComponent("Suspension", ComponentType.TIRES, tires1Parameters);
+
+        List<ComponentParameter> tires2Parameters = new ArrayList<>();
+        tires2Parameters.add(createComponentParameter("Manufacturer", "Barum"));
+        tires2Parameters.add(createComponentParameter("Nominal section width", "108mm"));
+        final Component tires2 = createComponent("Suspension", ComponentType.TIRES, tires2Parameters);
+
+        List<ComponentParameter> coverParameters = new ArrayList<>();
+        coverParameters.add(createComponentParameter("Reference area", "2800 ft*ft"));
+        final Component cover = createComponent("Suspension", ComponentType.TIRES, coverParameters);
+
+        final CarSetup carSetup1 = createCarSetup(engine1, suspension, brake, transmission, tires1, cover);
+        final CarSetup carSetup2 = createCarSetup(engine2, suspension, brake, transmission, tires1, cover);
+        final CarSetup carSetup3 = createCarSetup(engine1, suspension, brake, transmission, tires2, cover);
+
+        final Race pastRace = createRace(createPastDate(15), "WC Valencia", "Valencia");
+        createRaceParticipation(carSetup1, michaelSchumacher, pastRace, 1);
+        createRaceParticipation(carSetup2, fernardoAlonso, pastRace, 5);
+
+        final Race futureRace = createRace(createFutureDate(30), "Germany World Championship", "Nuremberg");
+        createRaceParticipation(carSetup2, fernardoAlonso, futureRace, RaceParticipation.NO_RESULT_POSITION);
+        createRaceParticipation(carSetup1, michaelSchumacher, futureRace, RaceParticipation.NO_RESULT_POSITION);
+
+        createTestDrive(carSetup1, testDriver1, "Steering maybe too stif", createPastDate(40));
+        createTestDrive(carSetup1, testDriver2, "Great power", createPastDate(40));
+        createTestDrive(carSetup2, testDriver1, "Pretty good steering, ", createPastDate(30));
+        createTestDrive(carSetup2, testDriver2, "Did not finish, transmission broke", createPastDate(30));
+        createTestDrive(carSetup3, testDriver1, "Fast, but missing some advantages of no. 2", createPastDate(20));
+        createTestDrive(carSetup3, testDriver2, "Pretty fast", createPastDate(20));
+        createTestDrive(carSetup3, testDriver2, "Slides a lot on wet", createPastDate(5));
+    }
+
+    private Date createPastDate(int numberOfDays) {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -numberOfDays);
+        return calendar.getTime();
+    }
+
+    private Date createFutureDate(int numberOfDays) {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, numberOfDays);
+        return calendar.getTime();
+    }
+
+    private Date createDate(int day, int month, int year) {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        return calendar.getTime();
+    }
+
+    private Driver createDriver(String name,
+                                String surname,
+                                String email,
+                                String password,
+                                String nationality,
+                                Date birthday,
+                                DriverStatus driverStatus,
+                                List<CharacteristicsValue> characteristics) {
+        final Driver driver = new Driver(name, surname, email, "", nationality, birthday, driverStatus, characteristics);
+        driverService.register(driver, password);
+        return driver;
+    }
+
+    private Engineer createEngineer(String name,
+                                    String surname,
+                                    String email,
+                                    String password,
+                                    EngineerSpecialization specialization) {
+        final Engineer engineer = new Engineer(name, surname, email, "", specialization);
+        engineerService.register(engineer, password);
+        return engineer;
+    }
+
+    private Manager createManager(String name, String surname, String email, String password) {
+        final Manager manager = new Manager(name, surname, email, "");
+        managerService.register(manager, password);
+        return manager;
+    }
+
+    private Component createComponent(String name, ComponentType type, List<ComponentParameter> parameters) {
+        final Component component = new Component(name, type);
+        for (ComponentParameter parameter : parameters) {
+            component.addParameter(parameter);
+        }
+        componentService.add(component);
+        return component;
+    }
+
+    private ComponentParameter createComponentParameter(String name,
+                                                        String value) {
+        final ComponentParameter componentParameter = new ComponentParameter(name, value);
+        componentParameterService.add(componentParameter);
+        return componentParameter;
+    }
+
+    private CarSetup createCarSetup(Component engine,
+                                    Component suspension,
+                                    Component brakes,
+                                    Component transmission,
+                                    Component tires,
+                                    Component cover) {
+        final CarSetup carSetup = new CarSetup(engine, suspension, brakes, transmission, tires, cover);
+        carSetupService.add(carSetup);
+        return carSetup;
+    }
+
+    private CharacteristicsValue createCharacteristicsValue(CharacteristicsType type, double value, Driver driver) {
+        final CharacteristicsValue characteristicsValue = new CharacteristicsValue(type, value, driver);
+        characteristicsValueService.add(characteristicsValue);
+        return characteristicsValue;
+    }
+
+    private Race createRace(Date date, String title, String location) {
+        final Race race = new Race(date, title, location);
+        raceService.add(race);
+        return race;
+    }
+
+    private RaceParticipation createRaceParticipation(CarSetup car, Driver driver, Race race, int resultPosition) {
+        final RaceParticipation raceParticipation = new RaceParticipation(car, driver, race, resultPosition);
+        raceParticipationService.add(raceParticipation);
+        return raceParticipation;
+    }
+
+    private TestDrive createTestDrive(CarSetup car, Driver driver, String notes, Date date) {
+        final TestDrive testDrive = new TestDrive(car, driver, notes, date);
+        testDriveService.add(testDrive);
+        return testDrive;
     }
 }
