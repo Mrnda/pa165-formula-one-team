@@ -17,40 +17,40 @@ import static org.mockito.Mockito.verify;
 public class SampleDataLoadingImplTests {
 
     @Mock
-    CarSetupService carSetupService;
+    private CarSetupService carSetupService;
 
     @Mock
-    CharacteristicsValueService characteristicsValueService;
+    private CharacteristicsValueService characteristicsValueService;
 
     @Mock
-    ComponentService componentService;
+    private ComponentService componentService;
 
     @Mock
-    ComponentParameterService componentParameterService;
+    private ComponentParameterService componentParameterService;
 
     @Mock
-    DriverService driverService;
+    private DriverService driverService;
 
     @Mock
-    EngineerService engineerService;
+    private EngineerService engineerService;
 
     @Mock
-    ManagerService managerService;
+    private ManagerService managerService;
 
     @Mock
-    RaceService raceService;
+    private RaceService raceService;
 
     @Mock
-    RaceParticipationService raceParticipationService;
+    private RaceParticipationService raceParticipationService;
 
     @Mock
-    TestDriveService testDriveService;
+    private TestDriveService testDriveService;
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
     @InjectMocks
-    SampleDataLoadingFacadeImpl facade;
+    private SampleDataLoadingFacadeImpl facade;
 
     @Test
     public void loadData_allEntities_hasData() {

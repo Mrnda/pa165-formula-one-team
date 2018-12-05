@@ -4,9 +4,9 @@ import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.enums.EngineerSpecialization;
 import cz.muni.fi.pa165.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,35 +21,35 @@ import java.util.List;
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     public static final String DEFAULT_USER_PASSWORD = "password";
-    @Autowired
-    CarSetupService carSetupService;
+    @Inject
+    private CarSetupService carSetupService;
 
-    @Autowired
-    CharacteristicsValueService characteristicsValueService;
+    @Inject
+    private CharacteristicsValueService characteristicsValueService;
 
-    @Autowired
-    ComponentService componentService;
+    @Inject
+    private ComponentService componentService;
 
-    @Autowired
-    ComponentParameterService componentParameterService;
+    @Inject
+    private ComponentParameterService componentParameterService;
 
-    @Autowired
-    DriverService driverService;
+    @Inject
+    private DriverService driverService;
 
-    @Autowired
-    EngineerService engineerService;
+    @Inject
+    private EngineerService engineerService;
 
-    @Autowired
-    ManagerService managerService;
+    @Inject
+    private ManagerService managerService;
 
-    @Autowired
-    RaceService raceService;
+    @Inject
+    private RaceService raceService;
 
-    @Autowired
-    RaceParticipationService raceParticipationService;
+    @Inject
+    private RaceParticipationService raceParticipationService;
 
-    @Autowired
-    TestDriveService testDriveService;
+    @Inject
+    private TestDriveService testDriveService;
 
 
     @Override
