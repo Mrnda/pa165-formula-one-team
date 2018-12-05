@@ -8,50 +8,49 @@ import cz.muni.fi.pa165.dao.componentparameter.ComponentParameterDao;
 import cz.muni.fi.pa165.dao.driver.DriverDao;
 import cz.muni.fi.pa165.dao.engineer.EngineerDao;
 import cz.muni.fi.pa165.dao.manager.ManagerDao;
-import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.annotations.Test;
 
-import javax.inject.Inject;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.assertj.core.api.Assertions.*;
-
-@ContextConfiguration(classes = {FormulaOneTeamWithSampleDataConfiguration.class})
+@ContextConfiguration(classes = FormulaOneTeamWithSampleDataConfiguration.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class SampleDataLoadingTests extends AbstractTestNGSpringContextTests {
 
-    @Inject
+    @Autowired
     CarSetupDao carSetupDao;
 
-    @Inject
+    @Autowired
     CharacteristicsValueDao characteristicsValueDao;
 
-    @Inject
+    @Autowired
     ComponentDao componentDao;
 
-    @Inject
+    @Autowired
     ComponentParameterDao componentParameterDao;
 
-    @Inject
+    @Autowired
     DriverDao driverDao;
 
-    @Inject
+    @Autowired
     EngineerDao engineerDao;
 
-    @Inject
+    @Autowired
     ManagerDao managerDao;
 
-    @Inject
+    @Autowired
     RaceDao raceDao;
 
-    @Inject
+    @Autowired
     RaceParticipationDao raceParticipationDao;
 
-    @Inject
+    @Autowired
     TestDriveDao testDriveDao;
 
     @Test
