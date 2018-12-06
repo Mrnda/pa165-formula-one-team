@@ -1,10 +1,10 @@
 import cz.muni.fi.pa165.service.config.ServiceConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  * @author mrnda (Michal Mrnuštík)
@@ -15,8 +15,8 @@ import javax.annotation.PostConstruct;
 @ComponentScan(basePackageClasses = SampleDataLoadingFacadeImpl.class)
 public class FormulaOneTeamWithSampleDataConfiguration {
 
-    @Autowired
-    SampleDataLoadingFacade sampleDataLoadingFacade;
+    @Inject
+    private SampleDataLoadingFacade sampleDataLoadingFacade;
 
     @PostConstruct
     public void dataLoading() {
