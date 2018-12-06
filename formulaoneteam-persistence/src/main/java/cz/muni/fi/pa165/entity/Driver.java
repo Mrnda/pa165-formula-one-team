@@ -6,7 +6,10 @@ import cz.muni.fi.pa165.enums.DriverStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author mrnda (Michal Mrnuštík)
@@ -38,14 +41,12 @@ public class Driver extends User {
             String password,
             @NotNull String nationality,
             @NotNull Date birthday,
-            DriverStatus driverStatus,
-            List<CharacteristicsValue> characteristics
+            DriverStatus driverStatus
     ) {
         super(name, surname, email, password);
         this.nationality = nationality;
         this.birthday = birthday;
         this.driverStatus = driverStatus;
-        this.characteristics = characteristics;
     }
 
     protected Driver() {

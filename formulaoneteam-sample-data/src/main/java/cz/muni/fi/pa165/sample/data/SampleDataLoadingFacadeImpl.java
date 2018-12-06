@@ -70,8 +70,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 "fernardoIsNumber1",
                 "Spanish",
                 createDate(29, 6, 1981),
-                DriverStatus.MAIN,
-                new ArrayList<>());
+                DriverStatus.MAIN
+        );
         createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100, fernardoAlonso);
         createCharacteristicsValue(CharacteristicsType.STEERING, 50, fernardoAlonso);
         createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 15, fernardoAlonso);
@@ -82,8 +82,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 "ILoveGermany",
                 "German",
                 createDate(3, 1, 1969),
-                DriverStatus.MAIN,
-                new ArrayList<>());
+                DriverStatus.MAIN
+        );
         createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 40, michaelSchumacher);
         createCharacteristicsValue(CharacteristicsType.STEERING, 100, michaelSchumacher);
         createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 20, michaelSchumacher);
@@ -95,8 +95,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 "aslkfhfrer342",
                 "Finish",
                 createDate(3, 1, 1995),
-                DriverStatus.TEST,
-                new ArrayList<>());
+                DriverStatus.TEST
+        );
         createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 10, testDriver1);
         createCharacteristicsValue(CharacteristicsType.STEERING, 15, testDriver1);
         createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 20, testDriver1);
@@ -109,8 +109,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 "john-does-password",
                 "American",
                 createDate(4, 11, 1998),
-                DriverStatus.TEST,
-                new ArrayList<>());
+                DriverStatus.TEST
+        );
         createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 10, testDriver2);
         createCharacteristicsValue(CharacteristicsType.STEERING, 15, testDriver2);
         createCharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 20, testDriver2);
@@ -199,9 +199,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                                 String password,
                                 String nationality,
                                 Date birthday,
-                                DriverStatus driverStatus,
-                                List<CharacteristicsValue> characteristics) {
-        final Driver driver = new Driver(name, surname, email, "", nationality, birthday, driverStatus, characteristics);
+                                DriverStatus driverStatus) {
+        final Driver driver = new Driver(name, surname, email, "", nationality, birthday, driverStatus);
         driverService.register(driver, password);
         return driver;
     }

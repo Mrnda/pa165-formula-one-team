@@ -264,6 +264,6 @@ public class DriverServiceImplTests extends BaseTest {
                                              DriverStatus status,
                                              List<CharacteristicsValue> characteristicsValues) {
         return new Driver("John", "Doe", "john@doe.com", "", "American",
-                birthDate, status, characteristicsValues);
+                birthDate, status);
     }
 }

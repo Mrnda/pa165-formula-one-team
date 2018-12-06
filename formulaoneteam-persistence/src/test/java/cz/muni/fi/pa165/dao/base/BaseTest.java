@@ -6,7 +6,6 @@ import cz.muni.fi.pa165.dao.carsetup.CarSetupDao;
 import cz.muni.fi.pa165.dao.component.ComponentDao;
 import cz.muni.fi.pa165.dao.driver.DriverDao;
 import cz.muni.fi.pa165.entity.*;
-import cz.muni.fi.pa165.entity.Component;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
@@ -19,10 +18,8 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
@@ -65,8 +62,6 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     protected Driver createDriver(String email) {
-        List<CharacteristicsValue> characteristicsValues = new ArrayList<>();
-        characteristicsValues.add(new CharacteristicsValue());
 
         Driver driver = new Driver(
                 "name",
@@ -75,9 +70,7 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
                 "password",
                 "driverNationality",
                 createDate(2, 11, 1995),
-                DriverStatus.MAIN,
-                characteristicsValues
-        );
+                DriverStatus.MAIN);
         driverDao.add(driver);
 
         return driver;

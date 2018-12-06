@@ -56,8 +56,8 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
         characteristicsValues.add(createCharacteristicsValue());
 
         Driver driver = new Driver("name", "surname", "123@muni.cz", "password",
-                "driverNationality", new Date(), DriverStatus.MAIN,
-                characteristicsValues);
+                "driverNationality", new Date(), DriverStatus.MAIN
+        );
         driver.setId(2);
         return driver;
     }

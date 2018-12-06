@@ -13,9 +13,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static cz.muni.fi.pa165.enums.CharacteristicsType.AGGRESIVITY;
@@ -48,7 +46,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
 
         //Then
         verify(driverServiceMock, times(1)).register(driverEntity, "password");
-        assertEquals(6, driverEntity.getCharacteristics().size());
+        assertEquals(5, driverEntity.getCharacteristics().size());
     }
 
     @Test
@@ -201,7 +199,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
                 "",
                 "American",
                 createDate(2,10,1960),
-                status,
-                new ArrayList<>());
+                status
+        );
     }
 }

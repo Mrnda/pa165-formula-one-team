@@ -1,7 +1,10 @@
 package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.TestDrive.TestDriveDao;
-import cz.muni.fi.pa165.entity.*;
+import cz.muni.fi.pa165.entity.CarSetup;
+import cz.muni.fi.pa165.entity.Component;
+import cz.muni.fi.pa165.entity.Driver;
+import cz.muni.fi.pa165.entity.TestDrive;
 import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.service.TestDriveServiceImpl;
@@ -205,7 +208,7 @@ public class TestDriveServiceTest extends BaseServiceTest<TestDrive> {
     }
 
     private Driver mockDriver(String email) {
-        return new Driver("driver1", "sur", email, "pwd", "meh", new Date(), DriverStatus.TEST, new ArrayList<>());
+        return new Driver("driver1", "sur", email, "pwd", "meh", new Date(), DriverStatus.TEST);
     }
 
     private CarSetup mockCarSetup(String engine) {
