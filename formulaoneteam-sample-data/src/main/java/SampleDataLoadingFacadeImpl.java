@@ -119,6 +119,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         engine1Parameters.add(createComponentParameter("Power", "114kW"));
         engine1Parameters.add(createComponentParameter("Torque", "1500Nm"));
         final Component engine1 = createComponent("Engine no.1", ComponentType.ENGINE, engine1Parameters);
+
         List<ComponentParameter> engine2Parameters = new ArrayList<>();
         engine2Parameters.add(createComponentParameter("Power", "180kW"));
         engine2Parameters.add(createComponentParameter("Torque", "1800Nm"));
@@ -163,7 +164,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         createRaceParticipation(carSetup2, fernardoAlonso, futureRace, RaceParticipation.NO_RESULT_POSITION);
         createRaceParticipation(carSetup1, michaelSchumacher, futureRace, RaceParticipation.NO_RESULT_POSITION);
 
-        createTestDrive(carSetup1, testDriver1, "Steering maybe too stif", createPastDate(40));
+        createTestDrive(carSetup1, testDriver1, "Steering maybe too stiff", createPastDate(40));
         createTestDrive(carSetup1, testDriver2, "Great power", createPastDate(40));
         createTestDrive(carSetup2, testDriver1, "Pretty good steering, ", createPastDate(30));
         createTestDrive(carSetup2, testDriver2, "Did not finish, transmission broke", createPastDate(30));
