@@ -72,5 +72,6 @@
         <module>formulaoneteam-api</module>
         <module>formulaoneteam-service</module>
         <module>formulaoneteam-sample-data</module>
+        <module>formulaoneteam-rest</module>
     </modules>
 </project>
