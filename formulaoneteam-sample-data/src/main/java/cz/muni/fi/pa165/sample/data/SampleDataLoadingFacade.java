@@ -1,3 +1,5 @@
+package cz.muni.fi.pa165.sample.data;
+
 /**
  * @author mrnda (Michal Mrnuštík)
  */

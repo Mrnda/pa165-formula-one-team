@@ -1,3 +1,5 @@
+package cz.muni.fi.pa165.sample.data;
+
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.ComponentType;

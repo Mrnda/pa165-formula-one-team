@@ -1,3 +1,5 @@
+package cz.muni.fi.pa165.sample.data;
+
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.entity.base.User;
 import cz.muni.fi.pa165.service.*;
@@ -13,6 +15,7 @@ import org.mockito.junit.MockitoRule;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
+
 
 public class SampleDataLoadingImplTests {
 

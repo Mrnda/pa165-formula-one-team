@@ -1,3 +1,5 @@
+package cz.muni.fi.pa165.sample.data;
+
 import cz.muni.fi.pa165.service.config.ServiceConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
