@@ -21,7 +21,6 @@ import java.util.List;
 @Transactional
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
-    public static final String DEFAULT_USER_PASSWORD = "password";
     @Inject
     private CarSetupService carSetupService;
 
@@ -55,18 +54,18 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     @Override
     public void loadData() {
-        createManager("Ross", "Parker", "ross@parker.com", DEFAULT_USER_PASSWORD);
+        createManager("Ross", "Parker", "ross@parker.com", "p4ssword");
 
-        createEngineer("Sun", "Li", "sun@engineers.com", DEFAULT_USER_PASSWORD, EngineerSpecialization.AERODYNAMICS);
-        createEngineer("Tommy", "Lee", "Tommy@engineers.com", DEFAULT_USER_PASSWORD, EngineerSpecialization.ENGINES);
-        createEngineer("Orson", "Wells", "Orson@engineers.com", DEFAULT_USER_PASSWORD, EngineerSpecialization.FLUID_MECHANICS);
-        createEngineer("Karen", "Gillian", "Karen@engineers.com", DEFAULT_USER_PASSWORD, EngineerSpecialization.EMISSIONS);
-        createEngineer("Robert", "Ford", "Robert@engineers.com", DEFAULT_USER_PASSWORD, EngineerSpecialization.THERMODYNAMICS);
+        createEngineer("Sun", "Li", "sun@engineers.com", "my-dirty-secret", EngineerSpecialization.AERODYNAMICS);
+        createEngineer("Tommy", "Lee", "Tommy@engineers.com", "thisissafepassword", EngineerSpecialization.ENGINES);
+        createEngineer("Orson", "Wells", "Orson@engineers.com", "bestEng1neer", EngineerSpecialization.FLUID_MECHANICS);
+        createEngineer("Karen", "Gillian", "Karen@engineers.com", "helloIamCaren", EngineerSpecialization.EMISSIONS);
+        createEngineer("Robert", "Ford", "Robert@engineers.com", "escort", EngineerSpecialization.THERMODYNAMICS);
 
         final Driver fernardoAlonso = createDriver("Fernando",
                 "Alonso",
                 "fernardo@alonso.cz",
-                DEFAULT_USER_PASSWORD,
+                "fernardoIsNumber1",
                 "Spanish",
                 createDate(29, 6, 1981),
                 DriverStatus.MAIN,
@@ -78,7 +77,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         final Driver michaelSchumacher = createDriver("Michael",
                 "Schumacher",
                 "micheal@schumacher.cz",
-                DEFAULT_USER_PASSWORD,
+                "ILoveGermany",
                 "German",
                 createDate(3, 1, 1969),
                 DriverStatus.MAIN,
@@ -91,7 +90,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         final Driver testDriver1 = createDriver("Miki",
                 "Raikonen",
                 "miki@raikonen.fi",
-                DEFAULT_USER_PASSWORD,
+                "aslkfhfrer342",
                 "Finish",
                 createDate(3, 1, 1995),
                 DriverStatus.TEST,
@@ -105,7 +104,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         final Driver testDriver2 = createDriver("John",
                 "Doe",
                 "john@doe.com",
-                DEFAULT_USER_PASSWORD,
+                "john-does-password",
                 "American",
                 createDate(4, 11, 1998),
                 DriverStatus.TEST,
