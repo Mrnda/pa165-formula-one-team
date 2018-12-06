@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.sample.data;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.entity.base.User;
 import cz.muni.fi.pa165.service.*;
+import cz.muni.fi.pa165.service.date.DateService;
 import cz.muni.fi.pa165.service.facade.base.BaseEntityService;
 import cz.muni.fi.pa165.service.facade.base.BaseUserService;
 import org.junit.Rule;
@@ -51,6 +52,9 @@ public class SampleDataLoadingImplTests {
 
     @Mock
     private TestDriveService testDriveService;
+
+    @Mock
+    private DateService dateService;
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();

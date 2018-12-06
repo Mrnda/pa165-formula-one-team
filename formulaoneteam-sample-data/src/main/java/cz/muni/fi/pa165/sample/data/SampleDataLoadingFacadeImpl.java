@@ -6,12 +6,12 @@ import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.enums.EngineerSpecialization;
 import cz.muni.fi.pa165.service.*;
+import cz.muni.fi.pa165.service.date.DateService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +53,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @Inject
     private TestDriveService testDriveService;
 
+    @Inject
+    private DateService dateService;
 
     @Override
     public void loadData() {
@@ -69,7 +71,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 "fernardo@alonso.cz",
                 "fernardoIsNumber1",
                 "Spanish",
-                createDate(29, 6, 1981),
+                dateService.createDate(29, 6, 1981),
                 DriverStatus.MAIN
         );
         createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100, fernardoAlonso);
@@ -81,7 +83,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 "micheal@schumacher.cz",
                 "ILoveGermany",
                 "German",
-                createDate(3, 1, 1969),
+                dateService.createDate(3, 1, 1969),
                 DriverStatus.MAIN
         );
         createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 40, michaelSchumacher);
@@ -94,7 +96,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 "miki@raikonen.fi",
                 "aslkfhfrer342",
                 "Finish",
-                createDate(3, 1, 1995),
+                dateService.createDate(3, 1, 1995),
                 DriverStatus.TEST
         );
         createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 10, testDriver1);
@@ -108,7 +110,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 "john@doe.com",
                 "john-does-password",
                 "American",
-                createDate(4, 11, 1998),
+                dateService.createDate(4, 11, 1998),
                 DriverStatus.TEST
         );
         createCharacteristicsValue(CharacteristicsType.AGGRESIVITY, 10, testDriver2);
@@ -158,39 +160,21 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         final CarSetup carSetup2 = createCarSetup(engine2, suspension, brake, transmission, tires1, cover);
         final CarSetup carSetup3 = createCarSetup(engine1, suspension, brake, transmission, tires2, cover);
 
-        final Race pastRace = createRace(createPastDate(15), "WC Valencia", "Valencia");
+        final Race pastRace = createRace(dateService.getPastDate(15), "WC Valencia", "Valencia");
         createRaceParticipation(carSetup1, michaelSchumacher, pastRace, 1);
         createRaceParticipation(carSetup2, fernardoAlonso, pastRace, 5);
 
-        final Race futureRace = createRace(createFutureDate(30), "Germany World Championship", "Nuremberg");
+        final Race futureRace = createRace(dateService.getFutureDate(30), "Germany World Championship", "Nuremberg");
         createRaceParticipation(carSetup2, fernardoAlonso, futureRace, RaceParticipation.NO_RESULT_POSITION);
         createRaceParticipation(carSetup1, michaelSchumacher, futureRace, RaceParticipation.NO_RESULT_POSITION);
 
-        createTestDrive(carSetup1, testDriver1, "Steering maybe too stiff", createPastDate(40));
-        createTestDrive(carSetup1, testDriver2, "Great power", createPastDate(40));
-        createTestDrive(carSetup2, testDriver1, "Pretty good steering, ", createPastDate(30));
-        createTestDrive(carSetup2, testDriver2, "Did not finish, transmission broke", createPastDate(30));
-        createTestDrive(carSetup3, testDriver1, "Fast, but missing some advantages of no. 2", createPastDate(20));
-        createTestDrive(carSetup3, testDriver2, "Pretty fast", createPastDate(20));
-        createTestDrive(carSetup3, testDriver2, "Slides a lot on wet", createPastDate(5));
-    }
-
-    private Date createPastDate(int numberOfDays) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, -numberOfDays);
-        return calendar.getTime();
-    }
-
-    private Date createFutureDate(int numberOfDays) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, numberOfDays);
-        return calendar.getTime();
-    }
-
-    private Date createDate(int day, int month, int year) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        return calendar.getTime();
+        createTestDrive(carSetup1, testDriver1, "Steering maybe too stiff", dateService.getPastDate(40));
+        createTestDrive(carSetup1, testDriver2, "Great power", dateService.getPastDate(40));
+        createTestDrive(carSetup2, testDriver1, "Pretty good steering, ", dateService.getPastDate(30));
+        createTestDrive(carSetup2, testDriver2, "Did not finish, transmission broke", dateService.getPastDate(30));
+        createTestDrive(carSetup3, testDriver1, "Fast, but missing some advantages of no. 2", dateService.getPastDate(20));
+        createTestDrive(carSetup3, testDriver2, "Pretty fast", dateService.getPastDate(20));
+        createTestDrive(carSetup3, testDriver2, "Slides a lot on wet", dateService.getPastDate(5));
     }
 
     private Driver createDriver(String name,
