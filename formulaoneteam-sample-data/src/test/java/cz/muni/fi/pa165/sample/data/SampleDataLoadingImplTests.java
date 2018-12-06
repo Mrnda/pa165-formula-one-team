@@ -16,6 +16,9 @@ import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
 
 public class SampleDataLoadingImplTests {
 
