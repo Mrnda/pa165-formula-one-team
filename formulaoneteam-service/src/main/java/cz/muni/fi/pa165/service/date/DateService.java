@@ -7,5 +7,10 @@ public interface DateService {
 
     Date getCurrentDate();
 
+    Date getFutureDate(int numberOfDays);
+
+    Date getPastDate(int numberOfDays);
+
+    Date createDate(int day, int monthIndex, int year);
     Calendar createCalendarForDate(Date date);
 }
