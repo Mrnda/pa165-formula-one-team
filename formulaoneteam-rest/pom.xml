@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>cz.muni.fi.pa165</groupId>
-        <artifactId>formulaoneteam-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>formulateoneteam-parent</artifactId>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
-    <artifactId>formulaoneteam-rest</artifactId>
+    <artifactId>formulateoneteam-rest</artifactId>
     <packaging>war</packaging>
     <name>Rest Layer</name>
     
@@ -31,12 +31,12 @@
         </dependency>
         <dependency>
             <groupId>cz.muni.fi.pa165</groupId>
-            <artifactId>formulaoneteam-sample-data</artifactId>
+            <artifactId>formulateoneteam-sample-data</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>cz.muni.fi.pa165</groupId>
-            <artifactId>formulaoneteam-service</artifactId>
+            <artifactId>formulateoneteam-service</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
