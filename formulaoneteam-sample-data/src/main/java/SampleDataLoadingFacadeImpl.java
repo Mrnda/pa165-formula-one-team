@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.enums.EngineerSpecialization;
 import cz.muni.fi.pa165.service.*;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author mrnda (Michal Mrnuštík)
  */
 
-@org.springframework.stereotype.Component
+@Service
 @Transactional
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
