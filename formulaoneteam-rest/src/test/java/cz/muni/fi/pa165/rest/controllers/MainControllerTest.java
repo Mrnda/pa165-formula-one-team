@@ -13,6 +13,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
+
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
 public class MainControllerTest extends AbstractTestNGSpringContextTests {

@@ -10,9 +10,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
 
 @RestController
 public class MainController {
+
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Map<String, String> getResources() {
         Map<String, String> resourcesMap = new HashMap<>();

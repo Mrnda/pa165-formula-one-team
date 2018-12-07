@@ -2,6 +2,10 @@ package cz.muni.fi.pa165.rest;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
+
 public class ServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
