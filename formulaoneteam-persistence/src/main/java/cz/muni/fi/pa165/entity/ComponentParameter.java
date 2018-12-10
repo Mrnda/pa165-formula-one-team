@@ -16,7 +16,7 @@ import java.util.Objects;
 public class ComponentParameter extends BaseEntity {
 
     @NotNull
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name = "";
 
     @Column
@@ -55,13 +55,14 @@ public class ComponentParameter extends BaseEntity {
         if (this == o) return true;
         if (!(o instanceof ComponentParameter)) return false;
         ComponentParameter that = (ComponentParameter) o;
-        return Objects.equals(that.getValue(), getValue()) &&
-                Objects.equals(getName(), that.getName());
+        return Objects.equals(getId(), that.getId()) &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getValue(), that.getValue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getValue());
+        return Objects.hash(getName(), getValue(), getId());
     }
 
     @Override

@@ -17,8 +17,6 @@ public abstract class BaseUserServiceImpl<T extends User, D extends UserDao<T>>
         if (unencryptedPassword == null || unencryptedPassword.isEmpty()) {
             throw new FormulaOneTeamException("Password can't be empty");
         }
-        validateEntity(user);
-
         user.setPasswordHash(Validator.createHash(unencryptedPassword));
         validateEntity(user);
         dao.add(user);

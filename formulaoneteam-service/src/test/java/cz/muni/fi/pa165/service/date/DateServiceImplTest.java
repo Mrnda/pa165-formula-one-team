@@ -47,6 +47,10 @@ public class DateServiceImplTest extends BaseTest {
     public void createDate_returnsValidDate() {
         //given
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
         calendar.set(1995, Calendar.NOVEMBER, 2);
 
         //when
