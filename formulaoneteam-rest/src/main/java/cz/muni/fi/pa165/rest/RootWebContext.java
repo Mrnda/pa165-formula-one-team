@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 @Configuration
 @Import({ServiceConfiguration.class, FormulaOneTeamWithSampleDataConfiguration.class})
-@ComponentScan(basePackages = {"cz.fi.muni.pa165.rest.controllers"})
+@ComponentScan(basePackages = {"cz.fi.muni.pa165.rest"})
 public class RootWebContext implements WebMvcConfigurer {
 
     @Override
