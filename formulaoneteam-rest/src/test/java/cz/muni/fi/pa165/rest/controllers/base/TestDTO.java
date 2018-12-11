@@ -4,7 +4,11 @@ import cz.muni.fi.pa165.dto.base.BaseDTO;
 
 import java.util.Objects;
 
-class TestDto extends BaseDTO {
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
+
+class TestDTO extends BaseDTO {
     private String name;
 
     public String getName() {
@@ -18,8 +22,8 @@ class TestDto extends BaseDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TestDto)) return false;
-        TestDto testDto = (TestDto) o;
+        if (!(o instanceof TestDTO)) return false;
+        TestDTO testDto = (TestDTO) o;
         return Objects.equals(getName(), testDto.getName());
     }
 

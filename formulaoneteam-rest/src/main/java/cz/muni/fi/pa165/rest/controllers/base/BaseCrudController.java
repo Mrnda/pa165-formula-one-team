@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
+
 public abstract class BaseCrudController<TFacade extends BaseEntityFacade<TDTO, TEntity>, TDTO extends BaseDTO, TEntity extends BaseEntity> {
 
     @Inject

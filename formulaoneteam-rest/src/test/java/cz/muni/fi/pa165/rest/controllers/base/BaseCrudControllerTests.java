@@ -25,10 +25,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+/**
+ * @author mrnda (Michal Mrnuštík)
+ */
+
 public class BaseCrudControllerTests {
 
     @Mock
-    private BaseEntityFacade<TestDto, TestEntity> testFacade;
+    private BaseEntityFacade<TestDTO, TestEntity> testFacade;
 
     @InjectMocks
     private TestController controller;
@@ -47,7 +51,7 @@ public class BaseCrudControllerTests {
     @Test
     public void getAll_withSomeItems_returnsFacadeGetAll() throws Exception {
         //Given
-        List<TestDto> testDtos = Arrays.asList(createTestDto(1, "test 1"),
+        List<TestDTO> testDtos = Arrays.asList(createTestDto(1, "test 1"),
                 createTestDto(2, "test 2"));
         String testAsJson = convertToString(testDtos);
         when(testFacade.getAll()).thenReturn(testDtos);
@@ -61,7 +65,7 @@ public class BaseCrudControllerTests {
     @Test
     public void getWithId_withExistingItem_returnsFacadeFindById() throws Exception {
         //Given
-        TestDto dto = createTestDto(1, "test 1");
+        TestDTO dto = createTestDto(1, "test 1");
         dto.setId(1);
         String dtoAsJson = convertToString(dto);
         when(testFacade.findById(dto.getId())).thenReturn(dto);
@@ -85,7 +89,7 @@ public class BaseCrudControllerTests {
     @Test
     public void delete_withExistingItem_returnsDeleted() throws Exception {
         //Given
-        TestDto dto = createTestDto(1, "test 1");
+        TestDTO dto = createTestDto(1, "test 1");
         dto.setId(1);
         when(testFacade.findById(dto.getId())).thenReturn(dto);
 
@@ -107,7 +111,7 @@ public class BaseCrudControllerTests {
     @Test
     public void put_withExistingItem_returnsOk() throws Exception {
         //Given
-        TestDto dto = createTestDto(1, "test 1");
+        TestDTO dto = createTestDto(1, "test 1");
         String dtoString = convertToString(dto);
         when(testFacade.findById(dto.getId())).thenReturn(dto);
 
@@ -119,32 +123,32 @@ public class BaseCrudControllerTests {
     @Test
     public void put_withInvalidItem_returnsUnprocessableEntity() throws Exception {
         //Given
-        TestDto dto = createTestDto(1, "test 1");
+        TestDTO dto = createTestDto(1, "test 1");
         String dtoString = convertToString(dto);
         doThrow(FormulaOneTeamException.class).when(testFacade).update(dto);
 
         //Thne
         mockMvc.perform(put("/")
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .accept(MediaType.APPLICATION_JSON_VALUE)
-                    .content(dtoString))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(dtoString))
                 .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
     public void post_withNewValidItem_returnsOk() throws Exception {
         //Given
-        TestDto noIdDTO = createTestDto(-1, "test 1");
+        TestDTO noIdDTO = createTestDto(-1, "test 1");
         String dtoString = convertToString(noIdDTO);
-        TestDto createdDTO = createTestDto(1, "test 1");
+        TestDTO createdDTO = createTestDto(1, "test 1");
         createdDTO.setId(1);
         when(testFacade.add(noIdDTO)).thenReturn(createdDTO);
 
         //Thne
         mockMvc.perform(post("/")
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .accept(MediaType.APPLICATION_JSON_VALUE)
-                    .content(dtoString))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(dtoString))
                 .andExpect(status().isOk())
                 .andExpect(content().json(convertToString(createdDTO)));
     }
@@ -152,20 +156,20 @@ public class BaseCrudControllerTests {
     @Test
     public void post_withInvalidItem_returnsOk() throws Exception {
         //Given
-        TestDto noIdDTO = createTestDto(-1, null);
+        TestDTO noIdDTO = createTestDto(-1, null);
         String dtoString = convertToString(noIdDTO);
         when(testFacade.add(noIdDTO)).thenThrow(FormulaOneTeamException.class);
 
         //Thne
         mockMvc.perform(post("/")
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .accept(MediaType.APPLICATION_JSON_VALUE)
-                    .content(dtoString))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .content(dtoString))
                 .andExpect(status().isUnprocessableEntity());
     }
 
-    private TestDto createTestDto(long id, String name) {
-        TestDto dto = new TestDto();
+    private TestDTO createTestDto(long id, String name) {
+        TestDTO dto = new TestDTO();
         dto.setId(id);
         dto.setName(name);
         return dto;
