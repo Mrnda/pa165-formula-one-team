@@ -19,7 +19,7 @@ import java.util.List;
 public abstract class BaseCrudController<Facade extends BaseEntityFacade<DTO, Entity>, DTO extends BaseDTO, Entity extends BaseEntity> {
 
     @Inject
-    Facade facade;
+    protected Facade facade;
 
     @RequestMapping
     public @ResponseBody
