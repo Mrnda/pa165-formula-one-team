@@ -99,6 +99,8 @@ public class BaseCrudControllerTests {
         dto.setId(1);
         when(testFacade.findById(dto.getId())).thenReturn(dto);
 
+        //When
+
         //Then
         mockMvc.perform(delete("/" + dto.getId()))
                 .andExpect(status().isOk());
