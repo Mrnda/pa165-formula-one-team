@@ -21,7 +21,7 @@ public abstract class BaseCrudController<Facade extends BaseEntityFacade<DTO, En
     @Inject
     protected Facade facade;
 
-    @RequestMapping
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<DTO> getAll() {
         return facade.getAll();
