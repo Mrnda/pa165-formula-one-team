@@ -115,8 +115,10 @@ public class BaseCrudControllerTests {
         String dtoString = convertToString(dto);
         when(testFacade.findById(dto.getId())).thenReturn(dto);
 
-        //Thne
-        mockMvc.perform(put("/").contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON_VALUE).content(dtoString))
+        //Then
+        mockMvc.perform(put("/")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(dtoString))
                 .andExpect(status().isOk());
     }
 
@@ -127,10 +129,9 @@ public class BaseCrudControllerTests {
         String dtoString = convertToString(dto);
         doThrow(FormulaOneTeamException.class).when(testFacade).update(dto);
 
-        //Thne
+        //Then
         mockMvc.perform(put("/")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(dtoString))
                 .andExpect(status().isUnprocessableEntity());
     }
@@ -140,11 +141,12 @@ public class BaseCrudControllerTests {
         //Given
         TestDTO noIdDTO = createTestDto(-1, "test 1");
         String dtoString = convertToString(noIdDTO);
-        CreatedEntityIdDTO createdDTO = new CreatedEntityIdDTO(1);
+        TestDTO createdDTO = createTestDto(1, "test 1");
         createdDTO.setId(1);
         when(testFacade.add(noIdDTO)).thenReturn(createdDTO.getId());
+        when(testFacade.findById(createdDTO.getId())).thenReturn(createdDTO);
 
-        //Thne
+        //Then
         mockMvc.perform(post("/")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
@@ -160,7 +162,7 @@ public class BaseCrudControllerTests {
         String dtoString = convertToString(noIdDTO);
         when(testFacade.add(noIdDTO)).thenThrow(FormulaOneTeamException.class);
 
-        //Thne
+        //Then
         mockMvc.perform(post("/")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)

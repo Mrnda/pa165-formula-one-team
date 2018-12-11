@@ -30,40 +30,56 @@ public abstract class BaseCrudController<Facade extends BaseEntityFacade<DTO, En
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DTO> findById(@PathVariable long id) {
         try {
-            return ResponseEntity.ok(facade.findById(id));
+            return ok(facade.findById(id));
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
+            return notFound();
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> remove(@PathVariable long id) {
+    public ResponseEntity remove(@PathVariable long id) {
         try {
             DTO dto = facade.findById(id);
             facade.remove(dto);
-            return ResponseEntity.ok().build();
+            return ok();
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
+            return notFound();
         }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CreatedEntityIdDTO> add(@RequestBody DTO dto) {
+    public ResponseEntity<DTO> add(@RequestBody DTO dto) {
         try {
             long id = facade.add(dto);
-            return ResponseEntity.ok(new CreatedEntityIdDTO(id));
+            return ok(facade.findById(id));
         } catch (FormulaOneTeamException e) {
-            return ResponseEntity.unprocessableEntity().build();
+            return unprocessableEntity();
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DTO> update(@RequestBody DTO updatedDto) {
+    @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity update(@RequestBody DTO updatedDto) {
         try {
             facade.update(updatedDto);
-            return ResponseEntity.ok(facade.findById(updatedDto.getId()));
+            return ok();
         } catch (FormulaOneTeamException e) {
-            return ResponseEntity.unprocessableEntity().build();
+            return unprocessableEntity();
         }
+    }
+
+    private ResponseEntity<Object> ok() {
+        return ResponseEntity.ok().build();
+    }
+
+    private ResponseEntity<DTO> ok(DTO dto) {
+        return ResponseEntity.ok(dto);
+    }
+
+    private ResponseEntity<DTO> notFound() {
+        return ResponseEntity.notFound().build();
+    }
+
+    private ResponseEntity<DTO> unprocessableEntity() {
+        return ResponseEntity.unprocessableEntity().build();
     }
 }

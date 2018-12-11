@@ -8,5 +8,5 @@ import org.springframework.lang.Nullable;
  */
 public interface BaseEntityService<E extends BaseEntity> extends BaseService<E> {
 
-    void add(@Nullable E entity);
+    E add(@Nullable E entity);
 }
