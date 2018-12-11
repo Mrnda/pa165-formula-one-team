@@ -13,6 +13,7 @@
     <name>Rest Layer</name>
     
     <build>
+        <finalName>pa165</finalName>
         <plugins>
             <!--  embedded tomcat 8 -->
             <plugin>
