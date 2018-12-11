@@ -140,9 +140,9 @@ public class BaseCrudControllerTests {
         //Given
         TestDTO noIdDTO = createTestDto(-1, "test 1");
         String dtoString = convertToString(noIdDTO);
-        TestDTO createdDTO = createTestDto(1, "test 1");
+        CreatedEntityIdDTO createdDTO = new CreatedEntityIdDTO(1);
         createdDTO.setId(1);
-        when(testFacade.add(noIdDTO)).thenReturn(createdDTO);
+        when(testFacade.add(noIdDTO)).thenReturn(createdDTO.getId());
 
         //Thne
         mockMvc.perform(post("/")

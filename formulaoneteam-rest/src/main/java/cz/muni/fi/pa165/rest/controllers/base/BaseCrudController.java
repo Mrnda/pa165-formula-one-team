@@ -48,10 +48,10 @@ public abstract class BaseCrudController<Facade extends BaseEntityFacade<DTO, En
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DTO> add(@RequestBody DTO dto) {
+    public ResponseEntity<CreatedEntityIdDTO> add(@RequestBody DTO dto) {
         try {
-            DTO createdDTO = facade.add(dto);
-            return ResponseEntity.ok(createdDTO);
+            long id = facade.add(dto);
+            return ResponseEntity.ok(new CreatedEntityIdDTO(id));
         } catch (FormulaOneTeamException e) {
             return ResponseEntity.unprocessableEntity().build();
         }
