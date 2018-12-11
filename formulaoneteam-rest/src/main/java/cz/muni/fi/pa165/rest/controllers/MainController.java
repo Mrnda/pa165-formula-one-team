@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 public class MainController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Map<String, String> getResources() {
         Map<String, String> resourcesMap = new HashMap<>();
 
