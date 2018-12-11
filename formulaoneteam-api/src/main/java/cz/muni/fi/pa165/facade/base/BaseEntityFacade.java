@@ -9,7 +9,7 @@ import cz.muni.fi.pa165.entity.base.BaseEntity;
 public interface BaseEntityFacade<DTO extends BaseDTO, E extends BaseEntity>
         extends BaseFacade<DTO, E> {
 
-    void add(DTO dto);
+    DTO add(DTO dto);
 
     void remove(DTO dto);
 
