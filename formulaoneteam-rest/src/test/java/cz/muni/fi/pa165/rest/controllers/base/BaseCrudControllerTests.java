@@ -56,6 +56,8 @@ public class BaseCrudControllerTests {
         String testAsJson = convertToString(testDtos);
         when(testFacade.getAll()).thenReturn(testDtos);
 
+        //When
+
         //Then
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -70,6 +72,8 @@ public class BaseCrudControllerTests {
         String dtoAsJson = convertToString(dto);
         when(testFacade.findById(dto.getId())).thenReturn(dto);
 
+        //When
+
         //Then
         mockMvc.perform(get("/" + dto.getId()))
                 .andExpect(status().isOk())
@@ -80,6 +84,8 @@ public class BaseCrudControllerTests {
     public void getWithId_withNonExistingItem_statusIsNotFound() throws Exception {
         //Given
         when(testFacade.findById(-1)).thenThrow(EntityNotFoundException.class);
+
+        //When
 
         //Then
         mockMvc.perform(get("/" + -1))
@@ -103,6 +109,8 @@ public class BaseCrudControllerTests {
         //Given
         when(testFacade.findById(1)).thenThrow(EntityNotFoundException.class);
 
+        //When
+
         //Then
         mockMvc.perform(delete("/1"))
                 .andExpect(status().isNotFound());
@@ -114,6 +122,8 @@ public class BaseCrudControllerTests {
         TestDTO dto = createTestDto(1, "test 1");
         String dtoString = convertToString(dto);
         when(testFacade.findById(dto.getId())).thenReturn(dto);
+
+        //When
 
         //Then
         mockMvc.perform(put("/")
@@ -128,6 +138,8 @@ public class BaseCrudControllerTests {
         TestDTO dto = createTestDto(1, "test 1");
         String dtoString = convertToString(dto);
         doThrow(FormulaOneTeamException.class).when(testFacade).update(dto);
+
+        //When
 
         //Then
         mockMvc.perform(put("/")
@@ -146,6 +158,8 @@ public class BaseCrudControllerTests {
         when(testFacade.add(noIdDTO)).thenReturn(createdDTO.getId());
         when(testFacade.findById(createdDTO.getId())).thenReturn(createdDTO);
 
+        //When
+
         //Then
         mockMvc.perform(post("/")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -161,6 +175,8 @@ public class BaseCrudControllerTests {
         TestDTO noIdDTO = createTestDto(-1, null);
         String dtoString = convertToString(noIdDTO);
         when(testFacade.add(noIdDTO)).thenThrow(FormulaOneTeamException.class);
+
+        //When
 
         //Then
         mockMvc.perform(post("/")
