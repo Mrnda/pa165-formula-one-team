@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<nav class="navbaar navbar-inverse navbar-static-top">
+<nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -32,10 +32,10 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><my:a href="/">Home</my:a></li>
-                <li><my:a href="/drivers">Drivers</my:a></li>
-                <li><my:a href="/world-championships">World Championships</my:a></li>
-                <li><my:a href="/cars">Cars</my:a></li>
-                <li><my:a href="/components">Components</my:a></li>
+                <li><my:a href="/drivers/list">Drivers</my:a></li>
+                <li><my:a href="/world-championships/list">World Championships</my:a></li>
+                <li><my:a href="/cars/list">Cars</my:a></li>
+                <li><my:a href="/components/list">Components</my:a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <c:choose>
