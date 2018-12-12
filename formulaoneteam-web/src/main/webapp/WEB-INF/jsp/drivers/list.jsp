@@ -7,10 +7,6 @@
 
 <my:pagetemplate title="Drivers">
 <jsp:attribute name="body">
-
-    <div class="jumbotron">
-        <h1>Drivers list</h1>
-    </div>
     <div class="container">
         <table class="table">
             <thead>
