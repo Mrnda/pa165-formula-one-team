@@ -18,6 +18,39 @@
 </head>
 <body>
 
+<nav class="navbaar navbar-inverse navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><my:a href="/">Home</my:a></li>
+                <li><my:a href="/drivers">Drivers</my:a></li>
+                <li><my:a href="/world-championships">World Championships</my:a></li>
+                <li><my:a href="/cars">Cars</my:a></li>
+                <li><my:a href="/components">Components</my:a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <c:choose>
+                    <c:when test="${empty pageContext.request.authType}">
+                        <li><my:a href="#">Sign in</my:a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><my:a href="#">Sing out</my:a></li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
 
     <!-- page title -->
