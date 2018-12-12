@@ -11,6 +11,35 @@
     <div class="jumbotron">
         <h1>Drivers list</h1>
     </div>
-
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>surname</th>
+                <th>email</th>
+                <th>birthday</th>
+                <th>nationality</th>
+                <th>status</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${drivers}" var="driver">
+            <tr>
+                <td><c:out value="${driver.name}"/></td>
+                <td><c:out value="${driver.surname}"/></td>
+                <td><c:out value="${driver.email}"/></td>
+                <td><fmt:formatDate value="${driver.birthday}" pattern="dd/MM/YYYY"/></td>
+                <td><c:out value="${driver.nationality}"/></td>
+                <td><c:out value="${driver.driverStatus}"/></td>
+                <td>
+                    <my:a href="drivers/detail/${driver.id}" class="btn btn-primary">Detail</my:a>
+                </td>
+            </tr>
+        </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </jsp:attribute>
 </my:pagetemplate>
