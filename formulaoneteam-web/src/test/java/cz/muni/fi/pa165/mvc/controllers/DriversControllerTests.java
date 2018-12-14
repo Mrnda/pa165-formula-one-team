@@ -3,14 +3,9 @@ package cz.muni.fi.pa165.mvc.controllers;
 import cz.muni.fi.pa165.dto.DriverListItemDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -21,26 +16,14 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-public class DriversControllerTests {
+public class DriversControllerTests extends BaseControllerTest<DriversController> {
 
     @Mock
     private DriverFacade driverFacadeMock;
 
     @InjectMocks
     private DriversController controller;
-
-    @Rule
-    public MockitoRule rule = MockitoJUnit.rule();
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp() {
-        mockMvc = standaloneSetup(controller)
-                .build();
-    }
 
     @Test
     public void list_statusIsOk() throws Exception {
@@ -76,5 +59,10 @@ public class DriversControllerTests {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         return calendar.getTime();
+    }
+
+    @Override
+    protected DriversController getController() {
+        return controller;
     }
 }

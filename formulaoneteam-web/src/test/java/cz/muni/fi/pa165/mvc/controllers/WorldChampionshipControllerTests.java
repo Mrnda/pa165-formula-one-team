@@ -1,37 +1,25 @@
 package cz.muni.fi.pa165.mvc.controllers;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-public class WorldChampionshipControllerTests {
+public class WorldChampionshipControllerTests extends BaseControllerTest<WorldChampionshipController> {
     @InjectMocks
     private WorldChampionshipController controller;
-
-    @Rule
-    public MockitoRule rule = MockitoJUnit.rule();
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp() {
-        mockMvc = standaloneSetup(controller)
-                .build();
-    }
 
     @Test
     public void list_statusIsOk() throws Exception {
         //Then
         mockMvc.perform(get("/world-championship/list"))
                 .andExpect(status().isOk());
+    }
+
+    @Override
+    protected WorldChampionshipController getController() {
+        return controller;
     }
 }
 
