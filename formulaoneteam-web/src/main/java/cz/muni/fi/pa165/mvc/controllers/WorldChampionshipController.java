@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author mrnda (Michal Mrnuštík)
  */
 @Controller
-@RequestMapping("/world-championships")
-public class WorldChampionshipsController {
+@RequestMapping("/world-championship")
+public class WorldChampionshipController {
 
     @RequestMapping("/list")
     public String list() {

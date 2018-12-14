@@ -33,7 +33,7 @@
             <ul class="nav navbar-nav">
                 <li><my:a href="/">Home</my:a></li>
                 <li><my:a href="/drivers/list">Drivers</my:a></li>
-                <li><my:a href="/world-championships/list">World Championships</my:a></li>
+                <li><my:a href="/world-championship/list">World Championships</my:a></li>
                 <li><my:a href="/cars/list">Cars</my:a></li>
                 <li><my:a href="/components/list">Components</my:a></li>
             </ul>

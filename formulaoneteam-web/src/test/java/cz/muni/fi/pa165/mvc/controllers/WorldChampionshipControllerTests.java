@@ -12,9 +12,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-public class WorldChampionshipsControllerTests {
+public class WorldChampionshipControllerTests {
     @InjectMocks
-    private WorldChampionshipsController controller;
+    private WorldChampionshipController controller;
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
@@ -30,7 +30,7 @@ public class WorldChampionshipsControllerTests {
     @Test
     public void list_statusIsOk() throws Exception {
         //Then
-        mockMvc.perform(get("/world-championships/list"))
+        mockMvc.perform(get("/world-championship/list"))
                 .andExpect(status().isOk());
     }
 }
