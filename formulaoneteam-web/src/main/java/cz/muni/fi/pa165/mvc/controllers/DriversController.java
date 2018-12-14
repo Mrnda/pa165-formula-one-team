@@ -15,7 +15,7 @@ import javax.inject.Inject;
 public class DriversController {
 
     @Inject
-    DriverFacade driverFacade;
+    private DriverFacade driverFacade;
 
     @RequestMapping("/list")
     public String list(Model model) {
