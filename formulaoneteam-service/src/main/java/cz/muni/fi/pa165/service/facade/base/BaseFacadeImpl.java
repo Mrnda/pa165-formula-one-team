@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.facade.base.BaseFacade;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.CharacteristicsValueService;
+import cz.muni.fi.pa165.service.ComponentParameterService;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -23,6 +24,9 @@ public abstract class BaseFacadeImpl<DTO extends BaseDTO, E extends BaseEntity, 
 
     @Inject
     protected CharacteristicsValueService characteristicsValueService;
+
+    @Inject
+    protected ComponentParameterService componentParameterService;
 
     @Override
     public DTO findById(long id) {
