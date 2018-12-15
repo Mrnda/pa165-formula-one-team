@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.testng.AssertJUnit.assertTrue;
@@ -37,11 +38,13 @@ public class ManagerServiceImplTests extends BaseServiceTest<Manager> {
         String password = "password";
 
         //when
+        when(dao.findById(any())).thenReturn(entity);
+
         service.register(entity, password);
 
         //then
         verify(dao).add(entity);
-        assertTrue(Validator.validatePassword(password, entity.getPasswordHash()));
+        assertTrue(Validator.validatePassword(password, entity.getPassword()));
     }
 
     @Test(expected = FormulaOneTeamException.class)
@@ -75,7 +78,7 @@ public class ManagerServiceImplTests extends BaseServiceTest<Manager> {
         String password = "password";
 
         //when
-        entity.setPasswordHash(Validator.createHash(password));
+        entity.setPassword(Validator.createHash(password));
         when(dao.findByEmail(entity.getEmail())).thenReturn(entity);
 
         //then
@@ -89,7 +92,7 @@ public class ManagerServiceImplTests extends BaseServiceTest<Manager> {
         String invalidPassword = "invalid_password";
 
         //when
-        entity.setPasswordHash(Validator.createHash(validPassword));
+        entity.setPassword(Validator.createHash(validPassword));
         when(dao.findByEmail(entity.getEmail())).thenReturn(entity);
 
         //then
@@ -130,10 +133,10 @@ public class ManagerServiceImplTests extends BaseServiceTest<Manager> {
     @Test
     public void deleteManager_withExistingManager_managerDeleteCalled() {
         //when
-        service.remove(entity);
+        service.remove(entity.getId());
 
         //then
-        verify(dao).delete(entity);
+        verify(dao).delete(entity.getId());
     }
 
     @Test
@@ -143,7 +146,7 @@ public class ManagerServiceImplTests extends BaseServiceTest<Manager> {
 
         //when
         entity.setEmail("test@test.cz");
-        entity.setPasswordHash("asdapso2321");
+        entity.setPassword("asdapso2321");
 
         //then
         assertEquals(entity, service.update(entity));

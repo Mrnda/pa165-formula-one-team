@@ -1,5 +1,6 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.driver;
 
+import cz.muni.fi.pa165.dto.UserDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 
 import java.util.Date;

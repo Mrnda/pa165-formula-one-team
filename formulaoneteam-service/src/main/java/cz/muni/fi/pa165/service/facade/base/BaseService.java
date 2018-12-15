@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface BaseService<E extends BaseEntity> {
 
-    void remove(@Nullable E entity);
+    void remove(long id);
 
     E update(@Nullable E entity);
 

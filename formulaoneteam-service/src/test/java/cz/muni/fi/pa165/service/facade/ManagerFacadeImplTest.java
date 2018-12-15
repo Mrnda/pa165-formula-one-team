@@ -24,7 +24,7 @@ public class ManagerFacadeImplTest extends BaseFacadeTest<Manager, ManagerDTO> {
     private static final String TEST_MANAGER_PASSWORD = "aspkdjp1j2jda";
 
     @Mock
-    private ManagerService managerService;
+    private ManagerService service;
 
     @InjectMocks
     private ManagerFacadeImpl managerFacade;
@@ -43,22 +43,22 @@ public class ManagerFacadeImplTest extends BaseFacadeTest<Manager, ManagerDTO> {
         managerFacade.register(dto, TEST_MANAGER_PASSWORD);
 
         //then
-        verify(managerService, times(1)).register(entity, TEST_MANAGER_PASSWORD);
+        verify(service, times(1)).register(entity, TEST_MANAGER_PASSWORD);
     }
 
     @Test
     public void authenticate_returnsTrue() {
         //when
-        when(managerService.authenticate(dto.getEmail(), dto.getPassword())).thenReturn(true);
+        when(service.authenticate(dto.getEmail(), TEST_MANAGER_PASSWORD)).thenReturn(true);
 
         //then
-        assertTrue(managerFacade.authenticate(dto.getEmail(), dto.getPassword()));
+        assertTrue(managerFacade.authenticate(dto.getEmail(), TEST_MANAGER_PASSWORD));
     }
 
     @Test
     public void findById_returnsValidDto() {
         //when
-        when(managerService.findById(dto.getId())).thenReturn(entity);
+        when(service.findById(dto.getId())).thenReturn(entity);
 
         //then
         assertEquals(dto, managerFacade.findById(dto.getId()));
@@ -67,7 +67,7 @@ public class ManagerFacadeImplTest extends BaseFacadeTest<Manager, ManagerDTO> {
     @Test
     public void findByEmail_returnsValidDto() {
         //when
-        when(managerService.findByEmail(dto.getEmail())).thenReturn(entity);
+        when(service.findByEmail(dto.getEmail())).thenReturn(entity);
 
         //then
         assertEquals(dto, managerFacade.findByEmail(dto.getEmail()));
@@ -88,7 +88,7 @@ public class ManagerFacadeImplTest extends BaseFacadeTest<Manager, ManagerDTO> {
 
         //when
         when(beanMappingServiceMock.mapTo(managerList, ManagerDTO.class)).thenReturn(managerDTOList);
-        when(managerService.getAll()).thenReturn(managerList);
+        when(service.getAll()).thenReturn(managerList);
 
         //then
         assertEquals(managerDTOList, managerFacade.getAll());
@@ -97,18 +97,19 @@ public class ManagerFacadeImplTest extends BaseFacadeTest<Manager, ManagerDTO> {
     @Test
     public void delete_deletesEntity() {
         //when
-        when(managerService.authenticate(dto.getEmail(), dto.getPassword())).thenReturn(true);
+        when(service.authenticate(dto.getEmail(), TEST_MANAGER_PASSWORD)).thenReturn(true);
+        when(service.findByEmail(dto.getEmail())).thenReturn(entity);
 
-        managerFacade.delete(dto.getEmail(), dto.getPassword());
+        managerFacade.delete(dto.getEmail(), TEST_MANAGER_PASSWORD);
 
         //then
-        verify(managerService).remove(managerService.findByEmail(dto.getEmail()));
+        verify(service).remove(entity.getId());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void delete_throwsException() {
         //when
-        managerFacade.delete(dto.getEmail(), dto.getPassword());
+        managerFacade.delete(dto.getEmail(), TEST_MANAGER_PASSWORD);
 
         //then
         fail("Exception is not thrown");
@@ -126,7 +127,6 @@ public class ManagerFacadeImplTest extends BaseFacadeTest<Manager, ManagerDTO> {
         managerDTO.setEmail("manager@gmail.com");
         managerDTO.setName("Manager");
         managerDTO.setSurname("Test");
-        managerDTO.setPassword("aspkdjp1j2jda");
         return managerDTO;
     }
 }

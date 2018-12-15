@@ -65,10 +65,10 @@ public class ComponentServiceImplTest extends BaseServiceTest<Component> {
     @Test
     public void removeComponent_withValidValues() {
         //when
-        componentService.remove(entity);
+        componentService.remove(entity.getId());
 
         //then
-        verify(componentDaoMock, times(1)).delete(entity);
+        verify(componentDaoMock, times(1)).delete(entity.getId());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ComponentServiceImplTest extends BaseServiceTest<Component> {
     @Test(expected = FormulaOneTeamException.class)
     public void add_throwsException() {
         //when
-        componentService.add(null);
+        componentService.add((Component) null);
 
         //then
         fail("Exception is not thrown");
@@ -113,7 +113,7 @@ public class ComponentServiceImplTest extends BaseServiceTest<Component> {
     @Test(expected = FormulaOneTeamException.class)
     public void remove_exceptionIsThrown() {
         //when
-        componentService.remove(null);
+        componentService.remove(-1);
 
         //then
         fail("Exception is not thrown");

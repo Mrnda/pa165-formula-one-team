@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Tests for the general Dao functionality.
@@ -24,6 +25,9 @@ public class DaoTest {
     public void setUp() {
         em = mock(EntityManager.class);
         dao = new TestEntityDaoImpl(em);
+
+        when(testEntity.getId()).thenReturn(1L);
+        when(em.find(TestEntity.class, testEntity.getId())).thenReturn(testEntity);
     }
 
     @Test
@@ -35,7 +39,7 @@ public class DaoTest {
 
     @Test
     public void testDelete_removeCalled() {
-        dao.delete(testEntity);
+        dao.delete(testEntity.getId());
 
         verify(em).remove(testEntity);
     }

@@ -21,16 +21,12 @@ public class CharacteristicsValue extends BaseEntity {
     @Enumerated
     private CharacteristicsType type;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Driver driver;
-
-    public CharacteristicsValue() {
-    }
-
-    public CharacteristicsValue(CharacteristicsType type, double value, Driver driver) {
+    public CharacteristicsValue(CharacteristicsType type, double value) {
         this.value = value;
         this.type = type;
-        this.driver = driver;
+    }
+
+    protected CharacteristicsValue() {
     }
 
     public double getValue() {
@@ -55,13 +51,12 @@ public class CharacteristicsValue extends BaseEntity {
         if (!(o instanceof CharacteristicsValue)) return false;
         CharacteristicsValue that = (CharacteristicsValue) o;
         return Double.compare(that.getValue(), getValue()) == 0 &&
-                getType() == that.getType() &&
-                Objects.equals(driver, that.driver);
+                getType() == that.getType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getValue(), getType(), driver);
+        return Objects.hash(getValue(), getType());
     }
 
     @Override

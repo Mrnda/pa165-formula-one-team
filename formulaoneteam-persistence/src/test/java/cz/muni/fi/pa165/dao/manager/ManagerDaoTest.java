@@ -59,10 +59,10 @@ public class ManagerDaoTest extends BaseTest {
     @Test
     public void deleteManager_managerNotFound() {
         String email = "asd@asd.asd";
-        Manager m = createManager(email);
+        Manager manager = createManager(email);
 
-        managerDao.add(m);
-        managerDao.delete(m);
+        managerDao.add(manager);
+        managerDao.delete(manager.getId());
 
         Manager result = managerDao.findByEmail(email);
         assertNull(result);
@@ -86,6 +86,6 @@ public class ManagerDaoTest extends BaseTest {
     }
 
     private Manager createManager(String email) {
-        return new Manager("name", "surname", email, "hash213");
+        return new Manager("name", "surname", email);
     }
 }

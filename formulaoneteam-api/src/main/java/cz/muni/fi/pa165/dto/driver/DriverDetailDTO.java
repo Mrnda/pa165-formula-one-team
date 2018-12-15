@@ -1,4 +1,6 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.driver;
+
+import cz.muni.fi.pa165.dto.CharacteristicsValueDTO;
 
 import java.util.ArrayList;
 import java.util.List;

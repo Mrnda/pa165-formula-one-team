@@ -73,16 +73,16 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
     @Test
     public void deleteRaceParticipationTest() {
         //When
-        raceParticipationFacade.remove(dto);
+        raceParticipationFacade.remove(dto.getId());
 
         //Then
-        verify(raceParticipationService, times(1)).remove(entity);
+        verify(raceParticipationService, times(1)).remove(entity.getId());
     }
 
     @Test
     public void updateRaceParticipationTest() {
         //When
-        raceParticipationFacade.update(dto);
+        raceParticipationFacade.update(dto, 1);
 
         //Then
         verify(raceParticipationService, times(1)).update(entity);
@@ -144,6 +144,6 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
 
     @Override
     protected RaceParticipationDTO createTestDTO() {
-        return creaateRaceParticipationDTO();
+        return createRaceParticipationDTO();
     }
 }

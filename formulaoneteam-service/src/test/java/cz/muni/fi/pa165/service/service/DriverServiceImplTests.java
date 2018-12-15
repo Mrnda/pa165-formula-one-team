@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.service.service;
 import cz.muni.fi.pa165.dao.driver.DriverDao;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import cz.muni.fi.pa165.entity.Driver;
-import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.service.DriverServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseTest;
@@ -13,13 +12,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.internal.util.collections.Sets;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static cz.muni.fi.pa165.enums.CharacteristicsType.*;
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.*;
 
@@ -29,7 +29,7 @@ import static org.testng.AssertJUnit.*;
 public class DriverServiceImplTests extends BaseTest {
 
     @Mock
-    private DriverDao driverDaoMock;
+    private DriverDao driverDao;
 
     @InjectMocks
     private DriverServiceImpl driverService;
@@ -50,8 +50,8 @@ public class DriverServiceImplTests extends BaseTest {
         driverService.register(testingDriver, password);
 
         //Then
-        verify(driverDaoMock, times(1)).add(testingDriver);
-        assertTrue(Validator.validatePassword(password, testingDriver.getPasswordHash()));
+        verify(driverDao, times(1)).add(testingDriver);
+        assertTrue(Validator.validatePassword(password, testingDriver.getPassword()));
     }
 
     @Test(expected = FormulaOneTeamException.class)
@@ -81,8 +81,8 @@ public class DriverServiceImplTests extends BaseTest {
     public void registeredDriver_withValidPassword_isAuthenticated() {
         //Given
         String password = "password";
-        testingDriver.setPasswordHash(Validator.createHash(password));
-        when(driverDaoMock.findByEmail(testingDriver.getEmail())).thenReturn(testingDriver);
+        testingDriver.setPassword(Validator.createHash(password));
+        when(driverDao.findByEmail(testingDriver.getEmail())).thenReturn(testingDriver);
 
         //When
         boolean result = driverService.authenticate(testingDriver.getEmail(), password);
@@ -95,9 +95,9 @@ public class DriverServiceImplTests extends BaseTest {
     public void registeredDriver_withInvalidPassword_isAuthenticated() {
         //Given
         String validPassword = "password";
-        testingDriver.setPasswordHash(Validator.createHash(validPassword));
+        testingDriver.setPassword(Validator.createHash(validPassword));
         String invalidPassword = "invalid_password";
-        when(driverDaoMock.findByEmail(testingDriver.getEmail())).thenReturn(testingDriver);
+        when(driverDao.findByEmail(testingDriver.getEmail())).thenReturn(testingDriver);
 
         //When
         boolean result = driverService.authenticate(testingDriver.getEmail(), invalidPassword);
@@ -109,7 +109,7 @@ public class DriverServiceImplTests extends BaseTest {
     @Test
     public void registeredDriver_canBeFoundById() {
         //Given
-        when(driverDaoMock.findById(testingDriver.getId())).thenReturn(testingDriver);
+        when(driverDao.findById(testingDriver.getId())).thenReturn(testingDriver);
 
         //When
         final Driver foundDriver = driverService.findById(testingDriver.getId());
@@ -121,7 +121,7 @@ public class DriverServiceImplTests extends BaseTest {
     @Test
     public void registeredDriver_canBeFoundByEmail() {
         //Given
-        when(driverDaoMock.findByEmail(testingDriver.getEmail())).thenReturn(testingDriver);
+        when(driverDao.findByEmail(testingDriver.getEmail())).thenReturn(testingDriver);
 
         //When
         final Driver foundDriver = driverService.findByEmail(testingDriver.getEmail());
@@ -136,7 +136,7 @@ public class DriverServiceImplTests extends BaseTest {
         List<Driver> allDrivers = Stream.of(createTestingDriverWithStatus(DriverStatus.TEST),
                 createTestingDriverWithStatus(DriverStatus.MAIN),
                 createTestingDriverWithStatus(DriverStatus.TEST)).collect(Collectors.toList());
-        when(driverDaoMock.findAll()).thenReturn(allDrivers);
+        when(driverDao.findAll()).thenReturn(allDrivers);
 
         //When
         List<Driver> allFoundDrivers = driverService.getAll();
@@ -152,7 +152,7 @@ public class DriverServiceImplTests extends BaseTest {
         List<Driver> allDrivers = Stream.of(createTestingDriverWithStatus(DriverStatus.TEST),
                 createTestingDriverWithStatus(DriverStatus.MAIN),
                 createTestingDriverWithStatus(DriverStatus.TEST)).collect(Collectors.toList());
-        when(driverDaoMock.findAll()).thenReturn(allDrivers);
+        when(driverDao.findAll()).thenReturn(allDrivers);
 
         //When
         List<Driver> allTestDrivers = driverService.getAllDriversByStatus(DriverStatus.TEST);
@@ -167,7 +167,7 @@ public class DriverServiceImplTests extends BaseTest {
         List<Driver> allDrivers = Stream.of(createTestingDriverWithStatus(DriverStatus.TEST),
                 createTestingDriverWithStatus(DriverStatus.MAIN),
                 createTestingDriverWithStatus(DriverStatus.TEST)).collect(Collectors.toList());
-        when(driverDaoMock.findAll()).thenReturn(allDrivers);
+        when(driverDao.findAll()).thenReturn(allDrivers);
 
         //When
         List<Driver> allTestDrivers = driverService.getAllDriversByStatus(DriverStatus.MAIN);
@@ -180,20 +180,28 @@ public class DriverServiceImplTests extends BaseTest {
     public void getDriverWithHighestCharacteristicsValue_withAgresivityAsBest_returnsTopDriverWithBestAgresivity() {
         //Given
         Driver topDriver = createTestingDriver();
-        topDriver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 100.0, topDriver));
-        topDriver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.PATIENCE, 10.0, topDriver));
-        topDriver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 40.0, topDriver));
-        topDriver.addCharacteristic(new CharacteristicsValue(CharacteristicsType.ENDURANCE, 50.0, topDriver));
+        topDriver.addCharacteristics(Sets.newSet(
+                new CharacteristicsValue(AGGRESIVITY, 100.0),
+                new CharacteristicsValue(PATIENCE, 10.0),
+                new CharacteristicsValue(DRIVING_ON_WET, 40.0),
+                new CharacteristicsValue(ENDURANCE, 50.0)
+        ));
+
         Driver nextDriver1 = createTestingDriver();
-        nextDriver1.addCharacteristic(new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 15, nextDriver1));
-        nextDriver1.addCharacteristic(new CharacteristicsValue(CharacteristicsType.PATIENCE, 14, nextDriver1));
-        nextDriver1.addCharacteristic(new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 25, nextDriver1));
-        nextDriver1.addCharacteristic(new CharacteristicsValue(CharacteristicsType.ENDURANCE, 13, nextDriver1));
+        nextDriver1.addCharacteristics(Sets.newSet(
+                new CharacteristicsValue(AGGRESIVITY, 15),
+                new CharacteristicsValue(PATIENCE, 14),
+                new CharacteristicsValue(DRIVING_ON_WET, 25),
+                new CharacteristicsValue(ENDURANCE, 13)
+        ));
+
         Driver nextDriver2 = createTestingDriver();
-        nextDriver2.addCharacteristic(new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 60, nextDriver2));
-        nextDriver2.addCharacteristic(new CharacteristicsValue(CharacteristicsType.PATIENCE, 20, nextDriver2));
-        nextDriver2.addCharacteristic(new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 26, nextDriver2));
-        nextDriver2.addCharacteristic(new CharacteristicsValue(CharacteristicsType.ENDURANCE, 50, nextDriver2));
+        nextDriver2.addCharacteristics(Sets.newSet(
+                new CharacteristicsValue(AGGRESIVITY, 60),
+                new CharacteristicsValue(PATIENCE, 20),
+                new CharacteristicsValue(DRIVING_ON_WET, 26),
+                new CharacteristicsValue(ENDURANCE, 50)
+        ));
 
         List<Driver> allDrivers = Stream.of(
                 topDriver,
@@ -201,10 +209,10 @@ public class DriverServiceImplTests extends BaseTest {
                 nextDriver2)
                 .collect(Collectors.toList());
 
-        when(driverDaoMock.findAll()).thenReturn(allDrivers);
+        when(driverDao.findAll()).thenReturn(allDrivers);
 
         //When
-        Driver foundDriver = driverService.findDriverWithHighestCharacteristicsValue(CharacteristicsType.AGGRESIVITY);
+        Driver foundDriver = driverService.findDriverWithHighestCharacteristicsValue(AGGRESIVITY);
 
         //Then
         assertEquals(topDriver, foundDriver);
@@ -213,31 +221,31 @@ public class DriverServiceImplTests extends BaseTest {
     @Test
     public void deleteDriver_withExistingDriver_driverDeleteCalled() {
         //When
-        driverService.remove(testingDriver);
+        driverService.remove(testingDriver.getId());
 
         //Then
-        verify(driverDaoMock, times(1)).delete(testingDriver);
+        verify(driverDao, times(1)).delete(testingDriver.getId());
     }
 
     @Test
     public void updateDriver_withExistingDriver_driverUpdated() {
         //Given
-        when(driverDaoMock.findById(testingDriver.getId())).thenReturn(testingDriver);
+        when(driverDao.findById(testingDriver.getId())).thenReturn(testingDriver);
 
         //When
         testingDriver.setEmail("test@test.cz");
-        testingDriver.setPasswordHash("some random password hash");
+        testingDriver.setPassword("some random password hash");
         Driver updatedDriver = driverService.update(testingDriver);
 
         //Then
-        verify(driverDaoMock, times(1)).update(testingDriver);
+        verify(driverDao, times(1)).update(testingDriver);
         assertEquals(testingDriver, updatedDriver);
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void updateDriver_withInvalidDriver_driverUpdated() {
         //Given
-        when(driverDaoMock.findById(testingDriver.getId())).thenReturn(testingDriver);
+        when(driverDao.findById(testingDriver.getId())).thenReturn(testingDriver);
 
         //When
         testingDriver.setEmail("");
@@ -249,21 +257,18 @@ public class DriverServiceImplTests extends BaseTest {
     private Driver createTestingDriver() {
         return createCustomTestingDriver(
                 createDate(2, 1, 1985),
-                DriverStatus.MAIN,
-                new ArrayList<>());
+                DriverStatus.MAIN
+        );
     }
 
     private Driver createTestingDriverWithStatus(DriverStatus status) {
         return createCustomTestingDriver(
                 createDate(2, 1, 1985),
-                status,
-                new ArrayList<>());
+                status
+        );
     }
 
-    private Driver createCustomTestingDriver(Date birthDate,
-                                             DriverStatus status,
-                                             List<CharacteristicsValue> characteristicsValues) {
-        return new Driver("John", "Doe", "john@doe.com", "", "American",
-                birthDate, status);
+    private Driver createCustomTestingDriver(Date birthDate, DriverStatus status) {
+        return new Driver("John", "Doe", "john@doe.com", "American", birthDate, status);
     }
 }

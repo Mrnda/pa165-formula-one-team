@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.service.facade;
 
-import cz.muni.fi.pa165.dto.RaceDTO;
+import cz.muni.fi.pa165.dto.race.RaceDTO;
 import cz.muni.fi.pa165.entity.Race;
 import cz.muni.fi.pa165.facade.RaceFacade;
 import cz.muni.fi.pa165.service.RaceService;

@@ -21,7 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-
 public class BaseCrudControllerTests extends BaseControllerTests<TestController> {
 
     @Mock
@@ -85,17 +84,15 @@ public class BaseCrudControllerTests extends BaseControllerTests<TestController>
 
         //Then
         mockMvc.perform(delete("/" + dto.getId()))
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
     }
 
     @Test
     public void delete_withNonExistingItem_returnsNotFound() throws Exception {
-        //Given
-        when(testFacade.findById(1)).thenThrow(EntityNotFoundException.class);
+        //given
+        doThrow(EntityNotFoundException.class).when(testFacade).remove(1);
 
-        //When
-
-        //Then
+        //then
         mockMvc.perform(delete("/1"))
                 .andExpect(status().isNotFound());
     }
@@ -110,7 +107,7 @@ public class BaseCrudControllerTests extends BaseControllerTests<TestController>
         //When
 
         //Then
-        mockMvc.perform(put("/")
+        mockMvc.perform(put("/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(dtoString))
                 .andExpect(status().isOk());
@@ -126,7 +123,7 @@ public class BaseCrudControllerTests extends BaseControllerTests<TestController>
         //When
 
         //Then
-        mockMvc.perform(put("/")
+        mockMvc.perform(put("/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(dtoString))
                 .andExpect(status().isUnprocessableEntity());

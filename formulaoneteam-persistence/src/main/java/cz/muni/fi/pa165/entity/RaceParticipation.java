@@ -17,7 +17,7 @@ public class RaceParticipation extends BaseEntity {
     public static final int NO_RESULT_POSITION = -1;
 
     @ManyToOne
-    private CarSetup car;
+    private CarSetup carSetup;
 
     @ManyToOne
     private Driver driver;
@@ -29,8 +29,8 @@ public class RaceParticipation extends BaseEntity {
     @Column(nullable = false)
     private int resultPosition;
 
-    public RaceParticipation(CarSetup car, Driver driver, Race race, @NotNull int resultPosition) {
-        this.car = car;
+    public RaceParticipation(CarSetup carSetup, Driver driver, Race race, int resultPosition) {
+        this.carSetup = carSetup;
         this.driver = driver;
         this.race = race;
         this.resultPosition = resultPosition;
@@ -40,11 +40,11 @@ public class RaceParticipation extends BaseEntity {
     }
 
     public CarSetup getCarSetup() {
-        return car;
+        return carSetup;
     }
 
-    public void setCar(CarSetup car) {
-        this.car = car;
+    public void setCarSetup(CarSetup car) {
+        this.carSetup = car;
     }
 
     public Driver getDriver() {
@@ -80,14 +80,14 @@ public class RaceParticipation extends BaseEntity {
         if (this == o) return true;
         if (!(o instanceof RaceParticipation)) return false;
         RaceParticipation that = (RaceParticipation) o;
-        return Objects.equals(car, that.car) &&
+        return Objects.equals(carSetup, that.carSetup) &&
                 Objects.equals(getDriver(), that.getDriver()) &&
                 Objects.equals(getRace(), that.getRace());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(car, getDriver(), getRace());
+        return Objects.hash(carSetup, getDriver(), getRace());
     }
 
     @Override

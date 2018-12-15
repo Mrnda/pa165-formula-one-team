@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.service.facade;
 
-import cz.muni.fi.pa165.dto.CarSetupDTO;
-import cz.muni.fi.pa165.dto.DriverDetailDTO;
+import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDetailDTO;
 import cz.muni.fi.pa165.dto.TestDriveDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Driver;
@@ -82,16 +82,16 @@ public class TestDriveFacadeImplTest extends BaseFacadeTest<TestDrive, TestDrive
     @Test
     public void deleteTestDriveTest() {
         //When
-        testDriveFacade.remove(dto);
+        testDriveFacade.remove(dto.getId());
 
         //Then
-        verify(service, times(1)).remove(entity);
+        verify(service, times(1)).remove(entity.getId());
     }
 
     @Test
     public void updateTestDriveTest() {
         //When
-        testDriveFacade.update(dto);
+        testDriveFacade.update(dto, 1);
 
         //Then
         verify(service, times(1)).update(entity);

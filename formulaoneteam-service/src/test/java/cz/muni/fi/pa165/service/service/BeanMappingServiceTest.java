@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.service.service;
 
-import cz.muni.fi.pa165.dto.CarSetupDTO;
+import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
 import cz.muni.fi.pa165.dto.ManagerDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Manager;
@@ -117,7 +117,6 @@ public class BeanMappingServiceTest extends BaseServiceTest<Manager> {
         dto.setName("name");
         dto.setSurname("surname");
         dto.setEmail("email@gmail.com");
-        dto.setPassword("aspdaspdasjd");
         return dto;
     }
 }

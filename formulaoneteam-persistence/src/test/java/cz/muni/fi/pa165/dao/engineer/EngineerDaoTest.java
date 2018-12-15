@@ -9,6 +9,7 @@ import org.junit.Test;
 import javax.inject.Inject;
 import java.util.List;
 
+import static cz.muni.fi.pa165.enums.EngineerSpecialization.*;
 import static org.testng.AssertJUnit.*;
 
 /**
@@ -51,8 +52,9 @@ public class EngineerDaoTest extends BaseTest {
     @Test
     public void createMultipleNewEngineers_foundAll() {
         //given
-        Engineer otherEngineer = new Engineer("otherName", "otherSurname", "other@email.com",
-                "otherPassword", EngineerSpecialization.AERODYNAMICS);
+        Engineer otherEngineer = new Engineer(
+                "otherName", "otherSurname", "other@email.com", AERODYNAMICS
+        );
 
         //when
         engineerDao.add(testEngineer);
@@ -69,7 +71,7 @@ public class EngineerDaoTest extends BaseTest {
     public void updateEngineer_engineerUpdated() {
         //given
         engineerDao.add(testEngineer);
-        EngineerSpecialization newEngineerSpecialization = EngineerSpecialization.FLUID_MECHANICS;
+        EngineerSpecialization newEngineerSpecialization = FLUID_MECHANICS;
 
         //when
         testEngineer.setSpecialization(newEngineerSpecialization);
@@ -85,7 +87,7 @@ public class EngineerDaoTest extends BaseTest {
         engineerDao.add(testEngineer);
 
         //when
-        engineerDao.delete(testEngineer);
+        engineerDao.delete(testEngineer.getId());
 
         //then
         assertNull(engineerDao.findById(testEngineer.getId()));
@@ -97,16 +99,13 @@ public class EngineerDaoTest extends BaseTest {
         engineerDao.add(testEngineer);
 
         //when
-        engineerDao.delete(testEngineer);
+        engineerDao.delete(testEngineer.getId());
 
         //then
         assertEquals(0, engineerDao.findAll().size());
     }
 
     private Engineer createTestEngineer() {
-        String TEST_SURNAME = "testSurname";
-        String TEST_EMAIL = "test@email.com";
-        String TEST_PASSWORD = "testPassword";
-        return new Engineer(TEST_NAME, TEST_SURNAME, TEST_EMAIL, TEST_PASSWORD, EngineerSpecialization.ENGINES);
+        return new Engineer(TEST_NAME, "testSurname", "test@email.com", ENGINES);
     }
 }

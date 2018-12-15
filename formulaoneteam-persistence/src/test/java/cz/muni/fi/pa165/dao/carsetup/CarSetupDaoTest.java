@@ -97,7 +97,7 @@ public class CarSetupDaoTest extends BaseTest {
         carSetupDao.add(carSetup);
 
         //when
-        carSetupDao.delete(carSetup);
+        carSetupDao.delete(carSetup.getId());
 
         //then
         CarSetup foundSetup = carSetupDao.findById(carSetup.getId());
@@ -111,7 +111,7 @@ public class CarSetupDaoTest extends BaseTest {
         carSetupDao.add(carSetup);
 
         //when
-        carSetupDao.delete(carSetup);
+        carSetupDao.delete(carSetup.getId());
 
         //then
         List<CarSetup> allCarSetups = carSetupDao.findAll();

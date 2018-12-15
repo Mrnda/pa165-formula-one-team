@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 
 import java.util.Objects;
@@ -12,6 +13,7 @@ public abstract class UserDTO extends BaseDTO {
     private String name;
     private String surname;
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     public String getName() {

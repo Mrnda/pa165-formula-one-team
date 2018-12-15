@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-class TestController extends BaseCrudController<BaseEntityFacade<TestDTO, TestEntity>, TestDTO, TestEntity> {
+class TestController extends BaseEntityController<BaseEntityFacade<TestDTO, TestEntity>, TestDTO, TestEntity> {
 
 }
