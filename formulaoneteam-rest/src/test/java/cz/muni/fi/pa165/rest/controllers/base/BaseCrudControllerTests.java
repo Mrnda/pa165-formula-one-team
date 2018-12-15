@@ -118,7 +118,7 @@ public class BaseCrudControllerTests extends BaseControllerTests<TestController>
         //Given
         TestDTO dto = createTestDto(1, "test 1");
         String dtoString = convertToJson(dto);
-        doThrow(FormulaOneTeamException.class).when(testFacade).update(dto);
+        doThrow(FormulaOneTeamException.class).when(testFacade).update(dto, dto.getId());
 
         //When
 
