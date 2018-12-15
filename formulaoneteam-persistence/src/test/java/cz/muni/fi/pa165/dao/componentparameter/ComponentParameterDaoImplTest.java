@@ -85,7 +85,7 @@ public class ComponentParameterDaoImplTest extends BaseTest {
         componentParameterDao.add(testComponentParameter);
 
         //when
-        componentParameterDao.delete(testComponentParameter);
+        componentParameterDao.delete(testComponentParameter.getId());
 
         //then
         assertNull(componentParameterDao.findById(testComponentParameter.getId()));
@@ -97,7 +97,7 @@ public class ComponentParameterDaoImplTest extends BaseTest {
         componentParameterDao.add(testComponentParameter);
 
         //when
-        componentParameterDao.delete(testComponentParameter);
+        componentParameterDao.delete(testComponentParameter.getId());
 
         //then
         assertEquals(0, componentParameterDao.findAll().size());

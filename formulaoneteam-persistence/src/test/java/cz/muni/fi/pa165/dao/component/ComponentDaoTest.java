@@ -90,7 +90,7 @@ public class ComponentDaoTest extends BaseTest {
         componentDao.add(component);
 
         //when
-        componentDao.delete(component);
+        componentDao.delete(component.getId());
 
         //then
         Component componentFromDao = componentDao.findById(component.getId());
@@ -104,7 +104,7 @@ public class ComponentDaoTest extends BaseTest {
         componentDao.add(component);
 
         //when
-        componentDao.delete(component);
+        componentDao.delete(component.getId());
 
         //then
         List<Component> allComponents = componentDao.findAll();

@@ -51,16 +51,16 @@ public class ComponentParameterFacadeImplTest extends BaseFacadeTest<ComponentPa
     @Test
     public void deleteComponentTest() {
         //when
-        facade.remove(dto);
+        facade.remove(dto.getId());
 
         //then
-        verify(service, times(1)).remove(entity);
+        verify(service, times(1)).remove(entity.getId());
     }
 
     @Test
     public void updateComponentTest() {
         //when
-        facade.update(dto);
+        facade.update(dto, 1);
 
         //then
         verify(service, times(1)).update(entity);
@@ -97,14 +97,11 @@ public class ComponentParameterFacadeImplTest extends BaseFacadeTest<ComponentPa
 
     @Override
     protected ComponentParameter createTestEntity() {
-        return new ComponentParameter("name", "value");
+        return createComponentParameter();
     }
 
     @Override
     protected ComponentParameterDTO createTestDTO() {
-        ComponentParameterDTO cDto = new ComponentParameterDTO();
-        cDto.setName("name");
-        cDto.setValue("value");
-        return cDto;
+        return createComponentParameterDTO();
     }
 }

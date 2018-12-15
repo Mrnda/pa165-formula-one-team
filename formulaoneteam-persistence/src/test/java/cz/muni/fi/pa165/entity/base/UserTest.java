@@ -66,7 +66,7 @@ public class UserTest extends BaseTest {
     @Test
     public void whenPasswordIsSet_returnHasPasswordTrue() {
         //when
-        user.setPasswordHash("password");
+        user.setPassword("password");
 
         //then
         assertTrue(user.hasPassword());
@@ -113,7 +113,7 @@ public class UserTest extends BaseTest {
         user.setName("name");
         user.setSurname("surname");
         user.setEmail("email");
-        user.setPasswordHash("password");
+        user.setPassword("password");
 
         //then
         assertTrue(user.isConfigured());

@@ -7,7 +7,7 @@ import cz.muni.fi.pa165.entity.base.BaseEntity;
  */
 public interface BaseUserService<T extends BaseEntity> extends BaseService<T> {
 
-    void register(T entity, String unencryptedPassword);
+    T register(T entity, String unencryptedPassword);
 
     boolean authenticate(String email, String password);
 

@@ -35,7 +35,7 @@ public class DriverDaoTest extends BaseTest {
         Driver driver = createDriver(mail);
 
         driverDao.add(driver);
-        driverDao.delete(driver);
+        driverDao.delete(driver.getId());
 
         Driver result = driverDao.findByEmail(mail);
         assertNull(result);

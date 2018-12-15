@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.facade.base.BaseEntityFacade;
 
+import static cz.muni.fi.pa165.entity.base.BaseEntity.NO_ID;
+
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
@@ -19,14 +21,19 @@ public abstract class BaseEntityFacadeImpl<DTO extends BaseDTO, E extends BaseEn
     }
 
     @Override
-    public void remove(DTO dto) {
-        if (dto == null) throw new IllegalArgumentException("null DTO, cannot delete");
-        service.remove(beanMappingService.mapTo(dto, getEntityClass()));
+    public void remove(long id) {
+        if (id == NO_ID) throw new IllegalArgumentException("Invalid id");
+
+        service.remove(id);
     }
 
     @Override
-    public void update(DTO dto) {
+    public void     update(DTO dto, long id) {
         if (dto == null) throw new IllegalArgumentException("null raceDTO, cannot update");
-        service.update(beanMappingService.mapTo(dto, getEntityClass()));
+
+        E entity = beanMappingService.mapTo(dto, getEntityClass());
+        entity.setId(id);
+
+        service.update(entity);
     }
 }

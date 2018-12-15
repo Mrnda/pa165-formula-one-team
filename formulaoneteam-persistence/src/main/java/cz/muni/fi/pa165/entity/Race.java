@@ -2,11 +2,9 @@ package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Adel Chakouri
@@ -25,6 +23,26 @@ public class Race extends BaseEntity {
     @NotNull
     @Column(nullable = false)
     private String location;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "race")
+    private Set<RaceParticipation> raceParticipations = new HashSet<>();
+
+    public Race(@NotNull Date date, @NotNull String title, @NotNull String location) {
+        this.date = date;
+        this.title = title;
+        this.location = location;
+    }
+
+    protected Race() {
+    }
+
+    public Set<RaceParticipation> getRaceParticipations() {
+        return raceParticipations;
+    }
+
+    public void setRaceParticipations(Set<RaceParticipation> raceParticipations) {
+        this.raceParticipations = raceParticipations;
+    }
 
     public Date getDate() {
         return date;
@@ -52,15 +70,6 @@ public class Race extends BaseEntity {
 
     public boolean isConfigured() {
         return !getTitle().isEmpty() && !getLocation().isEmpty();
-    }
-
-    public Race(@NotNull Date date, @NotNull String title, @NotNull String location) {
-        this.date = date;
-        this.title = title;
-        this.location = location;
-    }
-
-    protected Race() {
     }
 
     @Override

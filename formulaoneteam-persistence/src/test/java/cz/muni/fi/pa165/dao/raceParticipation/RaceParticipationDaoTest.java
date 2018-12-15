@@ -32,7 +32,7 @@ public class RaceParticipationDaoTest extends BaseTest {
     public void deleteRaceParticipation() {
         //when
         raceParticipationDao.add(raceParticipation);
-        raceParticipationDao.delete(raceParticipation);
+        raceParticipationDao.delete(raceParticipation.getId());
 
         //then
         assertNull(raceParticipationDao.findById(raceParticipation.getId()));

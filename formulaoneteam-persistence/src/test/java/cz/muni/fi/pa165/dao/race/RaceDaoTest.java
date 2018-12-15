@@ -41,7 +41,7 @@ public class RaceDaoTest extends BaseTest {
     public void deleteRace() {
         //when
         raceDao.add(testRace);
-        raceDao.delete(testRace);
+        raceDao.delete(testRace.getId());
 
         //then
         assertNull(raceDao.findById(testRace.getId()));

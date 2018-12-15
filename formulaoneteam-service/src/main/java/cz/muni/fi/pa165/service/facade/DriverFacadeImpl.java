@@ -1,8 +1,9 @@
 package cz.muni.fi.pa165.service.facade;
 
+import com.google.common.collect.Sets;
 import cz.muni.fi.pa165.dto.CharacteristicsValueDTO;
-import cz.muni.fi.pa165.dto.DriverDetailDTO;
-import cz.muni.fi.pa165.dto.DriverListItemDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDetailDTO;
+import cz.muni.fi.pa165.dto.driver.DriverListItemDTO;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
@@ -52,10 +53,12 @@ public class DriverFacadeImpl
     }
 
     @Override
-    public DriverDetailDTO updateDriversCharacteristicsValue(CharacteristicsValueDTO characteristicsValueDTO) {
+    public DriverDetailDTO updateDriversCharacteristicsValue(
+            DriverListItemDTO driverListItemDTO, CharacteristicsValueDTO characteristicsValueDTO
+    ) {
         CharacteristicsValue characteristicsValue = beanMappingService.mapTo(characteristicsValueDTO, CharacteristicsValue.class);
         characteristicsValueService.update(characteristicsValue);
-        return beanMappingService.mapTo(service.findById(characteristicsValueDTO.getDriver().getId()), getDtoClass());
+        return beanMappingService.mapTo(service.findById(driverListItemDTO.getId()), getDtoClass());
     }
 
     @Override
@@ -69,20 +72,13 @@ public class DriverFacadeImpl
     }
 
     private void addDefaultCharacteristicValuesToDriver(Driver driver) {
-        CharacteristicsValue value = new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 0, driver);
-        characteristicsValueService.add(value);
-        driver.addCharacteristic(value);
-        value = new CharacteristicsValue(CharacteristicsType.PATIENCE, 0, driver);
-        characteristicsValueService.add(value);
-        driver.addCharacteristic(value);
-        value = new CharacteristicsValue(CharacteristicsType.ENDURANCE, 0, driver);
-        characteristicsValueService.add(value);
-        driver.addCharacteristic(value);
-        value = new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 0, driver);
-        characteristicsValueService.add(value);
-        driver.addCharacteristic(value);
-        value = new CharacteristicsValue(CharacteristicsType.STEERING, 0, driver);
-        characteristicsValueService.add(value);
-        driver.addCharacteristic(value);
+        driver.addCharacteristics(characteristicsValueService.add(Sets.newHashSet(
+                new CharacteristicsValue(CharacteristicsType.PATIENCE, 0),
+                new CharacteristicsValue(CharacteristicsType.STEERING, 0),
+                new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 0),
+                new CharacteristicsValue(CharacteristicsType.ENDURANCE, 0),
+                new CharacteristicsValue(CharacteristicsType.PATIENCE, 0),
+                new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 0)
+        )));
     }
 }

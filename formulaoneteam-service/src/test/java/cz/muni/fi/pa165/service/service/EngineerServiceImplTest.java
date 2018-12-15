@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.engineer.EngineerDao;
 import cz.muni.fi.pa165.entity.Engineer;
-import cz.muni.fi.pa165.enums.EngineerSpecialization;
 import cz.muni.fi.pa165.service.EngineerServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -25,19 +24,24 @@ import static org.testng.AssertJUnit.fail;
 public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
 
     @Mock
-    private EngineerDao engineerDaoMock;
+    private EngineerDao dao;
 
     @InjectMocks
     private EngineerServiceImpl engineerService;
 
     @Test
     public void registerEngineer_withValidValues_driverRegistered() {
+        //given
         String password = "password";
+
+        //when
+        when(dao.findById(any())).thenReturn(entity);
 
         engineerService.register(entity, password);
 
-        verify(engineerDaoMock, times(1)).add(entity);
-        assertTrue(Validator.validatePassword(password, entity.getPasswordHash()));
+        //then
+        verify(dao, times(1)).add(entity);
+        assertTrue(Validator.validatePassword(password, entity.getPassword()));
     }
 
     @Test(expected = FormulaOneTeamException.class)
@@ -55,7 +59,7 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
     @Test
     public void findById_withExistingValue() {
         entity.setId(1);
-        when(engineerDaoMock.findById(entity.getId())).thenReturn(entity);
+        when(dao.findById(entity.getId())).thenReturn(entity);
 
         Engineer engineer = engineerService.findById(entity.getId());
 
@@ -66,7 +70,7 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
     public void updateEngineer_withValidValues() {
         engineerService.update(entity);
 
-        verify(engineerDaoMock, times(1)).update(entity);
+        verify(dao, times(1)).update(entity);
     }
 
     @Test(expected = FormulaOneTeamException.class)
@@ -75,7 +79,7 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
         entity.setEmail("");
 
         //when
-        when(engineerDaoMock.findById(entity.getId())).thenReturn(entity);
+        when(dao.findById(entity.getId())).thenReturn(entity);
         engineerService.update(entity);
 
         //then
@@ -84,18 +88,15 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
 
     @Test
     public void removeEngineer_withValidValues() {
-        engineerService.remove(entity);
+        engineerService.remove(entity.getId());
 
-        verify(engineerDaoMock, times(1)).delete(entity);
+        verify(dao, times(1)).delete(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void removeEngineer_withInvalidEngineer_exceptionIsThrown() {
-        //given
-        entity.setEmail("");
-
         //when
-        engineerService.remove(entity);
+        engineerService.remove(-1);
 
         //then
         fail("Exception is not thrown");
@@ -103,13 +104,16 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
 
     @Test
     public void getAllEngineersTest() {
+        //given
         List<Engineer> componentList = new ArrayList<>();
         componentList.add(entity);
         componentList.add(entity);
 
-        when(engineerDaoMock.findAll()).thenReturn(componentList);
+        //when
+        when(dao.findAll()).thenReturn(componentList);
         List<Engineer> resultComponentList = engineerService.getAll();
 
+        //then
         assertNotNull(resultComponentList);
         assertEquals(resultComponentList.size(), 2);
         assertTrue(resultComponentList.contains(entity));
@@ -117,6 +121,6 @@ public class EngineerServiceImplTest extends BaseServiceTest<Engineer> {
 
     @Override
     protected Engineer createTestEntity() {
-        return new Engineer("name", "surname", "email@email.email", "a", EngineerSpecialization.AERODYNAMICS);
+        return createEngineer();
     }
 }

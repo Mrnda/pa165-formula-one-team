@@ -41,7 +41,7 @@ public class CharacteristicsValueDaoTest extends BaseTest {
 
         //when
         characteristicsValueDao.add(characteristicsValue);
-        characteristicsValueDao.delete(characteristicsValue);
+        characteristicsValueDao.delete(characteristicsValue.getId());
 
         //then
         assertEquals(0, characteristicsValueDao.findCharacteristicValuesByType(type).size());

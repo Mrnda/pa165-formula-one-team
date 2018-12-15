@@ -11,7 +11,7 @@ public interface BaseEntityFacade<DTO extends BaseDTO, E extends BaseEntity>
 
     long add(DTO dto);
 
-    void remove(DTO dto);
+    void remove(long id);
 
-    void update(DTO dto);
+    void update(DTO dto, long id);
 }

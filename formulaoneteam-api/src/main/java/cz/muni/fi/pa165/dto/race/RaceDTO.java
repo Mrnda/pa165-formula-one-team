@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.race;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 

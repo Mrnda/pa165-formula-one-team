@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.service.facade;
 
-import cz.muni.fi.pa165.dto.RaceDTO;
+import cz.muni.fi.pa165.dto.race.RaceDTO;
 import cz.muni.fi.pa165.entity.Race;
 import cz.muni.fi.pa165.service.RaceService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
@@ -67,17 +67,17 @@ public class RaceFacadeImplTest extends BaseFacadeTest<Race, RaceDTO> {
 
     @Test
     public void deleteRaceTest() {
-        //When
-        raceFacade.remove(dto);
+        //when
+        raceFacade.remove(dto.getId());
 
-        //Then
-        verify(raceService, times(1)).remove(entity);
+        //then
+        verify(raceService, times(1)).remove(entity.getId());
     }
 
     @Test
     public void updateRaceTest() {
         //When
-        raceFacade.update(dto);
+        raceFacade.update(dto, 1);
 
         //Then
         verify(raceService, times(1)).update(entity);

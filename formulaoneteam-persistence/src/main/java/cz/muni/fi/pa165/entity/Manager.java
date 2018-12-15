@@ -10,8 +10,8 @@ import javax.persistence.Entity;
 @Entity
 public class Manager extends User {
 
-    public Manager(String name, String surname, String email, String passwordHash) {
-        super(name, surname, email, passwordHash);
+    public Manager(String name, String surname, String email) {
+        super(name, surname, email);
     }
 
     protected Manager() {

@@ -1,10 +1,11 @@
 package cz.muni.fi.pa165.entity.base;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author mrnda (Michal Mrnuštík)
@@ -18,7 +19,7 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NonNull
     public long getId() {
         return id == null ? NO_ID : id;
     }

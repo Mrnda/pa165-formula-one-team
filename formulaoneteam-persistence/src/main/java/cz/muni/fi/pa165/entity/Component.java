@@ -3,10 +3,7 @@ package cz.muni.fi.pa165.entity;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.enums.ComponentType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -25,16 +22,27 @@ public class Component extends BaseEntity {
     @Column
     private String name;
 
-    public Component() {
-    }
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<ComponentParameter> parameters = new HashSet<>();
+
+    @OneToMany(orphanRemoval = true, mappedBy = "engine")
+    private Set<CarSetup> carSetups = new HashSet<>();
 
     public Component(String name, ComponentType type) {
         this.type = type;
         this.name = name;
     }
 
-    @OneToMany
-    private Set<ComponentParameter> parameters = new HashSet<>();
+    protected Component() {
+    }
+
+    public Set<CarSetup> getCarSetups() {
+        return carSetups;
+    }
+
+    public void setCarSetups(Set<CarSetup> carSetups) {
+        this.carSetups = carSetups;
+    }
 
     public ComponentType getType() { return type; }
 

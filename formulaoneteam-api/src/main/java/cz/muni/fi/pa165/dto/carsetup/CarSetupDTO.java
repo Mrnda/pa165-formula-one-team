@@ -1,5 +1,6 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.carsetup;
 
+import cz.muni.fi.pa165.dto.ComponentDTO;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 
 import java.util.Objects;

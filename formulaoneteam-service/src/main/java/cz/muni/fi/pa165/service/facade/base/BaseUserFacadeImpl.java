@@ -26,7 +26,7 @@ public abstract class BaseUserFacadeImpl<DTO extends BaseDTO, E extends User, S 
         boolean isAuthenticated = service.authenticate(email, password);
 
         if (isAuthenticated) {
-            service.remove(service.findByEmail(email));
+            service.remove(service.findByEmail(email).getId());
         } else {
             throw new IllegalArgumentException("Cannot authenticate user");
         }

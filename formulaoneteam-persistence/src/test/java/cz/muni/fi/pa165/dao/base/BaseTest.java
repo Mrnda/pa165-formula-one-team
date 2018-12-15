@@ -67,7 +67,6 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
                 "name",
                 "surname",
                 email,
-                "password",
                 "driverNationality",
                 createDate(2, 11, 1995),
                 DriverStatus.MAIN);
@@ -105,11 +104,6 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     protected CharacteristicsValue createCharacteristics(CharacteristicsType type){
-        CharacteristicsValue characteristicsValue = new CharacteristicsValue();
-
-        characteristicsValue.setValue(100.0);
-        characteristicsValue.setType(type);
-
-        return characteristicsValue;
+        return new CharacteristicsValue(type, 100.0);
     }
 }

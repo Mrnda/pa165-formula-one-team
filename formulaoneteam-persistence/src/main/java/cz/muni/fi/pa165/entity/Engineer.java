@@ -24,8 +24,8 @@ public class Engineer extends User {
     protected Engineer() {
     }
 
-    public Engineer(String name, String surname, String email, String password, EngineerSpecialization specialization) {
-        super(name, surname, email, password);
+    public Engineer(String name, String surname, String email, EngineerSpecialization specialization) {
+        super(name, surname, email);
         this.specialization = specialization;
     }
 

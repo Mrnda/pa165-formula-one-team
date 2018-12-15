@@ -6,10 +6,7 @@ import cz.muni.fi.pa165.enums.DriverStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author mrnda (Michal Mrnuštík)
@@ -31,25 +28,48 @@ public class Driver extends User {
     @Enumerated
     private DriverStatus driverStatus;
 
-    @OneToMany(mappedBy = "driver")
-    private List<CharacteristicsValue> characteristics = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<CharacteristicsValue> characteristics = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver")
+    private Collection<RaceParticipation> raceParticipations;
 
     public Driver(
             String name,
             String surname,
             String email,
-            String password,
             @NotNull String nationality,
             @NotNull Date birthday,
             DriverStatus driverStatus
     ) {
-        super(name, surname, email, password);
+        super(name, surname, email);
         this.nationality = nationality;
         this.birthday = birthday;
         this.driverStatus = driverStatus;
     }
 
+    public Driver(
+            String name,
+            String surname,
+            String email,
+            @NotNull String nationality,
+            @NotNull Date birthday,
+            DriverStatus driverStatus,
+            Set<CharacteristicsValue> characteristics
+    ) {
+        this(name, surname, email, nationality, birthday, driverStatus);
+        this.characteristics = characteristics;
+    }
+
     protected Driver() {
+    }
+
+    public Collection<RaceParticipation> getRaceParticipations() {
+        return raceParticipations;
+    }
+
+    public void setRaceParticipations(Collection<RaceParticipation> raceParticipations) {
+        this.raceParticipations = raceParticipations;
     }
 
     public String getNationality() {
@@ -76,19 +96,23 @@ public class Driver extends User {
         this.driverStatus = driverStatus;
     }
 
-    public List<CharacteristicsValue> getCharacteristics() {
-        return Collections.unmodifiableList(characteristics);
+    public Set<CharacteristicsValue> getCharacteristics() {
+        return Collections.unmodifiableSet(characteristics);
     }
 
     public CharacteristicsValue getCharacteristicOfType(CharacteristicsType type) {
         return characteristics.stream()
                 .filter(characteristicsValue -> characteristicsValue.getType() == type)
                 .findFirst()
-                .orElse(new CharacteristicsValue(type, 0, this));
+                .orElse(new CharacteristicsValue(type, 0));
     }
 
     public void addCharacteristic(CharacteristicsValue characteristicsValue) {
         characteristics.add(characteristicsValue);
+    }
+
+    public void addCharacteristics(Set<CharacteristicsValue> characteristicsValue) {
+        characteristics.addAll(characteristicsValue);
     }
 
     public void removeCharacteristics(CharacteristicsValue characteristicsValue) {

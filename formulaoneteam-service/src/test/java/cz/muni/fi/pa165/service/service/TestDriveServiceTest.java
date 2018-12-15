@@ -44,7 +44,7 @@ public class TestDriveServiceTest extends BaseServiceTest<TestDrive> {
     @Test(expected = FormulaOneTeamException.class)
     public void addTestDrive_exceptionIsThrown() {
         //when
-        testDriveService.add(null);
+        testDriveService.add((TestDrive) null);
     }
 
     @Test
@@ -83,16 +83,16 @@ public class TestDriveServiceTest extends BaseServiceTest<TestDrive> {
     @Test
     public void removeTestDrive_WithValidValues() {
         //When
-        testDriveService.remove(entity);
+        testDriveService.remove(entity.getId());
 
         //Then
-        verify(testDriveDaoMock, times(1)).delete(entity);
+        verify(testDriveDaoMock, times(1)).delete(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void removeTestDrive_exceptionIsThrown() {
         //when
-        testDriveService.remove(null);
+        testDriveService.remove(-1);
     }
 
     @Test
@@ -208,7 +208,7 @@ public class TestDriveServiceTest extends BaseServiceTest<TestDrive> {
     }
 
     private Driver mockDriver(String email) {
-        return new Driver("driver1", "sur", email, "pwd", "meh", new Date(), DriverStatus.TEST);
+        return new Driver("driver1", "sur", email, "meh", new Date(), DriverStatus.TEST);
     }
 
     private CarSetup mockCarSetup(String engine) {

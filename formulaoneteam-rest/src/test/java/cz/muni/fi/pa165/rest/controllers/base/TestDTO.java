@@ -9,6 +9,7 @@ import java.util.Objects;
  */
 
 class TestDTO extends BaseDTO {
+
     private String name;
 
     public String getName() {

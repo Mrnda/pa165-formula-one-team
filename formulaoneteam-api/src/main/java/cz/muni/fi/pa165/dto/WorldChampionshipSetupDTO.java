@@ -1,5 +1,8 @@
 package cz.muni.fi.pa165.dto;
 
+import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDetailDTO;
+
 import java.util.Date;
 import java.util.Objects;
 

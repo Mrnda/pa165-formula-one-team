@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.EngineerDTO;
 import cz.muni.fi.pa165.entity.Engineer;
-import cz.muni.fi.pa165.enums.EngineerSpecialization;
 import cz.muni.fi.pa165.service.EngineerService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
 import org.junit.Test;
@@ -19,6 +18,8 @@ import static org.testng.AssertJUnit.*;
  * @author Ivan Dendis
  */
 public class EngineerFacadeImplTest extends BaseFacadeTest<Engineer, EngineerDTO> {
+
+    private static final String TEST_ENGINEER_PASSWORD = "adsadassa";
 
     @Mock
     private EngineerService service;
@@ -43,9 +44,9 @@ public class EngineerFacadeImplTest extends BaseFacadeTest<Engineer, EngineerDTO
 
     @Test
     public void authenticate_returnsTrue() {
-        when(service.authenticate(dto.getEmail(), dto.getPassword())).thenReturn(true);
+        when(service.authenticate(dto.getEmail(), TEST_ENGINEER_PASSWORD)).thenReturn(true);
 
-        assertTrue(facade.authenticate(dto.getEmail(), dto.getPassword()));
+        assertTrue(facade.authenticate(dto.getEmail(), TEST_ENGINEER_PASSWORD));
     }
 
     @Test
@@ -79,33 +80,30 @@ public class EngineerFacadeImplTest extends BaseFacadeTest<Engineer, EngineerDTO
 
     @Test
     public void delete_deletesEntity() {
-        when(service.authenticate(dto.getEmail(), dto.getPassword())).thenReturn(true);
+        //when
+        when(service.authenticate(dto.getEmail(), TEST_ENGINEER_PASSWORD)).thenReturn(true);
+        when(service.findByEmail(dto.getEmail())).thenReturn(entity);
 
-        facade.delete(dto.getEmail(), dto.getPassword());
+        facade.delete(dto.getEmail(), TEST_ENGINEER_PASSWORD);
 
-        verify(service).remove(service.findByEmail(dto.getEmail()));
+        //then
+        verify(service).remove(dto.getId());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void delete_throwsException() {
-        facade.delete(dto.getEmail(), dto.getPassword());
+        facade.delete(dto.getEmail(), TEST_ENGINEER_PASSWORD);
 
         fail("Exception is not thrown");
     }
 
     @Override
     protected Engineer createTestEntity() {
-        return new Engineer("name", "sur", "eng@eng.e", "aaa", EngineerSpecialization.ENGINES);
+        return createEngineer();
     }
 
     @Override
     protected EngineerDTO createTestDTO() {
-        EngineerDTO dto = new EngineerDTO();
-        dto.setId(1);
-        dto.setEmail("eng@eng.e");
-        dto.setName("Eng");
-        dto.setSurname("Test");
-        dto.setPassword("aaa");
-        return dto;
+        return createEngineerDTO();
     }
 }

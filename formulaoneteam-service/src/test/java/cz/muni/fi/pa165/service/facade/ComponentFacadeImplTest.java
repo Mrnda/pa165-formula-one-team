@@ -20,7 +20,6 @@ import static org.testng.AssertJUnit.assertEquals;
 /**
  * @author Théo Desjardins
  */
-
 public class ComponentFacadeImplTest extends BaseFacadeTest<Component, ComponentDTO> {
 
     @Mock
@@ -53,17 +52,17 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
     public void deleteComponentTest() {
 
         //when
-        componentFacade.remove(dto);
+        componentFacade.remove(dto.getId());
 
         //then
-        verify(componentService, times(1)).remove(entity);
+        verify(componentService, times(1)).remove(entity.getId());
     }
 
     @Test
     public void updateComponentTest() {
 
         //when
-        componentFacade.update(dto);
+        componentFacade.update(dto, 1);
 
         //then
         verify(componentService, times(1)).update(entity);
