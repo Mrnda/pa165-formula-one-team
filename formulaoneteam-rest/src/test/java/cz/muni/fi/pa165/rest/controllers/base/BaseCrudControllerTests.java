@@ -28,7 +28,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-
 public class BaseCrudControllerTests {
 
     @Mock
@@ -103,17 +102,15 @@ public class BaseCrudControllerTests {
 
         //Then
         mockMvc.perform(delete("/" + dto.getId()))
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
     }
 
     @Test
     public void delete_withNonExistingItem_returnsNotFound() throws Exception {
-        //Given
-        when(testFacade.findById(1)).thenThrow(EntityNotFoundException.class);
+        //given
+        doThrow(EntityNotFoundException.class).when(testFacade).remove(1);
 
-        //When
-
-        //Then
+        //then
         mockMvc.perform(delete("/1"))
                 .andExpect(status().isNotFound());
     }
@@ -128,7 +125,7 @@ public class BaseCrudControllerTests {
         //When
 
         //Then
-        mockMvc.perform(put("/")
+        mockMvc.perform(put("/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(dtoString))
                 .andExpect(status().isOk());
@@ -139,12 +136,12 @@ public class BaseCrudControllerTests {
         //Given
         TestDTO dto = createTestDto(1, "test 1");
         String dtoString = convertToString(dto);
-        doThrow(FormulaOneTeamException.class).when(testFacade).update(dto);
+        doThrow(FormulaOneTeamException.class).when(testFacade).update(dto, 1);
 
         //When
 
         //Then
-        mockMvc.perform(put("/")
+        mockMvc.perform(put("/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(dtoString))
                 .andExpect(status().isUnprocessableEntity());

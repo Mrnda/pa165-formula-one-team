@@ -25,9 +25,9 @@ public interface Dao<T extends BaseEntity> {
 
     /**
      * Validates and deletes entity specified by {@code entity} from the repository.
-     * @param entity object to be deleted.
+     * @param id object id to be deleted.
      */
-    void delete(T entity);
+    void delete(long id);
 
     /**
      * Validates and updates entity specified by {@code entity} in the repository.

@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.dto;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
-import cz.muni.fi.pa165.entity.CarSetup;
-import cz.muni.fi.pa165.entity.Driver;
+import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDetailDTO;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class TestDriveDTO extends BaseDTO {
 
-    private CarSetupDTO car;
+    private CarSetupDTO carSetup;
     private DriverDetailDTO driver;
     private String notes;
     private Date date;
@@ -24,12 +24,12 @@ public class TestDriveDTO extends BaseDTO {
         this.date = date;
     }
 
-    public CarSetupDTO getCar() {
-        return car;
+    public CarSetupDTO getCarSetup() {
+        return carSetup;
     }
 
-    public void setCar(CarSetupDTO car) {
-        this.car = car;
+    public void setCarSetup(CarSetupDTO car) {
+        this.carSetup = car;
     }
 
     public DriverDetailDTO getDriver() {
@@ -55,7 +55,7 @@ public class TestDriveDTO extends BaseDTO {
 
         TestDriveDTO that = (TestDriveDTO) o;
 
-        if (car != null ? !car.equals(that.car) : that.car != null) return false;
+        if (carSetup != null ? !carSetup.equals(that.carSetup) : that.carSetup != null) return false;
         if (driver != null ? !driver.equals(that.driver) : that.driver != null) return false;
         if (notes != null ? !notes.equals(that.notes) : that.notes != null) return false;
         return date != null ? date.equals(that.date) : that.date == null;
@@ -63,7 +63,7 @@ public class TestDriveDTO extends BaseDTO {
 
     @Override
     public int hashCode() {
-        int result = car != null ? car.hashCode() : 0;
+        int result = carSetup != null ? carSetup.hashCode() : 0;
         result = 31 * result + (driver != null ? driver.hashCode() : 0);
         result = 31 * result + (notes != null ? notes.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
@@ -73,7 +73,7 @@ public class TestDriveDTO extends BaseDTO {
     @Override
     public String toString() {
         return "TestDriveDTO{" +
-                "car=" + car +
+                "car=" + carSetup +
                 ", driver=" + driver +
                 ", notes='" + notes + '\'' +
                 ", date=" + date +

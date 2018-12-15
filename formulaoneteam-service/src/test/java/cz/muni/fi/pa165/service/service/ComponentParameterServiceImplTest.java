@@ -62,15 +62,15 @@ public class ComponentParameterServiceImplTest extends BaseServiceTest<Component
     }
 
     @Test
-    public void removeComponentParametere_WithValidValues() {
-        service.remove(entity);
+    public void removeComponentParameters_WithValidValues() {
+        service.remove(entity.getId());
 
-        verify(dao, times(1)).delete(entity);
+        verify(dao, times(1)).delete(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void removeComponentParameter_exceptionIsThrown() {
-        service.remove(null);
+        service.remove(-1);
     }
 
     @Test
@@ -88,6 +88,6 @@ public class ComponentParameterServiceImplTest extends BaseServiceTest<Component
 
     @Override
     protected ComponentParameter createTestEntity() {
-        return new ComponentParameter("Name", "Value");
+        return createComponentParameter();
     }
 }

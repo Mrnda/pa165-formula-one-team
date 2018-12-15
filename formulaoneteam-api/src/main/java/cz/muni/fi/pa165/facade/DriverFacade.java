@@ -1,12 +1,11 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.CharacteristicsValueDTO;
-import cz.muni.fi.pa165.dto.DriverDetailDTO;
-import cz.muni.fi.pa165.dto.DriverListItemDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDetailDTO;
+import cz.muni.fi.pa165.dto.driver.DriverListItemDTO;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
-import cz.muni.fi.pa165.facade.base.BaseEntityFacade;
 import cz.muni.fi.pa165.facade.base.BaseUserFacade;
 
 import java.util.List;
@@ -22,5 +21,7 @@ public interface DriverFacade extends BaseUserFacade<DriverDetailDTO, Driver> {
 
     DriverDetailDTO findDriverWithHighestCharacteristicsValue(CharacteristicsType characteristicsType);
 
-    DriverDetailDTO updateDriversCharacteristicsValue(CharacteristicsValueDTO characteristicsValueDTO);
+    DriverDetailDTO updateDriversCharacteristicsValue(
+            DriverListItemDTO driverListItemDTO, CharacteristicsValueDTO characteristicsValueDTO
+    );
 }

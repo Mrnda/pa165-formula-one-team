@@ -19,10 +19,10 @@ public class TestDrive extends BaseEntity {
     @NotNull
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private CarSetup car;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Driver driver;
 
     @NotNull

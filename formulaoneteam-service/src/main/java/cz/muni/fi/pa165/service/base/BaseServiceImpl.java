@@ -8,6 +8,8 @@ import cz.muni.fi.pa165.service.facade.base.BaseService;
 import javax.inject.Inject;
 import java.util.List;
 
+import static cz.muni.fi.pa165.entity.base.BaseEntity.*;
+
 /**
  * @author elderanakain (Arcadii Rubailo)
  */
@@ -18,7 +20,7 @@ abstract class BaseServiceImpl<T extends BaseEntity, D extends Dao<T>> implement
 
     @Override
     public T findById(long id) throws FormulaOneTeamException {
-        if (id == BaseEntity.NO_ID) throw new FormulaOneTeamException("Not valid id");
+        if (id == NO_ID) throw new FormulaOneTeamException("Not valid id");
 
         T entity = dao.findById(id);
 
@@ -28,9 +30,10 @@ abstract class BaseServiceImpl<T extends BaseEntity, D extends Dao<T>> implement
     }
 
     @Override
-    public void remove(T entity) throws FormulaOneTeamException {
-        validateEntity(entity);
-        dao.delete(entity);
+    public void remove(long id) throws FormulaOneTeamException {
+        if (id == NO_ID) throw new FormulaOneTeamException("Not valid id");
+
+        dao.delete(id);
     }
 
     @Override

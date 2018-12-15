@@ -13,18 +13,21 @@ public abstract class BaseUserServiceImpl<T extends User, D extends UserDao<T>>
         extends BaseServiceImpl<T, D> implements BaseUserService<T> {
 
     @Override
-    public void register(T user, String unencryptedPassword) {
+    public T register(T user, String unencryptedPassword) {
         if (unencryptedPassword == null || unencryptedPassword.isEmpty()) {
             throw new FormulaOneTeamException("Password can't be empty");
         }
-        user.setPasswordHash(Validator.createHash(unencryptedPassword));
+        user.setPassword(Validator.createHash(unencryptedPassword));
         validateEntity(user);
+
         dao.add(user);
+
+        return user;
     }
 
     @Override
     public boolean authenticate(String email, String password) {
-        return Validator.validatePassword(password, dao.findByEmail(email).getPasswordHash());
+        return Validator.validatePassword(password, dao.findByEmail(email).getPassword());
     }
 
     @Override

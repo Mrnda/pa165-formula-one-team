@@ -13,7 +13,6 @@ import java.util.Map;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-
 @RestController
 public class MainController {
 
@@ -24,6 +23,12 @@ public class MainController {
         resourcesMap.put("race_uri", ApiUris.ROOT_URI_RACE);
         resourcesMap.put("test_drive_uri", ApiUris.ROOT_URI_TEST_DRIVE);
         resourcesMap.put("race_participation_uri", ApiUris.ROOT_URI_RACE_PARTICIPATION);
+        resourcesMap.put("car_uri", ApiUris.ROOT_URI_CAR);
+        resourcesMap.put("driver_uri", ApiUris.ROOT_URI_DRIVER);
+        resourcesMap.put("engineer_uri", ApiUris.ROOT_URI_ENGINEER);
+        resourcesMap.put("manager_uri", ApiUris.ROOT_URI_MANAGER);
+        resourcesMap.put("component_uri", ApiUris.ROOT_URI_COMPONENT);
+        resourcesMap.put("component_param_uri", ApiUris.ROOT_URI_COMPONENT_PARAM);
 
         return Collections.unmodifiableMap(resourcesMap);
     }

@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.service.facade;
 
-import cz.muni.fi.pa165.dto.CarSetupDTO;
+import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
 import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.service.CarSetupService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
@@ -40,24 +40,24 @@ public class CarSetupFacadeImplTest extends BaseFacadeTest<CarSetup, CarSetupDTO
         when(carSetupService.findById(entity.getId())).thenReturn(entity);
         when(beanMappingServiceMock.mapTo(entity, CarSetupDTO.class)).thenReturn(dto);
         //When
-        CarSetupDTO resdto = carSetupFacade.findById(entity.getId());
+        CarSetupDTO carSetupDTO = carSetupFacade.findById(entity.getId());
         //Then
-        assertEquals(resdto, dto);
+        assertEquals(carSetupDTO, dto);
     }
 
     @Test
     public void deleteCarSetupTest() {
         //when
-        carSetupFacade.remove(dto);
+        carSetupFacade.remove(dto.getId());
 
         //then
-        verify(carSetupService, times(1)).remove(entity);
+        verify(carSetupService, times(1)).remove(entity.getId());
     }
 
     @Test
     public void updateCarSetupTest() {
         //when
-        carSetupFacade.update(dto);
+        carSetupFacade.update(dto, 1);
 
         //then
         verify(carSetupService, times(1)).update(entity);

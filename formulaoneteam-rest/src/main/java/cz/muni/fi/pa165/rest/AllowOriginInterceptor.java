@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-
 public class AllowOriginInterceptor extends HandlerInterceptorAdapter {
 
     @Override
@@ -18,5 +17,4 @@ public class AllowOriginInterceptor extends HandlerInterceptorAdapter {
                 "GET, POST, PUT, DELETE, OPTIONS");
         return true;
     }
-
 }

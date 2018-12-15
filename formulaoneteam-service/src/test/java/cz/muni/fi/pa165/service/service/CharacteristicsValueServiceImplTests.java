@@ -57,16 +57,16 @@ public class CharacteristicsValueServiceImplTests extends BaseServiceTest<Charac
     @Test
     public void removeValue_withValidValues_valueDeleted() {
         //When
-        characteristicsValueService.remove(entity);
+        characteristicsValueService.remove(entity.getId());
 
         //Then
-        verify(characteristicsValueDaoMock, times(1)).delete(entity);
+        verify(characteristicsValueDaoMock, times(1)).delete(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void add_throwsException() {
         //when
-        characteristicsValueService.add(null);
+        characteristicsValueService.add((CharacteristicsValue) null);
 
         //then
         fail("Exception is not thrown");
@@ -88,7 +88,7 @@ public class CharacteristicsValueServiceImplTests extends BaseServiceTest<Charac
     @Test(expected = FormulaOneTeamException.class)
     public void remove_exceptionIsThrown() {
         //when
-        characteristicsValueService.remove(null);
+        characteristicsValueService.remove(-1);
 
         //then
         fail("Exception is not thrown");

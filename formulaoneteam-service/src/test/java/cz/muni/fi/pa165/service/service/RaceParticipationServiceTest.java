@@ -21,7 +21,6 @@ import java.util.*;
 
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
 
 /**
  * @author Adel Chakouri
@@ -52,7 +51,7 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
     @Test(expected = FormulaOneTeamException.class)
     public void addRaceParticipation_exceptionIsThrown() {
         //when
-        raceParticipationService.add(null);
+        raceParticipationService.add((RaceParticipation) null);
     }
 
     @Test
@@ -91,16 +90,16 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
     @Test
     public void removeRaceParticipation_WithValidValues() {
         //When
-        raceParticipationService.remove(entity);
+        raceParticipationService.remove(entity.getId());
 
         //Then
-        verify(dao, times(1)).delete(entity);
+        verify(dao, times(1)).delete(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void removeRaceParticipation_exceptionIsThrown() {
         //when
-        raceParticipationService.remove(null);
+        raceParticipationService.remove(-1);
     }
 
     @Test

@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.CharacteristicsValueDTO;
-import cz.muni.fi.pa165.dto.DriverDetailDTO;
-import cz.muni.fi.pa165.dto.DriverListItemDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDetailDTO;
+import cz.muni.fi.pa165.dto.driver.DriverListItemDTO;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.enums.DriverStatus;
@@ -46,7 +46,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
 
         //Then
         verify(driverServiceMock, times(1)).register(driverEntity, "password");
-        assertEquals(5, driverEntity.getCharacteristics().size());
+        assertEquals(1, driverEntity.getCharacteristics().size());
     }
 
     @Test
@@ -148,11 +148,12 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         when(driverServiceMock.findById(dto.getId())).thenReturn(entity);
         when(beanMappingServiceMock.mapTo(entity, DriverDetailDTO.class)).thenReturn(dto);
         CharacteristicsValueDTO characteristicsValueDTO = createCharacteristicsValueDto(dto);
-        CharacteristicsValue characteristicsValue = createCharacteristicsValue(entity);
+        CharacteristicsValue characteristicsValue = createCharacteristicsValue();
+        entity.addCharacteristic(new CharacteristicsValue(AGGRESIVITY, 50.0));
         when(beanMappingServiceMock.mapTo(characteristicsValueDTO, CharacteristicsValue.class)).thenReturn(characteristicsValue);
 
         //When
-        DriverDetailDTO updatedDriverDetailDTO = driverFacade.updateDriversCharacteristicsValue(characteristicsValueDTO);
+        DriverDetailDTO updatedDriverDetailDTO = driverFacade.updateDriversCharacteristicsValue(dto, characteristicsValueDTO);
 
         //Then
         assertEquals(dto, updatedDriverDetailDTO);
@@ -169,13 +170,8 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         return createDriverDetailDTO();
     }
 
-    private CharacteristicsValue createCharacteristicsValue(Driver driverEntity) {
-        return new CharacteristicsValue(AGGRESIVITY, 50.0, driverEntity);
-    }
-
     private CharacteristicsValueDTO createCharacteristicsValueDto(DriverDetailDTO driverDetail) {
         CharacteristicsValueDTO characteristicsValueDTO = new CharacteristicsValueDTO();
-        characteristicsValueDTO.setDriver(driverDetail);
         characteristicsValueDTO.setType(AGGRESIVITY);
         characteristicsValueDTO.setValue(50.0);
         return characteristicsValueDTO;
@@ -196,7 +192,6 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         return new Driver(name,
                 "Doe",
                 email,
-                "",
                 "American",
                 createDate(2,10,1960),
                 status

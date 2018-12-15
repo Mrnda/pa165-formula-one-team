@@ -22,12 +22,12 @@ public class ComponentParameter extends BaseEntity {
     @Column
     private String value = "";
 
-    public ComponentParameter() {
-    }
-
     public ComponentParameter(@NotNull String name, String value) {
         this.name = name;
         this.value = value;
+    }
+
+    protected ComponentParameter() {
     }
 
     public String getName() {

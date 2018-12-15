@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.dao.base;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.lang.Nullable;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +15,7 @@ import java.util.List;
  * @param <T> Generic parameter for the Dao's entity type.
  * @author Ivan Dendis
  */
+@Transactional
 public abstract class DaoImpl<T extends BaseEntity> implements Dao<T> {
 
     @PersistenceContext
@@ -29,13 +32,19 @@ public abstract class DaoImpl<T extends BaseEntity> implements Dao<T> {
     }
 
     @Override
-    public void delete(@Nullable T entity) {
-        entityManager.remove(entity);
+    public void delete(long id) {
+        entityManager.remove(findById(id));
     }
 
     @Override
-    public void update(@Nullable T entity) {
-        entityManager.merge(entity);
+    public void update(T entity) {
+        T managed = findById(entity.getId());
+
+        entityManager.detach(managed);
+
+        BeanUtils.copyProperties(entity, managed);
+
+        entityManager.merge(managed);
     }
 
     @Override

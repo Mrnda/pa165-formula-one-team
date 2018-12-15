@@ -13,6 +13,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import java.util.List;
+import java.util.Set;
+
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
@@ -74,16 +77,20 @@ public class SampleDataLoadingImplTests {
         verifyRegisterCalled(engineerService);
         verifyRegisterCalled(managerService);
         verifyAddCalled(carSetupService);
-        verifyAddCalled(characteristicsValueService);
+        verifyAddListCalled(characteristicsValueService);
         verifyAddCalled(componentService);
         verifyAddCalled(componentParameterService);
         verifyAddCalled(raceService);
-        verifyAddCalled(raceParticipationService);
-        verifyAddCalled(testDriveService);
+        verifyAddListCalled(raceParticipationService);
+        verifyAddListCalled(testDriveService);
     }
 
     private static void verifyAddCalled(BaseEntityService service) {
         verify(service, atLeastOnce()).add(notNull(BaseEntity.class));
+    }
+
+    private static void verifyAddListCalled(BaseEntityService service) {
+        verify(service, atLeastOnce()).add(notNull((Class<Set<BaseEntityService>>)(Object) List.class));
     }
 
     private static void verifyRegisterCalled(BaseUserService service) {

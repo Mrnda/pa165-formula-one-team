@@ -72,16 +72,16 @@ public class RaceServiceTest extends BaseServiceTest<Race> {
     @Test
     public void removeRace_WithValidValues() {
         //when
-        raceService.remove(entity);
+        raceService.remove(entity.getId());
 
         //then
-        verify(raceDaoMock, times(1)).delete(entity);
+        verify(raceDaoMock, times(1)).delete(entity.getId());
     }
 
     @Test(expected = FormulaOneTeamException.class)
     public void removeRace_exceptionIsThrown() {
         //when
-        raceService.remove(null);
+        raceService.remove(-1);
     }
 
     @Test

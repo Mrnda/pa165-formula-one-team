@@ -9,7 +9,6 @@ import org.junit.Test;
 import javax.inject.Inject;
 import java.util.List;
 
-import static junit.framework.Assert.assertNotNull;
 import static org.testng.Assert.*;
 
 /**
@@ -41,7 +40,7 @@ public class TestDriveDaoTest extends BaseTest {
     public void deleteTestDrive() {
         //when
         testDriveDao.add(testDrive);
-        testDriveDao.delete(testDrive);
+        testDriveDao.delete(testDrive.getId());
 
         //then
         assertNull(testDriveDao.findById(testDrive.getId()));

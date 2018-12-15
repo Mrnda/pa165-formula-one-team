@@ -63,10 +63,10 @@ public class CarSetupServiceImplTest extends BaseServiceTest<CarSetup> {
     @Test
     public void removeCarSetup_withValidValues() {
         //when
-        carSetupService.remove(entity);
+        carSetupService.remove(entity.getId());
 
         //then
-        verify(carSetupDaoMock, times(1)).delete(entity);
+        verify(carSetupDaoMock, times(1)).delete(entity.getId());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class CarSetupServiceImplTest extends BaseServiceTest<CarSetup> {
     @Test(expected = FormulaOneTeamException.class)
     public void add_throwsException() {
         //when
-        carSetupService.add(null);
+        carSetupService.add((CarSetup) null);
 
         //then
         fail("Exception is not thrown");
@@ -111,7 +111,7 @@ public class CarSetupServiceImplTest extends BaseServiceTest<CarSetup> {
     @Test(expected = FormulaOneTeamException.class)
     public void remove_exceptionIsThrown() {
         //when
-        carSetupService.remove(null);
+        carSetupService.remove(-1);
 
         //then
         fail("Exception is not thrown");
