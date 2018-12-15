@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.mvc.controllers;
 
-import cz.muni.fi.pa165.dto.DriverListItemDTO;
+import cz.muni.fi.pa165.dto.driver.DriverListItemDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
 import org.junit.Test;
