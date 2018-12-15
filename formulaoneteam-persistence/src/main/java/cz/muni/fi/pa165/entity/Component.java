@@ -22,7 +22,7 @@ public class Component extends BaseEntity {
     @Column
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ComponentParameter> parameters = new HashSet<>();
 
     @OneToMany(orphanRemoval = true, mappedBy = "engine")
