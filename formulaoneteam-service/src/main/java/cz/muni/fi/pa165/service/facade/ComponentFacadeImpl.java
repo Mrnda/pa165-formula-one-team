@@ -44,11 +44,11 @@ public class ComponentFacadeImpl
     }
 
     @Override
-    public void removeParameter(long componentId, ComponentParameterDTO parameter) {
-        ComponentParameter componentParameter = componentParameterService.findById(parameter.getId());
+    public void removeParameter(long componentId, long parameterId) {
+        ComponentParameter componentParameter = componentParameterService.findById(parameterId);
         Component component = service.findById(componentId);
         component.removeParameter(componentParameter);
         service.update(component);
-        componentParameterService.remove(parameter.getId());
+        componentParameterService.remove(parameterId);
     }
 }

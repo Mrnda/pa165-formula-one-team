@@ -134,7 +134,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         when(componentService.findById(entity.getId())).thenReturn(entity);
 
         //When
-        componentFacade.removeParameter(entity.getId(), componentParameterDTO);
+        componentFacade.removeParameter(entity.getId(), componentParameterDTO.getId());
 
         //Then
         verify(componentParameterService).remove(componentParameterDTO.getId());

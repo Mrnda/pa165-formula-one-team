@@ -13,5 +13,5 @@ public interface ComponentFacade extends BaseEntityFacade<ComponentDTO, Componen
 
     void updateParameter(ComponentParameterDTO parameterDTO);
 
-    void removeParameter(long componentId, ComponentParameterDTO parameter);
+    void removeParameter(long componentId, long parameter);
 }
