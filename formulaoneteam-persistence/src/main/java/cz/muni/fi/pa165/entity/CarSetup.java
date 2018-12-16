@@ -2,10 +2,11 @@ package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.*;
 
 /**
  * @author Théo Desjardins
@@ -107,6 +108,10 @@ public class CarSetup extends BaseEntity {
 
     public void setCover(Component cover) {
         this.cover = cover;
+    }
+
+    public List<Component> getComponents() {
+        return Arrays.asList(getEngine(), getBrakes(), getCover(), getSuspension(), getTransmission(), getTires());
     }
 
     public boolean isConfigured() {
