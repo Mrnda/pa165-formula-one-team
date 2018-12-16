@@ -12,7 +12,6 @@ public final class ApiUris {
     public static final String ROOT_URI_ENGINEER = "/engineer";
     public static final String ROOT_URI_MANAGER = "/manager";
     public static final String ROOT_URI_COMPONENT = "/component";
-    public static final String ROOT_URI_COMPONENT_PARAM = "/component-param";
 
     private ApiUris() {
         throw new IllegalAccessError("This constructor should never get called.");

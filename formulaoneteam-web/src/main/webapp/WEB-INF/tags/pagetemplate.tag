@@ -12,11 +12,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><c:out value="${title}"/></title>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <jsp:invoke fragment="head"/>
 </head>
 <body>
+
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><my:a href="/">Home</my:a></li>
+                <li><my:a href="/drivers/list">Drivers</my:a></li>
+                <li><my:a href="/world-championship/list">World Championships</my:a></li>
+                <li><my:a href="/cars/list">Cars</my:a></li>
+                <li><my:a href="/components/list">Components</my:a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <c:choose>
+                    <c:when test="${empty pageContext.request.authType}">
+                        <li><my:a href="#">Sign in</my:a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><my:a href="#">Sing out</my:a></li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <div class="container">
 

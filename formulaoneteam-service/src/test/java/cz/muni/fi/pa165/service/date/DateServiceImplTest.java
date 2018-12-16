@@ -60,7 +60,7 @@ public class DateServiceImplTest extends BaseTest {
         Date date = Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTime();
 
         //then
-        assertEquals(date, service.getCurrentDate());
+        assertTrue(datesAreEqual(date, service.getCurrentDate()));
     }
 
     @Test
@@ -72,6 +72,12 @@ public class DateServiceImplTest extends BaseTest {
 
         //then
         assertEquals(calendar, service.createCalendarForDate(date));
+    }
+
+    private boolean datesAreEqual(Date left, Date right) {
+        return left.getDay() == right.getDay()
+                && left.getMonth() == right.getMonth()
+                && left.getYear() == right.getYear();
     }
 
     private Date mockDate() {

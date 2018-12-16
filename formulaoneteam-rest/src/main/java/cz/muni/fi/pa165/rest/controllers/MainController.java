@@ -28,7 +28,6 @@ public class MainController {
         resourcesMap.put("engineer_uri", ApiUris.ROOT_URI_ENGINEER);
         resourcesMap.put("manager_uri", ApiUris.ROOT_URI_MANAGER);
         resourcesMap.put("component_uri", ApiUris.ROOT_URI_COMPONENT);
-        resourcesMap.put("component_param_uri", ApiUris.ROOT_URI_COMPONENT_PARAM);
 
         return Collections.unmodifiableMap(resourcesMap);
     }

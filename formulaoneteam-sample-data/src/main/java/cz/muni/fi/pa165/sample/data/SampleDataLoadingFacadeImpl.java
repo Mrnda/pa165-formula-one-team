@@ -109,7 +109,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                         "Miki",
                         "Raikonen",
                         "miki@raikonen.fi",
-                        "Finish",
+                        "Finnish",
                         dateService.createDate(3, 1, 1995),
                         DriverStatus.TEST,
                         characteristicsValueService.add(Sets.newHashSet(

@@ -46,4 +46,9 @@ public class DriverServiceImpl extends BaseUserServiceImpl<Driver, DriverDao> im
             throw new FormulaOneTeamException("Driver is null or not configured.");
         }
     }
+
+    @Override
+    protected Class<Driver> getEntityClass() {
+        return Driver.class;
+    }
 }

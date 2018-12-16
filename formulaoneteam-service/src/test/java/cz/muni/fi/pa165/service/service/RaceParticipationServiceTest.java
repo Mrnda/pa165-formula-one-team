@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.entity.Race;
 import cz.muni.fi.pa165.entity.RaceParticipation;
 import cz.muni.fi.pa165.enums.DriverStatus;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.RaceParticipationServiceImpl;
 import cz.muni.fi.pa165.service.RaceService;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
@@ -66,7 +67,7 @@ public class RaceParticipationServiceTest extends BaseServiceTest<RaceParticipat
         assertEquals(entity, raceParticipation);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void findById_exceptionIsThrown() {
         //when
         raceParticipationService.findById(-1);

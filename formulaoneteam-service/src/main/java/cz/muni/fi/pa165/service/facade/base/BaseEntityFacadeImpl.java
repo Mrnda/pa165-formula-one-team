@@ -28,7 +28,7 @@ public abstract class BaseEntityFacadeImpl<DTO extends BaseDTO, E extends BaseEn
     }
 
     @Override
-    public void     update(DTO dto, long id) {
+    public void update(DTO dto, long id) {
         if (dto == null) throw new IllegalArgumentException("null raceDTO, cannot update");
 
         E entity = beanMappingService.mapTo(dto, getEntityClass());

@@ -1,19 +1,13 @@
 package cz.muni.fi.pa165.rest.controllers.base;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.facade.base.BaseEntityFacade;
+import cz.muni.fi.pa165.rest.controllers.BaseControllerTests;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,12 +17,11 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * @author mrnda (Michal Mrnuštík)
  */
-public class BaseCrudControllerTests {
+public class BaseCrudControllerTests extends BaseControllerTests<TestController> {
 
     @Mock
     private BaseEntityFacade<TestDTO, TestEntity> testFacade;
@@ -36,23 +29,12 @@ public class BaseCrudControllerTests {
     @InjectMocks
     private TestController controller;
 
-    @Rule
-    public MockitoRule rule = MockitoJUnit.rule();
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void Setup(){
-        mockMvc = standaloneSetup(controller)
-                .build();
-    }
-
     @Test
     public void getAll_withSomeItems_returnsFacadeGetAll() throws Exception {
         //Given
         List<TestDTO> testDtos = Arrays.asList(createTestDto(1, "test 1"),
                 createTestDto(2, "test 2"));
-        String testAsJson = convertToString(testDtos);
+        String testAsJson = convertToJson(testDtos);
         when(testFacade.getAll()).thenReturn(testDtos);
 
         //When
@@ -68,7 +50,7 @@ public class BaseCrudControllerTests {
         //Given
         TestDTO dto = createTestDto(1, "test 1");
         dto.setId(1);
-        String dtoAsJson = convertToString(dto);
+        String dtoAsJson = convertToJson(dto);
         when(testFacade.findById(dto.getId())).thenReturn(dto);
 
         //When
@@ -82,7 +64,7 @@ public class BaseCrudControllerTests {
     @Test
     public void getWithId_withNonExistingItem_statusIsNotFound() throws Exception {
         //Given
-        when(testFacade.findById(-1)).thenThrow(EntityNotFoundException.class);
+        when(testFacade.findById(-1)).thenThrow(new EntityNotFoundException(-1, TestEntity.class.getName()));
 
         //When
 
@@ -119,7 +101,7 @@ public class BaseCrudControllerTests {
     public void put_withExistingItem_returnsOk() throws Exception {
         //Given
         TestDTO dto = createTestDto(1, "test 1");
-        String dtoString = convertToString(dto);
+        String dtoString = convertToJson(dto);
         when(testFacade.findById(dto.getId())).thenReturn(dto);
 
         //When
@@ -135,8 +117,8 @@ public class BaseCrudControllerTests {
     public void put_withInvalidItem_returnsUnprocessableEntity() throws Exception {
         //Given
         TestDTO dto = createTestDto(1, "test 1");
-        String dtoString = convertToString(dto);
-        doThrow(FormulaOneTeamException.class).when(testFacade).update(dto, 1);
+        String dtoString = convertToJson(dto);
+        doThrow(FormulaOneTeamException.class).when(testFacade).update(dto, dto.getId());
 
         //When
 
@@ -151,7 +133,7 @@ public class BaseCrudControllerTests {
     public void post_withNewValidItem_returnsOk() throws Exception {
         //Given
         TestDTO noIdDTO = createTestDto(-1, "test 1");
-        String dtoString = convertToString(noIdDTO);
+        String dtoString = convertToJson(noIdDTO);
         TestDTO createdDTO = createTestDto(1, "test 1");
         createdDTO.setId(1);
         when(testFacade.add(noIdDTO)).thenReturn(createdDTO.getId());
@@ -165,14 +147,14 @@ public class BaseCrudControllerTests {
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .content(dtoString))
                 .andExpect(status().isOk())
-                .andExpect(content().json(convertToString(createdDTO)));
+                .andExpect(content().json(convertToJson(createdDTO)));
     }
 
     @Test
     public void post_withInvalidItem_returnsOk() throws Exception {
         //Given
         TestDTO noIdDTO = createTestDto(-1, null);
-        String dtoString = convertToString(noIdDTO);
+        String dtoString = convertToJson(noIdDTO);
         when(testFacade.add(noIdDTO)).thenThrow(FormulaOneTeamException.class);
 
         //When
@@ -192,10 +174,9 @@ public class BaseCrudControllerTests {
         return dto;
     }
 
-
-    private String convertToString(Object object) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(object);
+    @Override
+    protected TestController getController() {
+        return controller;
     }
 }
 

@@ -18,4 +18,9 @@ public class CarSetupServiceImpl extends BaseEntityServiceImpl<CarSetup, CarSetu
             throw new FormulaOneTeamException("CarSetup is null or not configured.");
         }
     }
+
+    @Override
+    protected Class<CarSetup> getEntityClass() {
+        return CarSetup.class;
+    }
 }

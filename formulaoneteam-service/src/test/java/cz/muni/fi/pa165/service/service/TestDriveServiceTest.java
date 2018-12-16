@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.entity.Driver;
 import cz.muni.fi.pa165.entity.TestDrive;
 import cz.muni.fi.pa165.enums.ComponentType;
 import cz.muni.fi.pa165.enums.DriverStatus;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.TestDriveServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -59,7 +60,7 @@ public class TestDriveServiceTest extends BaseServiceTest<TestDrive> {
         assertEquals(entity, TestDrive);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void findById_exceptionIsThrown() {
         //when
         testDriveService.findById(-1);

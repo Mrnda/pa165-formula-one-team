@@ -20,4 +20,9 @@ public class ComponentParameterServiceImpl
             throw new FormulaOneTeamException("ComponentParameter entity is null or not configured");
         }
 	}
+
+    @Override
+    protected Class<ComponentParameter> getEntityClass() {
+        return ComponentParameter.class;
+    }
 }

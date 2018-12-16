@@ -14,7 +14,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -73,4 +76,8 @@ public class RaceParticipationServiceImpl
         }
     }
 
+    @Override
+    protected Class<RaceParticipation> getEntityClass() {
+        return RaceParticipation.class;
+    }
 }

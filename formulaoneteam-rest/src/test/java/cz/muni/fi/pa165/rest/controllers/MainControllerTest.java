@@ -2,22 +2,20 @@ package cz.muni.fi.pa165.rest.controllers;
 
 import cz.muni.fi.pa165.rest.ApiUris;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * @author mrnda (Michal Mrnuštík)
  */
 
-public class MainControllerTest extends AbstractTestNGSpringContextTests {
+public class MainControllerTest extends BaseControllerTests<MainController> {
 
-    private final MockMvc mockMvc = standaloneSetup(new MainController())
-            .build();
+    @InjectMocks
+    MainController controller;
 
     @Test
     public void onGetRequest_statusIsOk() throws Exception {
@@ -40,5 +38,10 @@ public class MainControllerTest extends AbstractTestNGSpringContextTests {
         //Then
         mockMvc.perform(get("/"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE));
+    }
+
+    @Override
+    protected MainController getController() {
+        return controller;
     }
 }
