@@ -39,8 +39,10 @@ public class ComponentFacadeImpl
     }
 
     @Override
-    public void updateParameter(ComponentParameterDTO parameterDTO) {
-        componentParameterService.update(beanMappingService.mapTo(parameterDTO, ComponentParameter.class));
+    public void updateParameter(long id, ComponentParameterDTO parameterDTO) {
+        final ComponentParameter parameter = beanMappingService.mapTo(parameterDTO, ComponentParameter.class);
+        parameter.setId(id);
+        componentParameterService.update(parameter);
     }
 
     @Override

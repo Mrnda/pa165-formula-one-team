@@ -28,10 +28,10 @@ public class ComponentController extends BaseEntityController<ComponentFacade, C
         }
     }
 
-    @RequestMapping(value = "/parameters", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateParameter(@RequestBody ComponentParameterDTO parameter) {
+    @RequestMapping(value = "/parameters/{parameterId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateParameter(@PathVariable long parameterId, @RequestBody ComponentParameterDTO parameter) {
         try {
-            facade.updateParameter(parameter);
+            facade.updateParameter(parameterId, parameter);
             return ok();
         } catch (EntityNotFoundException e) {
             return notFound();

@@ -153,7 +153,7 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         when(componentParameterService.update(componentParameter)).thenReturn(componentParameter);
 
         //When
-        componentFacade.updateParameter(componentParameterDTO);
+        componentFacade.updateParameter(componentParameter.getId(), componentParameterDTO);
 
         //Then
         verify(componentParameterService).update(componentParameter);

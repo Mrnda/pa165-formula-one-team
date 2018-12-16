@@ -11,7 +11,7 @@ import cz.muni.fi.pa165.facade.base.BaseEntityFacade;
 public interface ComponentFacade extends BaseEntityFacade<ComponentDTO, Component> {
     void addParameter(long componentId, ComponentParameterDTO parameter);
 
-    void updateParameter(ComponentParameterDTO parameterDTO);
+    void updateParameter(long id, ComponentParameterDTO parameterDTO);
 
     void removeParameter(long componentId, long parameter);
 }
