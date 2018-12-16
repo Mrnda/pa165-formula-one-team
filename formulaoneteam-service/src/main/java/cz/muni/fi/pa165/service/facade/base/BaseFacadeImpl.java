@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
 import cz.muni.fi.pa165.facade.base.BaseFacade;
 import cz.muni.fi.pa165.service.BeanMappingService;
+import cz.muni.fi.pa165.service.CarSetupService;
 import cz.muni.fi.pa165.service.CharacteristicsValueService;
 import cz.muni.fi.pa165.service.ComponentParameterService;
 
@@ -27,6 +28,9 @@ public abstract class BaseFacadeImpl<DTO extends BaseDTO, E extends BaseEntity, 
 
     @Inject
     protected ComponentParameterService componentParameterService;
+
+    @Inject
+    protected CarSetupService carSetupService;
 
     @Override
     public DTO findById(long id) {

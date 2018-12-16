@@ -2,8 +2,10 @@ package cz.muni.fi.pa165.service.facade;
 
 import cz.muni.fi.pa165.dto.ComponentDTO;
 import cz.muni.fi.pa165.dto.ComponentParameterDTO;
+import cz.muni.fi.pa165.entity.CarSetup;
 import cz.muni.fi.pa165.entity.Component;
 import cz.muni.fi.pa165.entity.ComponentParameter;
+import cz.muni.fi.pa165.service.CarSetupService;
 import cz.muni.fi.pa165.service.ComponentParameterService;
 import cz.muni.fi.pa165.service.ComponentService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
@@ -14,10 +16,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.testng.AssertJUnit.*;
 
@@ -31,6 +33,9 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
 
     @Mock
     private ComponentParameterService componentParameterService;
+
+    @Mock
+    private CarSetupService carSetupService;
 
     @InjectMocks
     private ComponentFacadeImpl componentFacade;
@@ -63,6 +68,20 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
 
         //then
         verify(componentService, times(1)).remove(entity.getId());
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void deleteComponent_whenComponentIsPartOfCarSetup_throws() {
+        //given
+        final CarSetup carSetupMock = mock(CarSetup.class);
+        when(carSetupMock.getComponents()).thenReturn(Collections.singletonList(entity));
+        when(carSetupService.getAll()).thenReturn(Collections.singletonList(carSetupMock));
+        when(componentService.findById(entity.getId())).thenReturn(entity);
+
+        //when
+        componentFacade.remove(dto.getId());
+
+        //then
     }
 
     @Test
