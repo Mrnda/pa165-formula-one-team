@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.Race.RaceDao;
 import cz.muni.fi.pa165.entity.Race;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.RaceServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -48,7 +49,7 @@ public class RaceServiceTest extends BaseServiceTest<Race> {
         assertEquals(entity, race);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void findById_exceptionIsThrown() {
         //when
         raceService.findById(-1);

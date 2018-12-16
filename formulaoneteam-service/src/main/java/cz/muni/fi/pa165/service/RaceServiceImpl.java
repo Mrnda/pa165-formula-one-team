@@ -18,4 +18,9 @@ public class RaceServiceImpl extends BaseEntityServiceImpl<Race, RaceDao> implem
             throw new FormulaOneTeamException("Race entity is null or not configured");
         }
     }
+
+    @Override
+    protected Class<Race> getEntityClass() {
+        return Race.class;
+    }
 }

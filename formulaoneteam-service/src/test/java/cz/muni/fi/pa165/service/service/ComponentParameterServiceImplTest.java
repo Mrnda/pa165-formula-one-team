@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.componentparameter.ComponentParameterDao;
 import cz.muni.fi.pa165.entity.ComponentParameter;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.ComponentParameterServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -44,7 +45,7 @@ public class ComponentParameterServiceImplTest extends BaseServiceTest<Component
         assertEquals(entity, componentParameter);
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void findById_exceptionIsThrown() {
         service.findById(-1);
     }

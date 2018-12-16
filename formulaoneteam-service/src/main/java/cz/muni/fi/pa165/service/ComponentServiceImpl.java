@@ -18,4 +18,9 @@ public class ComponentServiceImpl extends BaseEntityServiceImpl<Component, Compo
             throw new FormulaOneTeamException("Component is null or not configured.");
         }
     }
+
+    @Override
+    protected Class<Component> getEntityClass() {
+        return Component.class;
+    }
 }

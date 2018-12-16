@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.characteristics.CharacteristicsValueDao;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.CharacteristicsValueServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -72,7 +73,7 @@ public class CharacteristicsValueServiceImplTests extends BaseServiceTest<Charac
         fail("Exception is not thrown");
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void update_exceptionIsThrown() {
         //given
         entity.setId(-1);

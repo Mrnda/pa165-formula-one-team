@@ -18,4 +18,9 @@ public class ManagerServiceImpl extends BaseUserServiceImpl<Manager, ManagerDao>
             throw new FormulaOneTeamException("Manager is null or not configured");
         }
     }
+
+    @Override
+    protected Class<Manager> getEntityClass() {
+        return Manager.class;
+    }
 }

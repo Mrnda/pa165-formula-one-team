@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service.service;
 
 import cz.muni.fi.pa165.dao.carsetup.CarSetupDao;
 import cz.muni.fi.pa165.entity.CarSetup;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.CarSetupServiceImpl;
 import cz.muni.fi.pa165.service.base.BaseServiceTest;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
@@ -95,7 +96,7 @@ public class CarSetupServiceImplTest extends BaseServiceTest<CarSetup> {
         fail("Exception is not thrown");
     }
 
-    @Test(expected = FormulaOneTeamException.class)
+    @Test(expected = EntityNotFoundException.class)
     public void update_exceptionIsThrown() {
         //given
         entity.setId(-1);

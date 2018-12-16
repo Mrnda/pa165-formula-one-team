@@ -2,13 +2,14 @@ package cz.muni.fi.pa165.service.base;
 
 import cz.muni.fi.pa165.dao.base.Dao;
 import cz.muni.fi.pa165.entity.base.BaseEntity;
+import cz.muni.fi.pa165.exceptions.EntityNotFoundException;
 import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import cz.muni.fi.pa165.service.facade.base.BaseService;
 
 import javax.inject.Inject;
 import java.util.List;
 
-import static cz.muni.fi.pa165.entity.base.BaseEntity.*;
+import static cz.muni.fi.pa165.entity.base.BaseEntity.NO_ID;
 
 /**
  * @author elderanakain (Arcadii Rubailo)
@@ -19,20 +20,15 @@ abstract class BaseServiceImpl<T extends BaseEntity, D extends Dao<T>> implement
     protected D dao;
 
     @Override
-    public T findById(long id) throws FormulaOneTeamException {
-        if (id == NO_ID) throw new FormulaOneTeamException("Not valid id");
-
+    public T findById(long id) throws EntityNotFoundException {
         T entity = dao.findById(id);
-
-        if (entity == null) throw new FormulaOneTeamException("Entity is null");
-
+        if (entity == null) throw new EntityNotFoundException(id, getEntityClass().getName());
         return entity;
     }
 
     @Override
     public void remove(long id) throws FormulaOneTeamException {
         if (id == NO_ID) throw new FormulaOneTeamException("Not valid id");
-
         dao.delete(id);
     }
 
@@ -52,4 +48,6 @@ abstract class BaseServiceImpl<T extends BaseEntity, D extends Dao<T>> implement
 
         return entityList;
     }
+
+    protected abstract Class<T> getEntityClass();
 }

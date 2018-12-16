@@ -72,4 +72,9 @@ public class TestDriveServiceImpl extends BaseEntityServiceImpl<TestDrive, TestD
 
         return groupedNotes;
     }
+
+    @Override
+    protected Class<TestDrive> getEntityClass() {
+        return TestDrive.class;
+    }
 }

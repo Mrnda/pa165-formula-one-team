@@ -20,4 +20,9 @@ public class CharacteristicsValueServiceImpl
             throw new FormulaOneTeamException("CharacteristicsValue is null.");
         }
     }
+
+    @Override
+    protected Class<CharacteristicsValue> getEntityClass() {
+        return CharacteristicsValue.class;
+    }
 }
