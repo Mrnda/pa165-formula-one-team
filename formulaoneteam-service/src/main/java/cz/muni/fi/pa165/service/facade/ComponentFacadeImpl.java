@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.entity.Component;
 import cz.muni.fi.pa165.entity.ComponentParameter;
 import cz.muni.fi.pa165.facade.ComponentFacade;
 import cz.muni.fi.pa165.service.ComponentService;
+import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import cz.muni.fi.pa165.service.facade.base.BaseEntityFacadeImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,8 @@ public class ComponentFacadeImpl
         ComponentParameter parameterEntity
                 = componentParameterService.add(beanMappingService.mapTo(parameter, ComponentParameter.class));
         Component component = service.findById(componentId);
+        if (component.getParameters().contains(parameterEntity))
+            throw new FormulaOneTeamException("This component already contains parameter with name: " + parameterEntity.getName());
         component.addParameter(parameterEntity);
         service.update(component);
     }

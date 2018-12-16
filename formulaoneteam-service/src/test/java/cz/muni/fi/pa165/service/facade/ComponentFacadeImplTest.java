@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.entity.ComponentParameter;
 import cz.muni.fi.pa165.service.ComponentParameterService;
 import cz.muni.fi.pa165.service.ComponentService;
 import cz.muni.fi.pa165.service.base.BaseFacadeTest;
+import cz.muni.fi.pa165.service.exceptions.FormulaOneTeamException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -18,8 +19,7 @@ import java.util.List;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.AssertJUnit.*;
 
 /**
  * @author Théo Desjardins
@@ -122,6 +122,23 @@ public class ComponentFacadeImplTest extends BaseFacadeTest<Component, Component
         verify(componentParameterService).add(componentParameter);
         verify(componentService).update(entity);
         assertTrue(entity.getParameters().size() > 0);
+    }
+
+    @Test(expected = FormulaOneTeamException.class)
+    public void addParameter_withAlreadyContainedParameter_exceptionIsThrown() {
+        //Given
+        ComponentParameter componentParameter = createComponentParameter();
+        ComponentParameterDTO componentParameterDTO = createComponentParameterDTO();
+        when(beanMappingServiceMock.mapTo(componentParameterDTO, ComponentParameter.class)).thenReturn(componentParameter);
+        when(componentParameterService.add(componentParameter)).thenReturn(componentParameter);
+        entity.addParameter(componentParameter);
+        when(componentService.findById(entity.getId())).thenReturn(entity);
+
+        //When
+        componentFacade.addParameter(entity.getId(), componentParameterDTO);
+
+        //Then
+        fail("Exception should have been thrown.");
     }
 
     @Test
