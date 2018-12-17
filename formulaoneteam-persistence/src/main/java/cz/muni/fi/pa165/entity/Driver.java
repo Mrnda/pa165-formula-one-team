@@ -31,7 +31,7 @@ public class Driver extends User {
     @OneToMany(fetch = FetchType.EAGER)
     private Set<CharacteristicsValue> characteristics = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver", fetch = FetchType.EAGER)
     private Collection<RaceParticipation> raceParticipations;
 
     public Driver(

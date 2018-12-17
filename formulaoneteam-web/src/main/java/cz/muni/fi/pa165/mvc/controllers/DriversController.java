@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.mvc.controllers;
 import cz.muni.fi.pa165.facade.DriverFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.inject.Inject;
@@ -21,5 +22,11 @@ public class DriversController {
     public String list(Model model) {
         model.addAttribute("drivers", driverFacade.getAllDrivers());
         return "drivers/list";
+    }
+
+    @RequestMapping("/detail/{id}")
+    public String detail(Model model, @PathVariable long id) {
+        model.addAttribute("driver", driverFacade.findById(id));
+        return "drivers/detail";
     }
 }
