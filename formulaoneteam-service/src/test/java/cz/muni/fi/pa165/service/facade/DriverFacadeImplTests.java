@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import java.util.Arrays;
 import java.util.List;
 
-import static cz.muni.fi.pa165.enums.CharacteristicsType.AGGRESIVITY;
+import static cz.muni.fi.pa165.enums.CharacteristicsType.AGGRESSIVITY;
 import static org.mockito.Mockito.*;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -132,10 +132,10 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
     public void findDriverWithHighestCharacteristicsValue_withExistingDriver_returnsItsDetail() {
         //Given
         when(beanMappingServiceMock.mapTo(entity, DriverDetailDTO.class)).thenReturn(dto);
-        when(driverServiceMock.findDriverWithHighestCharacteristicsValue(AGGRESIVITY)).thenReturn(entity);
+        when(driverServiceMock.findDriverWithHighestCharacteristicsValue(AGGRESSIVITY)).thenReturn(entity);
 
         //When
-        DriverDetailDTO foundDriver = driverFacade.findDriverWithHighestCharacteristicsValue(AGGRESIVITY);
+        DriverDetailDTO foundDriver = driverFacade.findDriverWithHighestCharacteristicsValue(AGGRESSIVITY);
 
         //Then
         assertEquals(foundDriver, dto);
@@ -149,7 +149,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
         when(beanMappingServiceMock.mapTo(entity, DriverDetailDTO.class)).thenReturn(dto);
         CharacteristicsValueDTO characteristicsValueDTO = createCharacteristicsValueDto(dto);
         CharacteristicsValue characteristicsValue = createCharacteristicsValue();
-        entity.addCharacteristic(new CharacteristicsValue(AGGRESIVITY, 50.0));
+        entity.addCharacteristic(new CharacteristicsValue(AGGRESSIVITY, 50.0));
         when(beanMappingServiceMock.mapTo(characteristicsValueDTO, CharacteristicsValue.class)).thenReturn(characteristicsValue);
 
         //When
@@ -172,7 +172,7 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDetailDT
 
     private CharacteristicsValueDTO createCharacteristicsValueDto(DriverDetailDTO driverDetail) {
         CharacteristicsValueDTO characteristicsValueDTO = new CharacteristicsValueDTO();
-        characteristicsValueDTO.setType(AGGRESIVITY);
+        characteristicsValueDTO.setType(AGGRESSIVITY);
         characteristicsValueDTO.setValue(50.0);
         return characteristicsValueDTO;
     }

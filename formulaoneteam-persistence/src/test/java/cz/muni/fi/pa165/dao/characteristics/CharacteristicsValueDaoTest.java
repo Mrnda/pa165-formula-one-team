@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.dao.characteristics;
 
 import cz.muni.fi.pa165.dao.base.BaseTest;
-import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
+import cz.muni.fi.pa165.enums.CharacteristicsType;
 import org.junit.Test;
 
 import javax.inject.Inject;
@@ -23,7 +23,7 @@ public class CharacteristicsValueDaoTest extends BaseTest {
     @Test
     public void addCharacteristics_withValidData_isPersisted() {
         //given
-        CharacteristicsType type = CharacteristicsType.AGGRESIVITY;
+        CharacteristicsType type = CharacteristicsType.AGGRESSIVITY;
         CharacteristicsValue characteristicsValue = createCharacteristics(type);
 
         //when
@@ -36,7 +36,7 @@ public class CharacteristicsValueDaoTest extends BaseTest {
     @Test
     public void deleteCharacteristics_withValidData_isPersisted() {
         //given
-        CharacteristicsType type = CharacteristicsType.AGGRESIVITY;
+        CharacteristicsType type = CharacteristicsType.AGGRESSIVITY;
         CharacteristicsValue characteristicsValue = createCharacteristics(type);
 
         //when
@@ -51,7 +51,7 @@ public class CharacteristicsValueDaoTest extends BaseTest {
     public void updateCharacteristics() {
         //given
         CharacteristicsType newType = CharacteristicsType.PATIENCE;
-        CharacteristicsValue characteristicsValue = createCharacteristics(CharacteristicsType.AGGRESIVITY);
+        CharacteristicsValue characteristicsValue = createCharacteristics(CharacteristicsType.AGGRESSIVITY);
 
         //when
         characteristicsValueDao.add(characteristicsValue);
@@ -65,7 +65,7 @@ public class CharacteristicsValueDaoTest extends BaseTest {
     @Test
     public void addTwoCharacteristics() {
         //given
-        CharacteristicsValue characteristics1 = createCharacteristics(CharacteristicsType.AGGRESIVITY);
+        CharacteristicsValue characteristics1 = createCharacteristics(CharacteristicsType.AGGRESSIVITY);
         CharacteristicsValue characteristics2 = createCharacteristics(CharacteristicsType.PATIENCE);
 
         //when

@@ -181,7 +181,7 @@ public class DriverServiceImplTests extends BaseTest {
         //Given
         Driver topDriver = createTestingDriver();
         topDriver.addCharacteristics(Sets.newSet(
-                new CharacteristicsValue(AGGRESIVITY, 100.0),
+                new CharacteristicsValue(AGGRESSIVITY, 100.0),
                 new CharacteristicsValue(PATIENCE, 10.0),
                 new CharacteristicsValue(DRIVING_ON_WET, 40.0),
                 new CharacteristicsValue(ENDURANCE, 50.0)
@@ -189,7 +189,7 @@ public class DriverServiceImplTests extends BaseTest {
 
         Driver nextDriver1 = createTestingDriver();
         nextDriver1.addCharacteristics(Sets.newSet(
-                new CharacteristicsValue(AGGRESIVITY, 15),
+                new CharacteristicsValue(AGGRESSIVITY, 15),
                 new CharacteristicsValue(PATIENCE, 14),
                 new CharacteristicsValue(DRIVING_ON_WET, 25),
                 new CharacteristicsValue(ENDURANCE, 13)
@@ -197,7 +197,7 @@ public class DriverServiceImplTests extends BaseTest {
 
         Driver nextDriver2 = createTestingDriver();
         nextDriver2.addCharacteristics(Sets.newSet(
-                new CharacteristicsValue(AGGRESIVITY, 60),
+                new CharacteristicsValue(AGGRESSIVITY, 60),
                 new CharacteristicsValue(PATIENCE, 20),
                 new CharacteristicsValue(DRIVING_ON_WET, 26),
                 new CharacteristicsValue(ENDURANCE, 50)
@@ -212,7 +212,7 @@ public class DriverServiceImplTests extends BaseTest {
         when(driverDao.findAll()).thenReturn(allDrivers);
 
         //When
-        Driver foundDriver = driverService.findDriverWithHighestCharacteristicsValue(AGGRESIVITY);
+        Driver foundDriver = driverService.findDriverWithHighestCharacteristicsValue(AGGRESSIVITY);
 
         //Then
         assertEquals(topDriver, foundDriver);

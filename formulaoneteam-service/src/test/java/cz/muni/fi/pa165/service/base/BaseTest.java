@@ -67,7 +67,7 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     protected CharacteristicsValue createCharacteristicsValue() {
-        CharacteristicsValue characteristicsValue = new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 10.0);
+        CharacteristicsValue characteristicsValue = new CharacteristicsValue(CharacteristicsType.AGGRESSIVITY, 10.0);
         characteristicsValue.setId(5);
         return characteristicsValue;
     }

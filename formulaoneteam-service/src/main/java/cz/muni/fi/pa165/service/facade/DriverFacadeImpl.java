@@ -78,7 +78,7 @@ public class DriverFacadeImpl
                 new CharacteristicsValue(CharacteristicsType.DRIVING_ON_WET, 0),
                 new CharacteristicsValue(CharacteristicsType.ENDURANCE, 0),
                 new CharacteristicsValue(CharacteristicsType.PATIENCE, 0),
-                new CharacteristicsValue(CharacteristicsType.AGGRESIVITY, 0)
+                new CharacteristicsValue(CharacteristicsType.AGGRESSIVITY, 0)
         )));
     }
 }

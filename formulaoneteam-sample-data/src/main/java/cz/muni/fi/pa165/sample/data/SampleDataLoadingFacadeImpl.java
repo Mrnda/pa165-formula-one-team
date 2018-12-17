@@ -77,7 +77,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                         dateService.createDate(29, 6, 1981),
                         DriverStatus.MAIN,
                         characteristicsValueService.add(Sets.newHashSet(
-                                new CharacteristicsValue(AGGRESIVITY, 100),
+                                new CharacteristicsValue(AGGRESSIVITY, 100),
                                 new CharacteristicsValue(STEERING, 50),
                                 new CharacteristicsValue(DRIVING_ON_WET, 15),
                                 new CharacteristicsValue(ENDURANCE, 4)
@@ -95,7 +95,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                         dateService.createDate(3, 1, 1969),
                         DriverStatus.MAIN,
                         characteristicsValueService.add(Sets.newHashSet(
-                                new CharacteristicsValue(AGGRESIVITY, 40),
+                                new CharacteristicsValue(AGGRESSIVITY, 40),
                                 new CharacteristicsValue(STEERING, 100),
                                 new CharacteristicsValue(DRIVING_ON_WET, 20),
                                 new CharacteristicsValue(ENDURANCE, 60)
@@ -113,7 +113,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                         dateService.createDate(3, 1, 1995),
                         DriverStatus.TEST,
                         characteristicsValueService.add(Sets.newHashSet(
-                                new CharacteristicsValue(AGGRESIVITY, 10),
+                                new CharacteristicsValue(AGGRESSIVITY, 10),
                                 new CharacteristicsValue(STEERING, 15),
                                 new CharacteristicsValue(DRIVING_ON_WET, 20),
                                 new CharacteristicsValue(ENDURANCE, 30),
@@ -133,7 +133,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                         dateService.createDate(4, 11, 1998),
                         DriverStatus.TEST,
                         characteristicsValueService.add(Sets.newHashSet(
-                                new CharacteristicsValue(AGGRESIVITY, 10),
+                                new CharacteristicsValue(AGGRESSIVITY, 10),
                                 new CharacteristicsValue(STEERING, 15),
                                 new CharacteristicsValue(DRIVING_ON_WET, 20),
                                 new CharacteristicsValue(ENDURANCE, 30),
