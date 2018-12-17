@@ -30,6 +30,12 @@ public class DriverFacadeImpl
         Driver driverEntity = beanMappingService.mapTo(driver, getEntityClass());
         if (driver.getCharacteristics().size() == 0) {
             addDefaultCharacteristicValuesToDriver(driverEntity);
+        } else {
+            for (CharacteristicsValueDTO characteristic : driver.getCharacteristics()) {
+                final CharacteristicsValue valueEntity = beanMappingService.mapTo(characteristic, CharacteristicsValue.class);
+                characteristicsValueService.add(valueEntity);
+                driverEntity.addCharacteristic(valueEntity);
+            }
         }
         service.register(driverEntity, unencryptedPassword);
     }
@@ -74,6 +80,7 @@ public class DriverFacadeImpl
             final CharacteristicsValueDTO value = new CharacteristicsValueDTO();
             value.setValue(0.0);
             value.setType(type);
+            values.add(value);
         }
         return values;
     }
