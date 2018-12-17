@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
-import cz.muni.fi.pa165.dto.driver.DriverDetailDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDTO;
 
 import java.util.Date;
 import java.util.Objects;
@@ -10,9 +10,9 @@ public class WorldChampionshipSetupDTO {
     private Date date;
     private String location;
     private CarSetupDTO firstCarSetup;
-    private DriverDetailDTO firstDriver;
+    private DriverDTO firstDriver;
     private CarSetupDTO secondCarSetup;
-    private DriverDetailDTO secondDriver;
+    private DriverDTO secondDriver;
 
     public Date getDate() {
         return date;
@@ -38,11 +38,11 @@ public class WorldChampionshipSetupDTO {
         this.firstCarSetup = firstCarSetup;
     }
 
-    public DriverDetailDTO getFirstDriver() {
+    public DriverDTO getFirstDriver() {
         return firstDriver;
     }
 
-    public void setFirstDriver(DriverDetailDTO firstDriver) {
+    public void setFirstDriver(DriverDTO firstDriver) {
         this.firstDriver = firstDriver;
     }
 
@@ -54,11 +54,11 @@ public class WorldChampionshipSetupDTO {
         this.secondCarSetup = secondCarSetup;
     }
 
-    public DriverDetailDTO getSecondDriver() {
+    public DriverDTO getSecondDriver() {
         return secondDriver;
     }
 
-    public void setSecondDriver(DriverDetailDTO secondDriver) {
+    public void setSecondDriver(DriverDTO secondDriver) {
         this.secondDriver = secondDriver;
     }
 

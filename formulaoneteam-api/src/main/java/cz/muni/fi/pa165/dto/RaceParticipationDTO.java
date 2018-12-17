@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.dto;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
-import cz.muni.fi.pa165.dto.driver.DriverDetailDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.dto.race.RaceDTO;
 
 /**
@@ -11,7 +11,7 @@ import cz.muni.fi.pa165.dto.race.RaceDTO;
 public class RaceParticipationDTO extends BaseDTO {
 
     private CarSetupDTO carSetup;
-    private DriverDetailDTO driver;
+    private DriverDTO driver;
     private RaceDTO race;
     private int resultPosition;
 
@@ -23,11 +23,11 @@ public class RaceParticipationDTO extends BaseDTO {
         this.carSetup = car;
     }
 
-    public DriverDetailDTO getDriver() {
+    public DriverDTO getDriver() {
         return driver;
     }
 
-    public void setDriver(DriverDetailDTO driver) {
+    public void setDriver(DriverDTO driver) {
         this.driver = driver;
     }
 

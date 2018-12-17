@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.mvc.controllers;
 
-import cz.muni.fi.pa165.dto.driver.DriverListItemDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
     @Test
     public void list_whenDriversArePresent_attributeEquals() throws Exception {
         //When
-        List<DriverListItemDTO> drivers = Arrays.asList(createListItemDto(), createListItemDto());
+        List<DriverDTO> drivers = Arrays.asList(createListItemDto(), createListItemDto());
         when(driverFacadeMock.getAllDrivers()).thenReturn(drivers);
 
         //Then
@@ -44,15 +44,15 @@ public class DriversControllerTests extends BaseControllerTest<DriversController
                 .andExpect(model().attribute("drivers", drivers));
     }
 
-    private DriverListItemDTO createListItemDto() {
-        DriverListItemDTO driverListItemDto = new DriverListItemDTO();
-        driverListItemDto.setName("John");
-        driverListItemDto.setSurname("Doe");
-        driverListItemDto.setEmail("john@doe.com");
-        driverListItemDto.setNationality("American");
-        driverListItemDto.setBirthday(createDate(2, 9, 1989));
-        driverListItemDto.setDriverStatus(DriverStatus.MAIN);
-        return driverListItemDto;
+    private DriverDTO createListItemDto() {
+        DriverDTO driverDto = new DriverDTO();
+        driverDto.setName("John");
+        driverDto.setSurname("Doe");
+        driverDto.setEmail("john@doe.com");
+        driverDto.setNationality("American");
+        driverDto.setBirthday(createDate(2, 9, 1989));
+        driverDto.setDriverStatus(DriverStatus.MAIN);
+        return driverDto;
     }
 
     private Date createDate(int day, int month, int year) {

@@ -132,8 +132,8 @@ public class RaceParticipationFacadeImplTest extends BaseFacadeTest<RaceParticip
         worldChampionshipSetupDTO.setLocation("Barcelona");
         worldChampionshipSetupDTO.setFirstCarSetup(createCarSetupDTO());
         worldChampionshipSetupDTO.setSecondCarSetup(createCarSetupDTO());
-        worldChampionshipSetupDTO.setFirstDriver(createDriverDetailDTO());
-        worldChampionshipSetupDTO.setSecondDriver(createDriverDetailDTO());
+        worldChampionshipSetupDTO.setFirstDriver(createDriverDTO());
+        worldChampionshipSetupDTO.setSecondDriver(createDriverDTO());
         return worldChampionshipSetupDTO;
     }
 

@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.mvc.controllers;
 
-import cz.muni.fi.pa165.dto.driver.DriverDetailDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
 import cz.muni.fi.pa165.service.date.DateService;
@@ -40,7 +40,7 @@ public class DriversController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        model.addAttribute("driver", new DriverDetailDTO());
+        model.addAttribute("driver", new DriverDTO());
         return "drivers/edit";
     }
 
@@ -51,12 +51,12 @@ public class DriversController {
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String submitDriver(@ModelAttribute("driver") DriverDetailDTO driverDetail) {
+    public String submitDriver(@ModelAttribute("driver") DriverDTO driver) {
         //FIXME: workaround until we have working datepicker
-        driverDetail.setBirthday(dateService.getCurrentDate());
+        driver.setBirthday(dateService.getCurrentDate());
 
-        if (driverDetail.getId() == 0) {
-            driverFacade.register(driverDetail, driverDetail.getPassword());
+        if (driver.getId() == 0) {
+            driverFacade.register(driver, driver.getPassword());
         } else {
             //FIXME: missing update method on DriverFacade.
         }

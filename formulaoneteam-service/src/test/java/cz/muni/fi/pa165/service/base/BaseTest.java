@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.service.base;
 
 import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.dto.carsetup.CarSetupDTO;
-import cz.muni.fi.pa165.dto.driver.DriverDetailDTO;
+import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.dto.race.RaceDTO;
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
@@ -91,8 +91,8 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
         return manager;
     }
 
-    protected DriverDetailDTO createDriverDetailDTO() {
-        DriverDetailDTO driverDetailDTO = new DriverDetailDTO();
+    protected DriverDTO createDriverDTO() {
+        DriverDTO driverDetailDTO = new DriverDTO();
         driverDetailDTO.setId(22);
         driverDetailDTO.setName("John");
         driverDetailDTO.setSurname("Doe");
@@ -142,7 +142,7 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
         testDriveDTO.setId(22);
         testDriveDTO.setCarSetup(createCarSetupDTO());
         testDriveDTO.setDate(new Date());
-        testDriveDTO.setDriver(createDriverDetailDTO());
+        testDriveDTO.setDriver(createDriverDTO());
         testDriveDTO.setNotes("notes");
         return testDriveDTO;
     }
@@ -151,7 +151,7 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
         RaceParticipationDTO raceParticipationDTO = new RaceParticipationDTO();
         raceParticipationDTO.setId(1);
         raceParticipationDTO.setCarSetup(createCarSetupDTO());
-        raceParticipationDTO.setDriver(createDriverDetailDTO());
+        raceParticipationDTO.setDriver(createDriverDTO());
         raceParticipationDTO.setRace(createRaceDTO());
         raceParticipationDTO.setResultPosition(1);
         return raceParticipationDTO;
