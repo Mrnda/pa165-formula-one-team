@@ -9,8 +9,8 @@ public enum DriverStatus {
 
     private String displayName;
 
-    DriverStatus(String diplayName) {
-        this.displayName = diplayName;
+    DriverStatus(String displayName) {
+        this.displayName = displayName;
     }
 
     @Override
