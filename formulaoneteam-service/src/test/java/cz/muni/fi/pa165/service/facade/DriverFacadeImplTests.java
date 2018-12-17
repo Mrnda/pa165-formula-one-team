@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static cz.muni.fi.pa165.enums.CharacteristicsType.AGGRESSIVITY;
@@ -46,6 +47,24 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
         //Then
         verify(driverServiceMock, times(1)).register(driverEntity, "password");
         assertEquals(1, driverEntity.getCharacteristics().size());
+    }
+
+    @Test
+    public void registerDriver_withAlreadyFilledCharacteristics_savesTheCharacteristicsValue() {
+        //Given
+        Driver driverEntity = createDriver();
+        final CharacteristicsValueDTO characteristicsValueDto = createCharacteristicsValueDto(dto);
+        final CharacteristicsValue characteristicsValueEntity = createCharacteristicsValue();
+        dto.setCharacteristics(Collections.singletonList(characteristicsValueDto));
+        when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(driverEntity);
+        when(beanMappingServiceMock.mapTo(characteristicsValueDto, CharacteristicsValue.class)).thenReturn(characteristicsValueEntity);
+
+        //When
+        driverFacade.register(dto, "password");
+
+        //Then
+        verify(driverServiceMock, times(1)).register(driverEntity, "password");
+        verify(characteristicsValueServiceMock, times(1)).add(characteristicsValueEntity);
     }
 
     @Test
