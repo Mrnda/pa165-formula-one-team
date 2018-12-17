@@ -32,9 +32,7 @@ public class DriverFacadeImpl
             addDefaultCharacteristicValuesToDriver(driverEntity);
         } else {
             for (CharacteristicsValueDTO characteristic : driver.getCharacteristics()) {
-                final CharacteristicsValue valueEntity = beanMappingService.mapTo(characteristic, CharacteristicsValue.class);
-                characteristicsValueService.add(valueEntity);
-                driverEntity.addCharacteristic(valueEntity);
+                driverEntity.addCharacteristic(saveCharacteristicsValue(characteristic));
             }
         }
         service.register(driverEntity, unencryptedPassword);
@@ -104,5 +102,11 @@ public class DriverFacadeImpl
                 new CharacteristicsValue(CharacteristicsType.PATIENCE, 0),
                 new CharacteristicsValue(CharacteristicsType.AGGRESSIVITY, 0)
         )));
+    }
+
+    private CharacteristicsValue saveCharacteristicsValue(CharacteristicsValueDTO characteristic) {
+        final CharacteristicsValue valueEntity = beanMappingService.mapTo(characteristic, CharacteristicsValue.class);
+        characteristicsValueService.add(valueEntity);
+        return valueEntity;
     }
 }
