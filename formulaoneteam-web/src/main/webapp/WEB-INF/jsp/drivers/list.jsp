@@ -6,36 +6,66 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <my:pagetemplate title="Drivers">
+<jsp:attribute name="head">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
+    <style>
+        .clickable-row:hover {
+            background-color: lightgray;
+            cursor: pointer;
+        }
+
+        .clickable-row td {
+            vertical-align: inherit !important;
+        }
+    </style>
+</jsp:attribute>
 <jsp:attribute name="body">
     <div class="container">
-        <table class="table">
+        <table class="table" id="drivers-table">
             <thead>
             <tr>
                 <th>name</th>
                 <th>email</th>
                 <th>status</th>
                 <th>current races</th>
-                <th>actions</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${drivers}" var="driver"><tr>
-                <td><c:out value="${driver.fullName}"/></td>
-                <td><c:out value="${driver.email}"/></td>
-                <td><c:out value="${driver.driverStatus}"/></td>
-                <td>
-                    <c:forEach items="${driver.raceParticipations}" var="participation">
-                        <my:a href="/world-championship/detail/${participation.id}">${participation.race.title}</my:a><br/>
-                    </c:forEach>
-                </td>
-                <td>
-                    <my:a href="detail/${driver.id}" class="btn btn-primary">Detail</my:a>
-                </td>
-            </tr>
+            <c:forEach items="${drivers}" var="driver">
+                    <tr class="clickable-row" data-href="/drivers/detail/${driver.id}">
+                        <td><c:out value="${driver.fullName}"/></td>
+                        <td><c:out value="${driver.email}"/></td>
+                        <td><c:out value="${driver.driverStatus}"/></td>
+                        <td>
+                            <c:forEach items="${driver.raceParticipations}" var="participation">
+                                <my:a href="/world-championship/detail/${participation.id}">${participation.race.title}</my:a><br/>
+                            </c:forEach>
+                        </td>
+                    </tr>
 
-        </c:forEach>
+                </c:forEach>
             </tbody>
         </table>
     </div>
+
+</jsp:attribute>
+    <jsp:attribute name="script">
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#drivers-table").DataTable(
+                {
+                    paging: false
+                }
+            );
+
+            $(".clickable-row").click(function () {
+                window.location = "/pa165" + $(this).data("href");
+            });
+        });
+
+
+    </script>
 </jsp:attribute>
 </my:pagetemplate>
