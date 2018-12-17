@@ -23,4 +23,6 @@ public interface DriverFacade extends BaseUserFacade<DriverDTO, Driver> {
     DriverDTO updateDriversCharacteristicsValue(
             DriverDTO driverDTO, CharacteristicsValueDTO characteristicsValueDTO
     );
+
+    DriverDTO createDefaultDriver();
 }

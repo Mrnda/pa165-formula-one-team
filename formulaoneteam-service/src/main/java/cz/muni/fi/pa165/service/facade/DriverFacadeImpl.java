@@ -13,6 +13,7 @@ import cz.muni.fi.pa165.service.facade.base.BaseUserFacadeImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,6 +59,23 @@ public class DriverFacadeImpl
         CharacteristicsValue characteristicsValue = beanMappingService.mapTo(characteristicsValueDTO, CharacteristicsValue.class);
         characteristicsValueService.update(characteristicsValue);
         return beanMappingService.mapTo(service.findById(driverDTO.getId()), getDtoClass());
+    }
+
+    @Override
+    public DriverDTO createDefaultDriver() {
+        final DriverDTO driver = new DriverDTO();
+        driver.setCharacteristics(createDefaultCharacteristicsValues());
+        return driver;
+    }
+
+    private List<CharacteristicsValueDTO> createDefaultCharacteristicsValues() {
+        final ArrayList<CharacteristicsValueDTO> values = new ArrayList<>();
+        for (CharacteristicsType type : CharacteristicsType.values()) {
+            final CharacteristicsValueDTO value = new CharacteristicsValueDTO();
+            value.setValue(0.0);
+            value.setType(type);
+        }
+        return values;
     }
 
     @Override
