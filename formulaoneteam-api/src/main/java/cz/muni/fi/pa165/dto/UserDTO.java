@@ -3,6 +3,8 @@ package cz.muni.fi.pa165.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 /**
@@ -10,8 +12,12 @@ import java.util.Objects;
  */
 public abstract class UserDTO extends BaseDTO {
 
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String surname;
+    @NotEmpty
+    @Email
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

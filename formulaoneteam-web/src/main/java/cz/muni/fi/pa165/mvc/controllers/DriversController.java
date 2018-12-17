@@ -6,12 +6,14 @@ import cz.muni.fi.pa165.facade.DriverFacade;
 import cz.muni.fi.pa165.service.date.DateService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 /**
  * @author mrnda (Michal Mrnuštík)
@@ -51,7 +53,8 @@ public class DriversController {
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String submitDriver(@ModelAttribute("driver") DriverDTO driver) {
+    public String submitDriver(@Valid @ModelAttribute("driver") DriverDTO driver, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) return "drivers/edit";
         //FIXME: workaround until we have working datepicker
         driver.setBirthday(dateService.getCurrentDate());
 

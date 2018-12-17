@@ -6,33 +6,53 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="cc" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <my:pagetemplate title="Edit driver">
     <jsp:attribute name="body">
         <div class="container">
             <form:form action="/pa165/drivers/submit" modelAttribute="driver">
                 <form:hidden path="id"/>
-                <div class="form-group col-md-6 col-xs-12">
-                    <form:label path="name">Name</form:label>
-                    <form:input cssClass="form-control" path="name"/>
+                <div clas="row">
+                <spring:bind path="name">
+                    <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
+                        <form:label path="name">Name</form:label>
+                        <form:input cssClass="form-control" path="name"/>
+                        <form:errors cssClass="help-block" path="name"/>
+                    </div>
+                </spring:bind>
+                    <spring:bind path="surname">
+                    <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
+                        <form:label path="surname">Surname</form:label>
+                        <form:input cssClass="form-control" path="surname"/>
+                        <form:errors cssClass="help-block" path="surname"/>
+                    </div>
+                </spring:bind>
                 </div>
-                <div class="form-group col-md-6 col-xs-12">
-                    <form:label path="surname">Surname</form:label>
-                    <form:input cssClass="form-control" path="surname"/>
+                <div class="row">
+                <spring:bind path="email">
+                    <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
+                        <form:label path="email">Email</form:label>
+                        <form:input cssClass="form-control" path="email"/>
+                        <form:errors cssClass="help-block" path="email"/>
+                    </div>
+                </spring:bind>
+                    <spring:bind path="nationality">
+                    <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
+                        <form:label path="nationality">Nationality</form:label>
+                        <form:input cssClass="form-control" path="nationality"/>
+                        <form:errors cssClass="help-block" path="nationality"/>
+                    </div>
+                </spring:bind>
                 </div>
-                <div class="form-group col-md-6 col-xs-12">
-                    <form:label path="email">Email</form:label>
-                    <form:input cssClass="form-control" path="email"/>
-                </div>
-                <div class="form-group col-md-6 col-xs-12">
-                    <form:label path="nationality">Nationality</form:label>
-                    <form:input cssClass="form-control" path="nationality"/>
-                </div>
-                <div class="form-group col-md-6 col-xs-12">
-                    <form:label path="password">Password</form:label>
-                    <form:password cssClass="form-control" path="password"/>
-                </div>
-
+                <div class="row">
+                <spring:bind path="password">
+                    <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
+                        <form:label path="password">Password</form:label>
+                        <form:password cssClass="form-control" path="password"/>
+                        <form:errors cssClass="help-block" path="password"/>
+                    </div>
+                </spring:bind>
                 <%--<div class="form-group col-md-6 col-xs-12">--%>
                 <%--<form:label path="confirm-password">Confirm password</form:label>--%>
                 <%--<form:password cssClass="form-control" path="confirm-password"/>--%>
@@ -42,7 +62,8 @@
                     <form:select cssClass="form-control" path="driverStatus" items="${driverStatusValues}"
                                  itemLabel="displayName"/>
                 </div>
-                <div>
+                </div>
+                <div class="row">
                     <h4>Characteristics</h4>
                     <c:forEach items="${driver.characteristics}" var="characteristicValue" varStatus="status">
                         <div class="form-group col-md-6 col-xs-12">

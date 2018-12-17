@@ -5,13 +5,17 @@ import cz.muni.fi.pa165.dto.RaceParticipationDTO;
 import cz.muni.fi.pa165.dto.UserDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class DriverDTO extends UserDTO {
 
+    @NotEmpty
     private String nationality;
+    @NotNull
     private Date birthday;
     private DriverStatus driverStatus;
     private List<RaceParticipationDTO> raceParticipations;
