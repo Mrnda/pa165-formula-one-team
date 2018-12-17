@@ -40,7 +40,7 @@ public class DriversController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        model.addAttribute("driver", new DriverDTO());
+        model.addAttribute("driver", driverFacade.createDefaultDriver());
         return "drivers/edit";
     }
 
