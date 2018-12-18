@@ -115,10 +115,12 @@
                         </div>
                     </c:forEach>
                 </div>
-                <button type="submit" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-floppy-disk"></span>
-                    Save
-                </button>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary pull-right">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                        Save
+                    </button>
+                </div>
             </form:form>
         </div>
     </jsp:attribute>

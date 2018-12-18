@@ -9,7 +9,7 @@
     <jsp:attribute name="body">
         <div class="container">
             <div class="row">
-                <my:a href="/driers/edit/${driver.id}" class="btn btn-primary pull-right">
+                <my:a href="/drivers/edit/${driver.id}" class="btn btn-primary pull-right">
                     <span class="glyphicon glyphicon-pencil"></span>
                     Update
                 </my:a>

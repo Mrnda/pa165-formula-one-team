@@ -21,9 +21,11 @@
 </jsp:attribute>
 <jsp:attribute name="body">
     <div class="container">
-        <div class="col-md-2 col-md-offset-10 col-xs-12">
-            <my:a href="/drivers/create" class="btn btn-primary"><span
-                    class="glyphicon glyphicon-plus"></span> Add driver</my:a>
+        <div class="row">
+            <my:a href="/drivers/create" class="btn btn-primary pull-right">
+                <span class="glyphicon glyphicon-plus"></span>
+                Add driver
+            </my:a>
         </div>
         <table class="table" id="drivers-table">
             <thead>
