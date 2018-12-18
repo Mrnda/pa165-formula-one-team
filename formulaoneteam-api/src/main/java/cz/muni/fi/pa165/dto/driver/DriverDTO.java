@@ -15,6 +15,7 @@ public class DriverDTO extends UserDTO {
     @NotEmpty
     private String nationality;
     private Date birthday;
+    private String birthdayString;
     private DriverStatus driverStatus;
     private List<RaceParticipationDTO> raceParticipations;
     private List<CharacteristicsValueDTO> characteristics = new ArrayList<>();
@@ -33,6 +34,14 @@ public class DriverDTO extends UserDTO {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getBirthdayString() {
+        return birthdayString;
+    }
+
+    public void setBirthdayString(String birthdayString) {
+        this.birthdayString = birthdayString;
     }
 
     public DriverStatus getDriverStatus() {

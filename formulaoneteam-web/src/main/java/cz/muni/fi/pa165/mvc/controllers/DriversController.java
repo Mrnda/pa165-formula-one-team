@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.service.date.DateService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * @author mrnda (Michal Mrnuštík)
@@ -54,9 +57,14 @@ public class DriversController {
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     public String submitDriver(@Valid @ModelAttribute("driver") DriverDTO driver, BindingResult bindingResult) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            driver.setBirthday(dateFormat.parse(driver.getBirthdayString()));
+        } catch (ParseException e) {
+            bindingResult.addError(new FieldError("driver", "birthdayString", "Birthday has invalid format"));
+        }
+
         if (bindingResult.hasErrors()) return "drivers/edit";
-        //FIXME: workaround until we have working datepicker
-        driver.setBirthday(dateService.getCurrentDate());
 
         if (driver.getId() == 0) {
             driverFacade.register(driver, driver.getPassword());

@@ -9,11 +9,14 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <my:pagetemplate title="Edit driver">
+    <jsp:attribute name="head">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
+    </jsp:attribute>
     <jsp:attribute name="body">
         <div class="container">
             <form:form action="/pa165/drivers/submit" modelAttribute="driver">
                 <form:hidden path="id"/>
-                <div clas="row">
+                <div class="row">
                 <spring:bind path="name">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
                         <form:label path="name">Name</form:label>
@@ -46,6 +49,21 @@
                 </spring:bind>
                 </div>
                 <div class="row">
+                    <div class="form-group col-md-6 col-xs-12">
+                        <form:label path="driverStatus">Driver status</form:label>
+                        <form:select cssClass="form-control" path="driverStatus" items="${driverStatusValues}"
+                                     itemLabel="displayName"/>
+                    </div>
+                    <spring:bind path="birthdayString">
+                    <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
+                        <form:label path="birthdayString">Birthday:</form:label>
+                        <form:input cssClass="form-control" id="datepicker" placeholder="dd/MM/yyyy"
+                                    path="birthdayString"/>
+                        <form:errors cssClass="help-block" path="birthdayString"/>
+                    </div>
+                </spring:bind>
+                </div>
+                <div class="row">
                 <spring:bind path="password">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
                         <form:label path="password">Password</form:label>
@@ -57,11 +75,7 @@
                 <%--<form:label path="confirm-password">Confirm password</form:label>--%>
                 <%--<form:password cssClass="form-control" path="confirm-password"/>--%>
                 <%--</div>--%>
-                <div class="form-group col-md-6 col-xs-12">
-                    <form:label path="driverStatus">Driver status</form:label>
-                    <form:select cssClass="form-control" path="driverStatus" items="${driverStatusValues}"
-                                 itemLabel="displayName"/>
-                </div>
+
                 </div>
                 <div class="row">
                     <h4>Characteristics</h4>
@@ -89,5 +103,13 @@
                 </button>
             </form:form>
         </div>
+    </jsp:attribute>
+    <jsp:attribute name="script">
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+            });
+        </script>
     </jsp:attribute>
 </my:pagetemplate>
