@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page import="cz.muni.fi.pa165.entity.RaceParticipation" %>
 
 <my:pagetemplate title="Driver detail ${driver.name}">
     <jsp:attribute name="body">
@@ -51,6 +52,55 @@
                         </tbody>
                     </table>
                 </div>
+                <c:if test="${driver.raceParticipations.size() gt 0}">
+                <div class="col-md-6 col-xs-12">
+                    <h4>Race participations</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Title</th>
+                            <th>Result</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${driver.raceParticipations}" var="participation">
+                                <tr>
+                                    <td><fmt:formatDate value="${participation.race.date}" pattern="dd/MM/yyyy"/></td>
+                                    <td><c:out value="${participation.race.title}"/></td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${participation.resultPosition eq RaceParticipation.NO_RESULT_POSITION}">Unfinished</c:when>
+                                            <c:otherwise><c:out value="${participation.resultPosition}"/></c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                </c:if>
+                <c:if test="${driver.testDrives.size() gt 0}">
+                <div class="col-md-6 col-xs-12">
+                    <h4>Test drives</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Notes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${driver.testDrives}" var="drive">
+                            <tr>
+                                <td><fmt:formatDate value="${drive.date}" pattern="dd/MM/yyyy"/></td>
+                                <td><c:out value="${drive.notes}"/></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                </c:if>
             </div>
         </div>
     </jsp:attribute>
