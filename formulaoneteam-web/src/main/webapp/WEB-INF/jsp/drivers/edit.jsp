@@ -19,16 +19,22 @@
                 <div class="row">
                 <spring:bind path="name">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
-                        <form:label path="name">Name</form:label>
+                        <form:label path="name">
+                            Name
+                        </form:label>
+                        <span class="text-danger">
+                            <c:out value="${status.errorMessage}"/>
+                        </span>
                         <form:input cssClass="form-control" path="name"/>
-                        <form:errors cssClass="help-block" path="name"/>
                     </div>
                 </spring:bind>
                     <spring:bind path="surname">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
                         <form:label path="surname">Surname</form:label>
+                        <span class="text-danger">
+                            <c:out value="${status.errorMessage}"/>
+                        </span>
                         <form:input cssClass="form-control" path="surname"/>
-                        <form:errors cssClass="help-block" path="surname"/>
                     </div>
                 </spring:bind>
                 </div>
@@ -36,15 +42,19 @@
                 <spring:bind path="email">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
                         <form:label path="email">Email</form:label>
+                        <span class="text-danger">
+                            <c:out value="${status.errorMessage}"/>
+                        </span>
                         <form:input cssClass="form-control" path="email"/>
-                        <form:errors cssClass="help-block" path="email"/>
                     </div>
                 </spring:bind>
                     <spring:bind path="nationality">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
                         <form:label path="nationality">Nationality</form:label>
+                        <span class="text-danger">
+                            <c:out value="${status.errorMessage}"/>
+                        </span>
                         <form:input cssClass="form-control" path="nationality"/>
-                        <form:errors cssClass="help-block" path="nationality"/>
                     </div>
                 </spring:bind>
                 </div>
@@ -57,9 +67,11 @@
                     <spring:bind path="birthdayString">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
                         <form:label path="birthdayString">Birthday:</form:label>
+                        <span class="text-danger">
+                            <c:out value="${status.errorMessage}"/>
+                        </span>
                         <form:input cssClass="form-control" id="datepicker" placeholder="dd/MM/yyyy"
                                     path="birthdayString"/>
-                        <form:errors cssClass="help-block" path="birthdayString"/>
                     </div>
                 </spring:bind>
                 </div>
@@ -67,15 +79,21 @@
                 <spring:bind path="password">
                     <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
                         <form:label path="password">Password</form:label>
+                        <span class="text-danger">
+                            <c:out value="${status.errorMessage}"/>
+                        </span>
                         <form:password cssClass="form-control" path="password"/>
-                        <form:errors cssClass="help-block" path="password"/>
                     </div>
                 </spring:bind>
-                <%--<div class="form-group col-md-6 col-xs-12">--%>
-                <%--<form:label path="confirm-password">Confirm password</form:label>--%>
-                <%--<form:password cssClass="form-control" path="confirm-password"/>--%>
-                <%--</div>--%>
-
+                    <spring:bind path="confirmPassword">
+                    <div class="form-group col-md-6 col-xs-12 ${status.error ? 'has-error' : ''}">
+                        <form:label path="confirmPassword">Password</form:label>
+                        <span class="text-danger">
+                            <c:out value="${status.errorMessage}"/>
+                        </span>
+                        <form:password cssClass="form-control" path="confirmPassword"/>
+                    </div>
+                </spring:bind>
                 </div>
                 <div class="row">
                     <h4>Characteristics</h4>

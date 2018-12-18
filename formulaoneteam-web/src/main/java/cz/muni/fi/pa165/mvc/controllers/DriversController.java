@@ -61,12 +61,24 @@ public class DriversController {
         try {
             driver.setBirthday(dateFormat.parse(driver.getBirthdayString()));
         } catch (ParseException e) {
-            bindingResult.addError(new FieldError("driver", "birthdayString", "Birthday has invalid format"));
+            bindingResult.addError(new FieldError("driver", "birthdayString", "has invalid format"));
         }
 
-        if (bindingResult.hasErrors()) return "drivers/edit";
+        if (!driver.getPassword().equals(driver.getConfirmPassword())) {
+            bindingResult.addError(new FieldError("driver", "password", "does not match"));
+            bindingResult.addError(new FieldError("driver", "confirmPassword", "does not match"));
+        }
 
-        if (driver.getId() == 0) {
+        final boolean isNewUser = driver.getId() == 0;
+        if (driver.getPassword().isEmpty() && isNewUser) {
+            bindingResult.addError(new FieldError("driver", "password", "is required"));
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "drivers/edit";
+        }
+
+        if (isNewUser) {
             driverFacade.register(driver, driver.getPassword());
         } else {
             driverFacade.updateDriver(driver);
