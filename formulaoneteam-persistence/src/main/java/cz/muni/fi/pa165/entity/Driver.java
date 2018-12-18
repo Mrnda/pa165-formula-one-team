@@ -37,6 +37,10 @@ public class Driver extends User {
     @Fetch(FetchMode.SELECT)
     private Collection<RaceParticipation> raceParticipations;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "driver", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    private Collection<TestDrive> testDrives;
+
     public Driver(
             String name,
             String surname,
@@ -120,6 +124,14 @@ public class Driver extends User {
 
     public void removeCharacteristics(CharacteristicsValue characteristicsValue) {
         characteristics.remove(characteristicsValue);
+    }
+
+    public Collection<TestDrive> getTestDrives() {
+        return testDrives;
+    }
+
+    public void setTestDrives(Collection<TestDrive> testDrives) {
+        this.testDrives = testDrives;
     }
 
     @Override

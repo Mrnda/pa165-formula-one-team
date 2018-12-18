@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.dto.driver;
 
 import cz.muni.fi.pa165.dto.CharacteristicsValueDTO;
 import cz.muni.fi.pa165.dto.RaceParticipationDTO;
+import cz.muni.fi.pa165.dto.TestDriveDTO;
 import cz.muni.fi.pa165.dto.UserDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 
@@ -18,6 +19,7 @@ public class DriverDTO extends UserDTO {
     private String birthdayString;
     private DriverStatus driverStatus;
     private List<RaceParticipationDTO> raceParticipations;
+    private List<TestDriveDTO> testDrives;
     private List<CharacteristicsValueDTO> characteristics = new ArrayList<>();
 
     public String getNationality() {
@@ -58,6 +60,14 @@ public class DriverDTO extends UserDTO {
 
     public void setRaceParticipations(List<RaceParticipationDTO> raceParticipations) {
         this.raceParticipations = raceParticipations;
+    }
+
+    public List<TestDriveDTO> getTestDrives() {
+        return testDrives;
+    }
+
+    public void setTestDrives(List<TestDriveDTO> testDrives) {
+        this.testDrives = testDrives;
     }
 
     public List<CharacteristicsValueDTO> getCharacteristics() {
