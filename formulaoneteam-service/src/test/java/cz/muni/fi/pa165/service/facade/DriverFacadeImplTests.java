@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dto.CharacteristicsValueDTO;
 import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.entity.CharacteristicsValue;
 import cz.muni.fi.pa165.entity.Driver;
+import cz.muni.fi.pa165.enums.CharacteristicsType;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.service.CharacteristicsValueService;
 import cz.muni.fi.pa165.service.DriverService;
@@ -176,6 +177,41 @@ public class DriverFacadeImplTests extends BaseFacadeTest<Driver, DriverDTO> {
         //Then
         assertEquals(dto, updatedDriverDTO);
         verify(characteristicsValueServiceMock, times(1)).update(characteristicsValue);
+    }
+
+    @Test
+    public void createDefaultDriver_hasAllCharacteristicsValues() {
+        //When
+        final DriverDTO defaultDriver = driverFacade.createDefaultDriver();
+
+        //Then
+        for (CharacteristicsType type : CharacteristicsType.values()) {
+            final long count = defaultDriver.getCharacteristics()
+                    .stream()
+                    .filter(characteristicsValueDTO -> characteristicsValueDTO.getType() == type)
+                    .count();
+            assertEquals(1, count);
+        }
+    }
+
+    @Test
+    public void updateDriver_withCharacteristicValues_updatesThem() {
+        //Given
+        final CharacteristicsValueDTO valueDto = createCharacteristicsValueDto(dto);
+        final CharacteristicsValue valueEntity = createCharacteristicsValue();
+        dto.setCharacteristics(Collections.singletonList(valueDto));
+        dto.setId(1);
+        when(beanMappingServiceMock.mapTo(dto, Driver.class)).thenReturn(entity);
+        when(beanMappingServiceMock.mapTo(valueDto, CharacteristicsValue.class))
+                .thenReturn(valueEntity);
+
+        //When
+        driverFacade.updateDriver(dto);
+
+        //Then
+        entity.setId(1);
+        verify(driverServiceMock).update(entity);
+        verify(characteristicsValueServiceMock).update(valueEntity);
     }
 
     @Override
