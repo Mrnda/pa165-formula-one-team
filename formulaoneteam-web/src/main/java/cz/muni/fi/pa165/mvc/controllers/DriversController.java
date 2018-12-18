@@ -61,7 +61,7 @@ public class DriversController {
         if (driver.getId() == 0) {
             driverFacade.register(driver, driver.getPassword());
         } else {
-            //FIXME: missing update method on DriverFacade.
+            driverFacade.updateDriver(driver);
         }
         return "redirect:/drivers/list";
     }

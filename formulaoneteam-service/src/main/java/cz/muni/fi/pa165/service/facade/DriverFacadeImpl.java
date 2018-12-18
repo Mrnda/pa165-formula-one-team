@@ -38,6 +38,19 @@ public class DriverFacadeImpl
         service.register(driverEntity, unencryptedPassword);
     }
 
+
+    @Override
+    public void updateDriver(DriverDTO driver) {
+        Driver driverEntity = beanMappingService.mapTo(driver, getEntityClass());
+        driverEntity.setId(driver.getId());
+        for (CharacteristicsValueDTO characteristic : driver.getCharacteristics()) {
+            final CharacteristicsValue valueEntity = beanMappingService.mapTo(characteristic, CharacteristicsValue.class);
+            valueEntity.setId(characteristic.getId());
+            characteristicsValueService.update(valueEntity);
+        }
+        service.update(driverEntity);
+    }
+
     @Override
     public List<DriverDTO> getAllDrivers() {
         List<Driver> allDriverEntities = service.getAll();
