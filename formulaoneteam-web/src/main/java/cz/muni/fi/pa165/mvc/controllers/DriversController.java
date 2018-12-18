@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.mvc.controllers;
 import cz.muni.fi.pa165.dto.driver.DriverDTO;
 import cz.muni.fi.pa165.enums.DriverStatus;
 import cz.muni.fi.pa165.facade.DriverFacade;
-import cz.muni.fi.pa165.service.date.DateService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,9 +26,6 @@ public class DriversController {
 
     @Inject
     private DriverFacade driverFacade;
-
-    @Inject
-    private DateService dateService;
 
     @RequestMapping("/list")
     public String list(Model model) {
