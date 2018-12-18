@@ -8,16 +8,6 @@
 <my:pagetemplate title="Drivers">
 <jsp:attribute name="head">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
-    <style>
-        .clickable-row:hover {
-            background-color: lightgray;
-            cursor: pointer;
-        }
-
-        .clickable-row td {
-            vertical-align: inherit !important;
-        }
-    </style>
 </jsp:attribute>
 <jsp:attribute name="body">
     <div class="container">
@@ -68,10 +58,6 @@
                     order: []
                 }
             );
-
-            $(".clickable-row").click(function () {
-                window.location = "/pa165" + $(this).data("href");
-            });
         });
     </script>
 </jsp:attribute>

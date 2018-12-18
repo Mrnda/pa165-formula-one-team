@@ -7,6 +7,10 @@
 <%@ page import="cz.muni.fi.pa165.entity.RaceParticipation" %>
 
 <my:pagetemplate title="Driver detail ${driver.name}">
+    <jsp:attribute name="head">
+        <link rel="stylesheet" type="text/css"
+              href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
+    </jsp:attribute>
     <jsp:attribute name="body">
         <div class="container">
             <div class="row">
@@ -35,7 +39,7 @@
                 </div>
                 <div class="col-md-6 col-xs-12">
                     <h4>Characteristic values</h4>
-                    <table class="table">
+                    <table class="table" id="characteristics-value-table">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -55,7 +59,7 @@
                 <c:if test="${driver.raceParticipations.size() gt 0}">
                 <div class="col-md-6 col-xs-12">
                     <h4>Race participations</h4>
-                    <table class="table">
+                    <table class="table" id="race-participations-table">
                         <thead>
                         <tr>
                             <th>Date</th>
@@ -65,7 +69,7 @@
                         </thead>
                         <tbody>
                         <c:forEach items="${driver.raceParticipations}" var="participation">
-                                <tr>
+                                <tr class="clickable-row" data-href="/test-drives/detail/${participation.id}">
                                     <td><fmt:formatDate value="${participation.race.date}" pattern="dd/MM/yyyy"/></td>
                                     <td><c:out value="${participation.race.title}"/></td>
                                     <td>
@@ -83,7 +87,7 @@
                 <c:if test="${driver.testDrives.size() gt 0}">
                 <div class="col-md-6 col-xs-12">
                     <h4>Test drives</h4>
-                    <table class="table">
+                    <table class="table" id="test-drive-table">
                         <thead>
                         <tr>
                             <th>Date</th>
@@ -92,7 +96,7 @@
                         </thead>
                         <tbody>
                         <c:forEach items="${driver.testDrives}" var="drive">
-                            <tr>
+                            <tr class="clickable-row" data-href="/test-drives/detail/${drive.id}">
                                 <td><fmt:formatDate value="${drive.date}" pattern="dd/MM/yyyy"/></td>
                                 <td><c:out value="${drive.notes}"/></td>
                             </tr>
@@ -103,5 +107,37 @@
                 </c:if>
             </div>
         </div>
+    </jsp:attribute>
+    <jsp:attribute name="script">
+            <script type="text/javascript" charset="utf8"
+                    src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $("#race-participations-table").DataTable(
+                        {
+                            paging: false,
+                            searching: false,
+                            info: false,
+                            order: []
+                        }
+                    );
+                    $("#test-drive-table").DataTable(
+                        {
+                            paging: false,
+                            searching: false,
+                            info: false,
+                            order: []
+                        }
+                    );
+                    $("#characteristics-value-table").DataTable(
+                        {
+                            paging: false,
+                            searching: false,
+                            info: false,
+                            order: []
+                        }
+                    );
+                });
+            </script>
     </jsp:attribute>
 </my:pagetemplate>
