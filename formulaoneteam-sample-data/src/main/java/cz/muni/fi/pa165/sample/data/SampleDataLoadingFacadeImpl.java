@@ -80,7 +80,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                                 new CharacteristicsValue(AGGRESSIVITY, 100),
                                 new CharacteristicsValue(STEERING, 50),
                                 new CharacteristicsValue(DRIVING_ON_WET, 15),
-                                new CharacteristicsValue(ENDURANCE, 4)
+                                new CharacteristicsValue(ENDURANCE, 4),
+                                new CharacteristicsValue(PATIENCE, 8)
                         ))
                 ),
                 "fernardoIsNumber1"
@@ -98,7 +99,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                                 new CharacteristicsValue(AGGRESSIVITY, 40),
                                 new CharacteristicsValue(STEERING, 100),
                                 new CharacteristicsValue(DRIVING_ON_WET, 20),
-                                new CharacteristicsValue(ENDURANCE, 60)
+                                new CharacteristicsValue(ENDURANCE, 60),
+                                new CharacteristicsValue(PATIENCE, 8)
                         ))
                 ),
                 "ILoveGermany"
