@@ -102,16 +102,14 @@
                             <label for="characteristics[${status.index}].value">
                                 <c:out value="${characteristicValue.type.displayName}"/>
                             </label>
-                            <input type="hidden"
-                                   name="characteristics[${status.index}].id"
-                                   value="${characteristicValue.id}"/>
+                            <span class="text-danger">
+                                <form:errors path="characteristics[${status.index}].value"/>
+                            </span>
+                            <form:hidden path="characteristics[${status.index}].id"/>
                             <input type="hidden"
                                    name="characteristics[${status.index}].type"
                                    value="${characteristicValue.type.name()}"/>
-                            <input class="form-control"
-                                   id="characteristics[${status.index}].value"
-                                   name="characteristics[${status.index}].value"
-                                   value="${characteristicValue.value}"/>
+                            <form:input cssClass="form-control" path="characteristics[${status.index}].value"/>
                         </div>
                     </c:forEach>
                 </div>

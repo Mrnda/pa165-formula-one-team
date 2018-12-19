@@ -2,11 +2,13 @@ package cz.muni.fi.pa165.dto;
 
 import cz.muni.fi.pa165.dto.base.BaseDTO;
 import cz.muni.fi.pa165.enums.CharacteristicsType;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.util.Objects;
 
 public class CharacteristicsValueDTO extends BaseDTO {
 
+    @NumberFormat(style = NumberFormat.Style.DEFAULT)
     private double value;
     private CharacteristicsType type;
 
