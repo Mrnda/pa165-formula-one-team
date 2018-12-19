@@ -27,6 +27,9 @@ public class DriversController {
     @Inject
     private DriverFacade driverFacade;
 
+    private static final SimpleDateFormat birthdayDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    ;
+
     @RequestMapping("/list")
     public String list(Model model) {
         model.addAttribute("drivers", driverFacade.getAllDrivers());
@@ -47,15 +50,16 @@ public class DriversController {
 
     @RequestMapping("/edit/{id}")
     public String edit(Model model, @PathVariable long id) {
-        model.addAttribute("driver", driverFacade.findById(id));
+        DriverDTO driver = driverFacade.findById(id);
+        driver.setBirthdayString(birthdayDateFormat.format(driver.getBirthday()));
+        model.addAttribute("driver", driver);
         return "drivers/edit";
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     public String submitDriver(@Valid @ModelAttribute("driver") DriverDTO driver, BindingResult bindingResult) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            driver.setBirthday(dateFormat.parse(driver.getBirthdayString()));
+            driver.setBirthday(birthdayDateFormat.parse(driver.getBirthdayString()));
         } catch (ParseException e) {
             bindingResult.addError(new FieldError("driver", "birthdayString", "has invalid format"));
         }
